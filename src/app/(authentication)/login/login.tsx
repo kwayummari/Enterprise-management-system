@@ -34,7 +34,6 @@ export default function Login() {
     e.preventDefault();
   
     setSubmitting(true);
-  
     try {
       const target = e.target as typeof e.target & {
         email: { value: string };
@@ -47,9 +46,10 @@ export default function Login() {
       
       validateLoginData(userData);
   
-      await apiGateway.create('register', userData);
-      router.push(getRedirect());
+      await apiGateway.create('login', userData);
+      // router.push(getRedirect());
     } catch (err: any) {
+      console.log(err)
       setError(err.message);
     } finally {
       setSubmitting(false);

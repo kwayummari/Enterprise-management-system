@@ -7,9 +7,9 @@ const apiGateway = {
   create: async (endpoint: string, data: any) => {
     try {
       const authToken = localStorage.getItem('authToken');
-      const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
-
-      const response = await axios.post(`${BASE_URL}/${endpoint}`, data, { headers });
+        const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
+        console.log(`${BASE_URL}${endpoint}`)
+        const response = await axios.post(`${BASE_URL}${endpoint}`, data, { headers });
       return response.data;
     } catch (error: any) {
       throw (error.response?.data || error.message) as string;
