@@ -10,7 +10,7 @@ import ProgressBar from '@/components/ProgressBar/ProgressBar'
 // will not try and insert <style> elements into the <head> of the page.
 // Next.js blocks this from happening anyway so you might as well not even try.
 // See https://fontawesome.com/v6/docs/web/use-with/react/use-with#next-js
-config.autoAddCss = false
+config.autoAddCss = true
 
 export default function RootLayout({
   children,
