@@ -20,14 +20,14 @@ export default function Page() {
             className="bg-primary text-white d-flex align-items-center justify-content-center p-5"
           >
             <div className="text-center">
-              <h2>Sign up</h2>
+              <h2>Sign In</h2>
               <p>
                 Enterprise Resource Planning (ERP) systems are like the digital backbone
                 of many modern businesses. 
               </p>
-              <Link className="btn btn-lg btn-outline-light mt-3" href="/register">
+              {/* <Link className="btn btn-lg btn-outline-light mt-3" href="/register">
                 Register Now!
-              </Link>
+              </Link> */}
             </div>
           </Col>
         </Row>
