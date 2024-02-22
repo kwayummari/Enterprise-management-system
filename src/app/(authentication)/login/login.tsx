@@ -18,6 +18,7 @@ export default function Login() {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
   const getRedirect = () => {
     const redirect = getCookie('redirect')
@@ -46,10 +47,10 @@ export default function Login() {
       
       validateLoginData(userData);
   
-      await apiGateway.create('login', userData);
+       const value = await apiGateway.create('login', userData);
+      setSuccess(value.message)
       // router.push(getRedirect());
     } catch (err: any) {
-      console.log(err)
       setError(err.message);
     } finally {
       setSubmitting(false);
@@ -60,6 +61,14 @@ export default function Login() {
 
   return (
     <>
+      <Alert
+        variant="success"
+        show={success !== ''}
+        onClose={() => setSuccess('')}
+        dismissible
+      >
+        {success}
+      </Alert>
       <Alert
         variant="danger"
         show={error !== ''}
