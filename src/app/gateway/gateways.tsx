@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-const BASE_URL = 'https://example.com/api'; // Replace with your API base URL
+const BASE_URL = 'https://example.com/api';
 
 const apiGateway = {
   // Function for creating a new resource
