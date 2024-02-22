@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-const BASE_URL = 'https://example.com/api';
+const BASE_URL = process.env.NEXT_PUBLIC_POKEMON_LIST_API_BASE_URL;
 
 const apiGateway = {
     
@@ -16,7 +16,7 @@ const apiGateway = {
     }
   },
 
-  // Function for reading data from the API
+
   read: async (endpoint: string) => {
     try {
       const authToken = localStorage.getItem('authToken');
@@ -29,7 +29,7 @@ const apiGateway = {
     }
   },
 
-  // Function for updating an existing resource
+
   update: async (endpoint: string, id: string, data: any) => {
     try {
       const authToken = localStorage.getItem('authToken');
@@ -42,7 +42,7 @@ const apiGateway = {
     }
   },
 
-  // Function for deleting a resource
+
   delete: async (endpoint: string, id: string) => {
     try {
       const authToken = localStorage.getItem('authToken');
