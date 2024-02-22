@@ -22,8 +22,8 @@ export default function Page() {
             <div className="text-center">
               <h2>Sign up</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.
+                Enterprise Resource Planning (ERP) systems are like the digital backbone
+                of many modern businesses. 
               </p>
               <Link className="btn btn-lg btn-outline-light mt-3" href="/register">
                 Register Now!
