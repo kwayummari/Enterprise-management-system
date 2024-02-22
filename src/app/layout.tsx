@@ -1,4 +1,5 @@
 import '@/styles/globals.scss'
+import Head from 'next/head';
 // Next.js allows you to import CSS directly in .js files.
 // It handles optimization and all the necessary Webpack configuration to make this work.
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -18,6 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ERP SYSTEM</title>
+      </Head>
       <body>
         <ProgressBar />
         {children}
