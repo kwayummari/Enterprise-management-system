@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 const BASE_URL = 'https://example.com/api';
 
 const apiGateway = {
-  // Function for creating a new resource
+    
   create: async (endpoint: string, data: any) => {
     try {
       const authToken = localStorage.getItem('authToken');

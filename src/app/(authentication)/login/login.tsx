@@ -9,9 +9,10 @@ import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
 import { SyntheticEvent, useState } from 'react'
 import { deleteCookie, getCookie } from 'cookies-next'
-import axios from 'axios'
 import Link from 'next/link'
 import InputGroupText from 'react-bootstrap/InputGroupText'
+import { validateLoginData } from '@/app/gateway/validators'
+import apiGateway from '@/app/gateway/gateways'
 
 export default function Login() {
   const router = useRouter()
@@ -29,24 +30,33 @@ export default function Login() {
   }
 
   const login = async (e: SyntheticEvent) => {
-    e.stopPropagation()
-    e.preventDefault()
-
-    setSubmitting(true)
-
+    e.stopPropagation();
+    e.preventDefault();
+  
+    setSubmitting(true);
+  
     try {
-      const res = await axios.post('/login')
-      if (res.status === 200) {
-        router.push(getRedirect())
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message)
-      }
+      const target = e.target as typeof e.target & {
+        email: { value: string };
+        password: { value: string };
+      };
+      const userData = {
+        email: target.email.value,
+        password: target.password.value,
+      };
+      
+      validateLoginData(userData);
+  
+      await apiGateway.create('register', userData);
+      router.push(getRedirect());
+    } catch (err: any) {
+      setError(err.message);
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
+  
+  
 
   return (
     <>
@@ -67,12 +77,12 @@ export default function Login() {
             />
           </InputGroupText>
           <FormControl
-            name="username"
+            name="email"
             required
             disabled={submitting}
-            placeholder="Username"
-            aria-label="Username"
-            defaultValue="Username"
+            placeholder="Email"
+            aria-label="Email"
+            defaultValue="Email"
           />
         </InputGroup>
 
