@@ -73,7 +73,7 @@ export default function SidebarNav() {
           // toggleIcon={permission.icon}
           <SidebarNavGroup key={permission.id} toggleIcon={faAddressCard} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
-              <SidebarNavItem href={submenu.name}>{submenu.name}</SidebarNavItem>
+              <SidebarNavItem href={submenu.url}>{submenu.name}</SidebarNavItem>
             ))}
             </SidebarNavGroup>
         ))}
