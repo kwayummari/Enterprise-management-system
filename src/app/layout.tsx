@@ -5,6 +5,8 @@ import Head from 'next/head';
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import ProgressBar from '@/components/ProgressBar/ProgressBar'
+import { Provider } from 'react-redux';
+import store from '@/lib/store';
 
 // You change this configuration value to false so that the Font Awesome core SVG library
 // will not try and insert <style> elements into the <head> of the page.
@@ -18,6 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <Provider store={store}>
     <html lang="en">
       <Head>
         <meta charSet="UTF-8" />
@@ -28,6 +31,7 @@ export default function RootLayout({
         <ProgressBar />
         {children}
       </body>
-    </html>
+      </html>
+      </Provider>
   )
 }

@@ -1,22 +1,32 @@
+// store.ts
 import { createStore } from 'redux';
 
-interface AppState {
-  userId: string | null;
-}
+// Define the initial state
+// interface AppState {
+//   userId: string | null;
+// }
 
-const initialState: AppState = {
-  userId: null,
-};
+// const initialState: AppState = {
+//   userId: null,
+// };
 
-const reducer = (state = initialState, action: any) => {
-  switch (action.type) {
-    case 'SET_USER_ID':
-      return { ...state, userId: action.payload };
-    default:
-      return state;
-  }
-};
+// // Define the reducer function
+// const reducer = (state = initialState, action: any) => {
+//   switch (action.type) {
+//     case 'SET_USER_ID':
+//       return { ...state, userId: action.payload };
+//     default:
+//       return state;
+//   }
+// };
 
-const store = createStore(reducer);
+// // Create the Redux store
+// const store = createStore(reducer);
 
-export default store;
+// export default store;
+
+import { configureStore } from '@reduxjs/toolkit'
+
+export default configureStore({
+  reducer: {},
+})
