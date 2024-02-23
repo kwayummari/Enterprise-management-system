@@ -5,8 +5,6 @@ import {
   faBug,
   faCalculator,
   faChartPie,
-  faCode,
-  faDroplet,
   faGauge,
   faLayerGroup,
   faLocationArrow,
@@ -35,7 +33,6 @@ export default function SidebarNav() {
         <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
       </SidebarNavItem>
       <SidebarNavTitle>Components</SidebarNavTitle>
-
       <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Base">
         <SidebarNavItem href="#">Accordion</SidebarNavItem>
         <SidebarNavItem href="#">Breadcrumb</SidebarNavItem>
