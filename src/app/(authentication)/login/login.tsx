@@ -13,12 +13,20 @@ import Link from 'next/link'
 import InputGroupText from 'react-bootstrap/InputGroupText'
 import { validateLoginData } from '@/app/gateway/validators'
 import apiGateway from '@/app/gateway/gateways'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Login() {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  interface RootState {
+    counter: {
+      value: number;
+    };
+  }
+  const count = useSelector((state: RootState) => state.counter.value);
+  const dispatch = useDispatch()
 
   const getRedirect = () => {
     const redirect = getCookie('redirect')
