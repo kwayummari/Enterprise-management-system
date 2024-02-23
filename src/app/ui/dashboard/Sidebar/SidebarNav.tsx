@@ -42,7 +42,6 @@ export default function SidebarNav() {
       const value = await apiGateway.create('getPermission', userData);
       console.log(value)
     } catch (err: any) {
-      console.log(roleId)
       setError(err.message);
     } finally {
       setSubmitting(false);
