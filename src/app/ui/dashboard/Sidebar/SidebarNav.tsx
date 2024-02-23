@@ -11,22 +11,47 @@ import {
   faPuzzlePiece,
   faRightToBracket,
 } from '@fortawesome/free-solid-svg-icons'
-import React, { PropsWithChildren } from 'react'
-import { Badge } from 'react-bootstrap'
+import React, { PropsWithChildren, useState } from 'react'
+import { Alert, Badge } from 'react-bootstrap'
 import SidebarNavGroup from '@/app/ui/dashboard/Sidebar/SidebarNavGroup'
 import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem'
+import apiGateway from '@/app/gateway/gateways'
 
 const SidebarNavTitle = (props: PropsWithChildren) => {
   const { children } = props
-
   return (
     <li className="nav-title px-3 py-2 mt-3 text-uppercase fw-bold">{children}</li>
   )
 }
 
 export default function SidebarNav() {
+  const [error, setError] = useState<string | null>('');
+  const [submitting, setSubmitting] = useState(false)
+
+  const sideBar = async () => {
+    try {
+      const roleId = localStorage.getItem('roleId');
+      const userData = {
+        id: roleId,
+      };
+       const value = await apiGateway.create('getPermission', userData);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return (
-    <ul className="list-unstyled">
+    <>
+      <Alert
+        variant="danger"
+        show={error !== ''}
+        onClose={() => setError('')}
+        dismissible
+      >
+        {error}
+      </Alert>
+       <ul className="list-unstyled">
       <SidebarNavItem icon={faGauge} href="/">
         Dashboard
         <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
@@ -99,5 +124,6 @@ export default function SidebarNav() {
       <SidebarNavItem icon={faFileLines} href="#">Docs</SidebarNavItem>
       <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">Try CoreUI PRO</SidebarNavItem>
     </ul>
+    </>
   )
 }

@@ -20,7 +20,7 @@ export default function Login() {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState<string | null>('');
-const [error, setError] = useState<string | null>('');
+  const [error, setError] = useState<string | null>('');
 
 
   const login = async (e: SyntheticEvent) => {
