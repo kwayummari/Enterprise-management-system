@@ -14,22 +14,22 @@ import InputGroupText from 'react-bootstrap/InputGroupText'
 import { validateLoginData } from '@/app/gateway/validators'
 import apiGateway from '@/app/gateway/gateways'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUserId } from '@/lib/login'
+// import { setUserId } from '@/lib/login'
 
 export default function Login() {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  interface RootState {
-    userId: any
-    counter: {
-      value: number;
-    };
-  }
-  const userId = useSelector((state: RootState) => state.userId.value);
+  const [success, setSuccess] = useState<string | null>('');
+const [error, setError] = useState<string | null>('');
+  // interface RootState {
+  //   userId: any
+  //   counter: {
+  //     value: number;
+  //   };
+  // }
+  // const userId = useSelector((state: RootState) => state.userId.value);
   // const userId = useSelector((state) => state.userId.value);
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const getRedirect = () => {
     const redirect = getCookie('redirect')
@@ -60,8 +60,10 @@ export default function Login() {
   
        const value = await apiGateway.create('login', userData);
       setSuccess(value.message)
-      dispatch(setUserId(value.userId));
-      show();
+      localStorage.setItem('userId', value.userId);
+      // const use = localStorage.getItem('userId')
+      // dispatch(setUserId(value.userId));
+      // setSuccess(use)
       // router.push(getRedirect());
     } catch (err: any) {
       setError(err.message);
@@ -69,10 +71,6 @@ export default function Login() {
       setSubmitting(false);
     }
   };
-  
-  const show = () => {
-    setSuccess(userId);
-  }
   
   
 
