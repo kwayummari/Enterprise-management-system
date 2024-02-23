@@ -26,7 +26,10 @@ import { createStore } from 'redux';
 // export default store;
 
 import { configureStore } from '@reduxjs/toolkit'
+import { loginSlice } from './login';
 
 export default configureStore({
-  reducer: {},
+    reducer: {
+      userId: loginSlice.reducer
+  },
 })
