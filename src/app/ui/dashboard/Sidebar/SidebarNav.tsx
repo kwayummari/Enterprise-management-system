@@ -65,66 +65,24 @@ export default function SidebarNav() {
         Dashboard
         <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
         </SidebarNavItem>
+        {/* <SidebarNavTitle>Components</SidebarNavTitle> */}
         {permissions.map(permission => (
-          <SidebarNavItem key={permission.id} href="#">
-            {permission.name}
-          </SidebarNavItem>
+          <SidebarNavGroup key={permission.id}  toggleIcon={faPuzzlePiece} toggleText={permission.name}>
+            <SidebarNavItem href="#">Accordion</SidebarNavItem>
+            </SidebarNavGroup>
+          // <SidebarNavItem key={permission.id} href="#">
+          //   {permission.name}
+          // </SidebarNavItem>
         ))}
-      <SidebarNavTitle>Components</SidebarNavTitle>
-      <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Base">
-        <SidebarNavItem href="#">Accordion</SidebarNavItem>
-        <SidebarNavItem href="#">Breadcrumb</SidebarNavItem>
-        <SidebarNavItem href="#">Cards</SidebarNavItem>
-        <SidebarNavItem href="#">Carousel</SidebarNavItem>
-        <SidebarNavItem href="#">Collapse</SidebarNavItem>
-        <SidebarNavItem href="#">List group</SidebarNavItem>
-        <SidebarNavItem href="#">Navs</SidebarNavItem>
-        <SidebarNavItem href="#">Pagination</SidebarNavItem>
-        <SidebarNavItem href="#">Popovers</SidebarNavItem>
-        <SidebarNavItem href="#">Progress</SidebarNavItem>
-        <SidebarNavItem href="#">Scrollspy</SidebarNavItem>
-        <SidebarNavItem href="#">Spinners</SidebarNavItem>
-        <SidebarNavItem href="#">Tables</SidebarNavItem>
-        <SidebarNavItem href="#">Tabs</SidebarNavItem>
-        <SidebarNavItem href="#">Tooltips</SidebarNavItem>
-      </SidebarNavGroup>
+      
 
-      <SidebarNavGroup toggleIcon={faLocationArrow} toggleText="Buttons">
-        <SidebarNavItem href="#">Buttons</SidebarNavItem>
-        <SidebarNavItem href="#">Buttons Group</SidebarNavItem>
-        <SidebarNavItem href="#">Dropdowns</SidebarNavItem>
-      </SidebarNavGroup>
+      {/* <SidebarNavItem icon={faChartPie} href="#">Charts</SidebarNavItem> */}
 
-      <SidebarNavItem icon={faChartPie} href="#">Charts</SidebarNavItem>
+     
 
-      <SidebarNavGroup toggleIcon={faFileLines} toggleText="Forms">
-        <SidebarNavItem href="#">Form Control</SidebarNavItem>
-        <SidebarNavItem href="#">Select</SidebarNavItem>
-        <SidebarNavItem href="#">Checks and radios</SidebarNavItem>
-        <SidebarNavItem href="#">Range</SidebarNavItem>
-        <SidebarNavItem href="#">Input group</SidebarNavItem>
-        <SidebarNavItem href="#">Floating labels</SidebarNavItem>
-        <SidebarNavItem href="#">Layout</SidebarNavItem>
-        <SidebarNavItem href="#">Validation</SidebarNavItem>
-      </SidebarNavGroup>
+     
 
-      <SidebarNavGroup toggleIcon={faStar} toggleText="Icons">
-        <SidebarNavItem href="#">CoreUI Icons</SidebarNavItem>
-        <SidebarNavItem href="#">CoreUI Icons - Brand</SidebarNavItem>
-        <SidebarNavItem href="#">CoreUI Icons - Flag</SidebarNavItem>
-      </SidebarNavGroup>
-
-      <SidebarNavGroup toggleIcon={faBell} toggleText="Notifications">
-        <SidebarNavItem href="#">Alerts</SidebarNavItem>
-        <SidebarNavItem href="#">Badge</SidebarNavItem>
-        <SidebarNavItem href="#">Modals</SidebarNavItem>
-        <SidebarNavItem href="#">Toasts</SidebarNavItem>
-      </SidebarNavGroup>
-
-      <SidebarNavItem icon={faCalculator} href="#">
-        Widgets
-        <small className="ms-auto"><Badge bg="info">NEW</Badge></small>
-      </SidebarNavItem>
+      
 
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
