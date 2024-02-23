@@ -11,7 +11,7 @@ import {
   faPuzzlePiece,
   faRightToBracket,
 } from '@fortawesome/free-solid-svg-icons'
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useState, useEffect } from 'react'
 import { Alert, Badge } from 'react-bootstrap'
 import SidebarNavGroup from '@/app/ui/dashboard/Sidebar/SidebarNavGroup'
 import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem'
@@ -28,13 +28,18 @@ export default function SidebarNav() {
   const [error, setError] = useState<string | null>('');
   const [submitting, setSubmitting] = useState(false)
 
+  useEffect(() => {
+    sideBar();
+  }, []);
+
   const sideBar = async () => {
     try {
       const roleId = localStorage.getItem('roleId');
       const userData = {
         id: roleId,
       };
-       const value = await apiGateway.create('getPermission', userData);
+      const value = await apiGateway.create('getPermission', userData);
+      console.log(value)
     } catch (err: any) {
       setError(err.message);
     } finally {
