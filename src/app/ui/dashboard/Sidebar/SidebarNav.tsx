@@ -24,11 +24,15 @@ const SidebarNavTitle = (props: PropsWithChildren) => {
     <li className="nav-title px-3 py-2 mt-3 text-uppercase fw-bold">{children}</li>
   )
 }
+interface Permissions {
+  id: number;
+  name: string;
+}
 
 export default function SidebarNav() {
   const [error, setError] = useState<string | null>('');
-  const [submitting, setSubmitting] = useState(false)
   const roleId = localStorage.getItem('roleId');
+  const [permissions, setPermissions] = useState<Permissions[]>([]);
 
   useEffect(() => {
     sideBar();
@@ -40,11 +44,10 @@ export default function SidebarNav() {
         id: roleId,
       };
       const value = await apiGateway.create('getPermission', userData);
+      setPermissions(value.contents);
       console.log(value)
     } catch (err: any) {
       setError(err.message);
-    } finally {
-      setSubmitting(false);
     }
   };
   return (
@@ -61,7 +64,12 @@ export default function SidebarNav() {
       <SidebarNavItem icon={faGauge} href="/">
         Dashboard
         <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
-      </SidebarNavItem>
+        </SidebarNavItem>
+        {permissions.map(permission => (
+          <SidebarNavItem key={permission.id} href="#">
+            {permission.name}
+          </SidebarNavItem>
+        ))}
       <SidebarNavTitle>Components</SidebarNavTitle>
       <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText="Base">
         <SidebarNavItem href="#">Accordion</SidebarNavItem>
