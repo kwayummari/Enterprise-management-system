@@ -21,25 +21,7 @@ export default function Login() {
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState<string | null>('');
 const [error, setError] = useState<string | null>('');
-  // interface RootState {
-  //   userId: any
-  //   counter: {
-  //     value: number;
-  //   };
-  // }
-  // const userId = useSelector((state: RootState) => state.userId.value);
-  // const userId = useSelector((state) => state.userId.value);
-  // const dispatch = useDispatch()
 
-  // const getRedirect = () => {
-  //   const redirect = getCookie('redirect')
-  //   if (redirect) {
-  //     deleteCookie('redirect')
-  //     return redirect.toString()
-  //   }
-
-  //   return '/dashboard'
-  // }
 
   const login = async (e: SyntheticEvent) => {
     e.stopPropagation();
@@ -61,8 +43,7 @@ const [error, setError] = useState<string | null>('');
        const value = await apiGateway.create('login', userData);
       setSuccess(value.message)
       localStorage.setItem('userId', value.userId);
-      // dispatch(setUserId(value.userId));
-      // setSuccess(use)
+      localStorage.setItem('roleId', value.roleId);
       router.push('/dashboard');
     } catch (err: any) {
       setError(err.message);
