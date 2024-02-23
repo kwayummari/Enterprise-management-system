@@ -31,15 +31,15 @@ const [error, setError] = useState<string | null>('');
   // const userId = useSelector((state) => state.userId.value);
   // const dispatch = useDispatch()
 
-  const getRedirect = () => {
-    const redirect = getCookie('redirect')
-    if (redirect) {
-      deleteCookie('redirect')
-      return redirect.toString()
-    }
+  // const getRedirect = () => {
+  //   const redirect = getCookie('redirect')
+  //   if (redirect) {
+  //     deleteCookie('redirect')
+  //     return redirect.toString()
+  //   }
 
-    return '/'
-  }
+  //   return '/dashboard'
+  // }
 
   const login = async (e: SyntheticEvent) => {
     e.stopPropagation();
@@ -61,10 +61,9 @@ const [error, setError] = useState<string | null>('');
        const value = await apiGateway.create('login', userData);
       setSuccess(value.message)
       localStorage.setItem('userId', value.userId);
-      // const use = localStorage.getItem('userId')
       // dispatch(setUserId(value.userId));
       // setSuccess(use)
-      router.push(getRedirect());
+      router.push('/dashboard');
     } catch (err: any) {
       setError(err.message);
     } finally {

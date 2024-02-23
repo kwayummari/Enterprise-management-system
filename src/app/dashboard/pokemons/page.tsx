@@ -2,7 +2,7 @@ import React from 'react'
 import { newResource, Resource } from '@/models/resource'
 import { Pokemon } from '@/models/pokemon'
 import { SearchParams } from '@/types/next'
-import Index, { Props } from '@/app/(dashboard)/pokemons/index'
+import Index, { Props } from '@/app/dashboard/pokemons/index'
 
 const fetchPokemons = async (searchParams: SearchParams): Promise<Props['props']> => {
   const pokemonListURL = `${process.env.NEXT_PUBLIC_POKEMON_LIST_API_BASE_URL}pokemons` || ''
