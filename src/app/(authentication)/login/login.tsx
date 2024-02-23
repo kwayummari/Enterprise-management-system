@@ -14,6 +14,7 @@ import InputGroupText from 'react-bootstrap/InputGroupText'
 import { validateLoginData } from '@/app/gateway/validators'
 import apiGateway from '@/app/gateway/gateways'
 import { useDispatch, useSelector } from 'react-redux'
+import { setUserId } from '@/lib/login'
 
 export default function Login() {
   const router = useRouter()
@@ -21,11 +22,13 @@ export default function Login() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   interface RootState {
+    userId: any
     counter: {
       value: number;
     };
   }
-  const count = useSelector((state: RootState) => state.counter.value);
+  const userId = useSelector((state: RootState) => state.userId.value);
+  // const userId = useSelector((state) => state.userId.value);
   const dispatch = useDispatch()
 
   const getRedirect = () => {
@@ -57,6 +60,8 @@ export default function Login() {
   
        const value = await apiGateway.create('login', userData);
       setSuccess(value.message)
+      dispatch(setUserId(value.userId));
+      show();
       // router.push(getRedirect());
     } catch (err: any) {
       setError(err.message);
@@ -64,6 +69,10 @@ export default function Login() {
       setSubmitting(false);
     }
   };
+  
+  const show = () => {
+    setSuccess(userId);
+  }
   
   
 
