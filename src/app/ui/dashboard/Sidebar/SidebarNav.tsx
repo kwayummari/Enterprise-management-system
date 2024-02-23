@@ -17,6 +17,7 @@ import { Alert, Badge } from 'react-bootstrap'
 import SidebarNavGroup from '@/app/ui/dashboard/Sidebar/SidebarNavGroup'
 import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem'
 import apiGateway from '@/app/gateway/gateways'
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 
 const SidebarNavTitle = (props: PropsWithChildren) => {
   const { children } = props
@@ -27,7 +28,8 @@ const SidebarNavTitle = (props: PropsWithChildren) => {
 interface Permissions {
   id: number;
   name: string;
-  submenu: { name: string }[]; 
+  icon: IconDefinition;
+  submenu: { name: string, url: string }[]; 
 }
 
 export default function SidebarNav() {
@@ -68,9 +70,9 @@ export default function SidebarNav() {
         </SidebarNavItem>
         {/* <SidebarNavTitle>Components</SidebarNavTitle> */}
         {permissions.map(permission => (
-          <SidebarNavGroup key={permission.id} toggleIcon={faPuzzlePiece} toggleText={permission.name}>
+          <SidebarNavGroup key={permission.id} toggleIcon={permission.icon} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
-              <SidebarNavItem href="#">{submenu.name}</SidebarNavItem>
+              <SidebarNavItem href={submenu.name}>{submenu.name}</SidebarNavItem>
             ))}
             </SidebarNavGroup>
         ))}
