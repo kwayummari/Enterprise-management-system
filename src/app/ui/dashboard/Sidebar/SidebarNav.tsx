@@ -27,6 +27,7 @@ const SidebarNavTitle = (props: PropsWithChildren) => {
 interface Permissions {
   id: number;
   name: string;
+  submenu: { name: string }[]; 
 }
 
 export default function SidebarNav() {
@@ -67,17 +68,12 @@ export default function SidebarNav() {
         </SidebarNavItem>
         {/* <SidebarNavTitle>Components</SidebarNavTitle> */}
         {permissions.map(permission => (
-          <SidebarNavGroup key={permission.id}  toggleIcon={faPuzzlePiece} toggleText={permission.name}>
-            <SidebarNavItem href="#">Accordion</SidebarNavItem>
+          <SidebarNavGroup key={permission.id} toggleIcon={faPuzzlePiece} toggleText={permission.name}>
+            {permission.submenu.map(submenu => (
+              <SidebarNavItem href="#">{submenu.name}</SidebarNavItem>
+            ))}
             </SidebarNavGroup>
         ))}
-
-     
-
-     
-
-      
-
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
       <SidebarNavGroup toggleIcon={faStar} toggleText="Pages">
