@@ -8,7 +8,6 @@ import {
   faGauge,
   faLayerGroup,
   faLocationArrow,
-  faPencil,
   faPuzzlePiece,
   faRightToBracket,
 } from '@fortawesome/free-solid-svg-icons'
