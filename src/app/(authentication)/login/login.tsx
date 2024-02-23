@@ -64,7 +64,7 @@ const [error, setError] = useState<string | null>('');
       // const use = localStorage.getItem('userId')
       // dispatch(setUserId(value.userId));
       // setSuccess(use)
-      // router.push(getRedirect());
+      router.push(getRedirect());
     } catch (err: any) {
       setError(err.message);
     } finally {
