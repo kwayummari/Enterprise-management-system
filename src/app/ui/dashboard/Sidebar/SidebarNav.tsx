@@ -70,7 +70,8 @@ export default function SidebarNav() {
         </SidebarNavItem>
         {/* <SidebarNavTitle>Components</SidebarNavTitle> */}
         {permissions.map(permission => (
-          <SidebarNavGroup key={permission.id} toggleIcon={permission.icon} toggleText={permission.name}>
+          // toggleIcon={permission.icon}
+          <SidebarNavGroup key={permission.id} toggleIcon={faAddressCard} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
               <SidebarNavItem href={submenu.name}>{submenu.name}</SidebarNavItem>
             ))}
