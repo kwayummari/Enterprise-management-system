@@ -70,13 +70,7 @@ export default function SidebarNav() {
           <SidebarNavGroup key={permission.id}  toggleIcon={faPuzzlePiece} toggleText={permission.name}>
             <SidebarNavItem href="#">Accordion</SidebarNavItem>
             </SidebarNavGroup>
-          // <SidebarNavItem key={permission.id} href="#">
-          //   {permission.name}
-          // </SidebarNavItem>
         ))}
-      
-
-      {/* <SidebarNavItem icon={faChartPie} href="#">Charts</SidebarNavItem> */}
 
      
 
