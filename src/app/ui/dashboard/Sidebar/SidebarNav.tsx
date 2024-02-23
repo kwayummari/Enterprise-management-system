@@ -1,3 +1,4 @@
+'use client'
 import {
   faAddressCard, faBell, faFileLines, faStar,
 } from '@fortawesome/free-regular-svg-icons'
@@ -27,6 +28,7 @@ const SidebarNavTitle = (props: PropsWithChildren) => {
 export default function SidebarNav() {
   const [error, setError] = useState<string | null>('');
   const [submitting, setSubmitting] = useState(false)
+  const roleId = localStorage.getItem('roleId');
 
   useEffect(() => {
     sideBar();
@@ -34,13 +36,13 @@ export default function SidebarNav() {
 
   const sideBar = async () => {
     try {
-      const roleId = localStorage.getItem('roleId');
       const userData = {
         id: roleId,
       };
       const value = await apiGateway.create('getPermission', userData);
       console.log(value)
     } catch (err: any) {
+      console.log(roleId)
       setError(err.message);
     } finally {
       setSubmitting(false);
