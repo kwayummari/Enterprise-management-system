@@ -40,7 +40,7 @@ export default function Page() {
     try {
       const value = await apiGateway.create('getPermission', userData);
       console.log(value)
-      setPermission(value.roles);
+      setPermission(value.contents);
     } catch (err: any) {
       setError(err.message);
     }
@@ -56,12 +56,12 @@ export default function Page() {
         {error}
       </Alert>
       <div className="row">
-        {/* {roles.map(role => ( */}
+        {permission.map(permission => (
           <div className="col-sm-6 col-lg-3">
             <Card bg="primary" text="white" className="mb-4">
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
-                  <div>hjkl</div>
+                  <div>{permission.name}</div>
                 </div>
                 <Dropdown align="end">
                   <DropdownToggle
@@ -81,10 +81,11 @@ export default function Page() {
                 </Dropdown>
               </CardBody>
               <div className="mt-3 mx-3" style={{ height: '70px' }}>
+                
               </div>
             </Card>
           </div>
-        {/* ))} */}
+         ))}
       </div>
     </>
   )
