@@ -59,7 +59,9 @@ export default function Page() {
           <Card>
             <CardHeader>
               User &amp; Management
+              <span style={{marginLeft: '20px'}}><button type="button" className="btn btn-dark">Add User</button></span>
             </CardHeader>
+            {/* <button type="button" className="btn btn-primary">Large modal</button> */}
             <CardBody>
               <br />
 

@@ -15,10 +15,6 @@ import {
   DropdownToggle,
 } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
-import UserChart from '@/components/Dashboard/UserChart'
-import IncomeChart from '@/components/Dashboard/IncomeChart'
-import ConversionChart from '@/components/Dashboard/ConversionChart'
-import SessionChart from '@/components/Dashboard/SessionChart'
 import apiGateway from '../gateway/gateways'
 
 interface Roles {

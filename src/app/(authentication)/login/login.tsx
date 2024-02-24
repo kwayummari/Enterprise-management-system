@@ -40,11 +40,16 @@ export default function Login() {
       
       validateLoginData(userData);
   
-       const value = await apiGateway.create('login', userData);
+      const value = await apiGateway.create('login', userData);
+      const rolesData = {
+        id: value.roleId
+      }
+      const roles = await apiGateway.create('getRolesById', rolesData);
+      console.log(roles)
       setSuccess(value.message)
       localStorage.setItem('userId', value.userId);
       localStorage.setItem('roleId', value.roleId);
-      router.push('/dashboard');
+      // router.push('/dashboard');
     } catch (err: any) {
       setError(err.message);
     } finally {
