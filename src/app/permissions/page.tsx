@@ -40,7 +40,7 @@ export default function Page() {
 
   const getPermissions = async () => {
     const userData = {
-      id: '1',
+      id: '2',
     };
     try {
       const value = await apiGateway.create('getPermission', userData);
@@ -67,8 +67,8 @@ export default function Page() {
       </Alert>
       <div className="row">
         {permission.map(permission => (
-          <div className="col-sm-6 col-lg-3">
-            <Card bg="primary" text="white" className="mb-4">
+          <div key={permission.id} className="col-sm-6 col-lg-3">
+            <Card bg="white" text="dark" className="mb-4 border">
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
                   <div>{permission.name}</div>
@@ -95,7 +95,7 @@ export default function Page() {
                   <input
                     type="radio"
                     value={permission.find}
-                    checked={selectedPermissionId === permission.id}
+                    checked={permission.find === '1' ? true : false}
                     onChange={() => handlePermissionSelect(permission.id)}
                   />
                   <span style={{ marginLeft: '10px' }}>Get Data</span>
@@ -104,7 +104,7 @@ export default function Page() {
                   <input
                     type="radio"
                     value={permission.increase}
-                    checked={selectedPermissionId === permission.id}
+                    checked={permission.increase === '1' ? true : false}
                     onChange={() => handlePermissionSelect(permission.id)}
                   />
                   <span style={{ marginLeft: '10px' }}>Post Data</span>
@@ -113,7 +113,7 @@ export default function Page() {
                   <input
                     type="radio"
                     value={permission.upgrade}
-                    checked={selectedPermissionId === permission.id}
+                    checked={permission.upgrade === '1' ? true : false}
                     onChange={() => handlePermissionSelect(permission.id)}
                   />
                   <span style={{ marginLeft: '10px' }}>Update Data</span>
@@ -122,7 +122,7 @@ export default function Page() {
                   <input
                     type="radio"
                     value={permission.remove}
-                    checked={selectedPermissionId === permission.id}
+                    checked={permission.remove === '1' ? true : false}
                     onChange={() => handlePermissionSelect(permission.id)}
                   />
                   <span style={{ marginLeft: '10px' }}>Delete Data</span>
