@@ -55,9 +55,9 @@ export default function SidebarNav() {
       setError(err.message);
     }
   };
-  const handleClick = (url: string) => {
-    router.push(url);
-  };
+  // const handleClick = (url: string) => {
+  //   router.push(url);
+  // };
   return (
     <>
       <Alert
