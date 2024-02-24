@@ -6,6 +6,7 @@ import {
   faEllipsisVertical,
 } from '@fortawesome/free-solid-svg-icons'
 import {
+  Alert,
   Card,
   CardBody,
   Dropdown,
@@ -29,10 +30,10 @@ export default function Page() {
   const [error, setError] = useState<string | null>('');
   const [roles, setRoles] = useState<Roles[]>([]);
   useEffect(() => {
-    getUsers();
+    getRoles();
   }, []);
 
-  const getUsers = async () => {
+  const getRoles = async () => {
     try {
       const value = await apiGateway.read('getRoles');
       setRoles(value.roles);
@@ -42,6 +43,14 @@ export default function Page() {
   };
   return (
     <>
+      <Alert
+        variant="danger"
+        show={error !== ''}
+        onClose={() => setError('')}
+        dismissible
+      >
+        {error}
+      </Alert>
       <div className="row">
         <div className="col-sm-6 col-lg-3">
           <Card bg="primary" text="white" className="mb-4">
