@@ -86,15 +86,12 @@ export default function SidebarNav() {
         ))}
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
-      <SidebarNavGroup toggleIcon={faStar} toggleText="Pages">
-        <SidebarNavItem icon={faRightToBracket} href="login">Login</SidebarNavItem>
-        <SidebarNavItem icon={faAddressCard} href="register">Register</SidebarNavItem>
-        <SidebarNavItem icon={faBug} href="#">Error 404</SidebarNavItem>
-        <SidebarNavItem icon={faBug} href="#">Error 500</SidebarNavItem>
+      <SidebarNavGroup toggleIcon={faStar} toggleText="Configurations">
+        <SidebarNavItem icon={faRightToBracket} href="roles">Roles</SidebarNavItem>
       </SidebarNavGroup>
 
       <SidebarNavItem icon={faFileLines} href="#">Docs</SidebarNavItem>
-      <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">Try CoreUI PRO</SidebarNavItem>
+      <SidebarNavItem icon={faLayerGroup} href="https://jamsolutions.co.tz">Contact JamSolutions</SidebarNavItem>
     </ul>
     </>
   )
