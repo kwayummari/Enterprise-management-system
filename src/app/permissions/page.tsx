@@ -25,6 +25,7 @@ export default function Page() {
   const [permissions, setPermissions] = useState<Permissions[]>([]);
   const [selectedPermissions, setSelectedPermissions] = useState<SelectedPermission[]>([]);
   const roleId = localStorage.getItem('editRoleId');
+  const [success, setSuccess] = useState<string | null>('');
 
   useEffect(() => {
     getPermissions();
@@ -78,6 +79,7 @@ export default function Page() {
       };
       console.log(userData);
       const value = await apiGateway.create('updateRoles', userData);
+      setSuccess(value.message)
       setSelectedPermissions([])
       getPermissions()
     } catch (err: any) {
@@ -88,6 +90,14 @@ export default function Page() {
 
   return (
     <>
+      <Alert
+        variant="success"
+        show={success !== ''}
+        onClose={() => setSuccess('')}
+        dismissible
+      >
+        {success}
+      </Alert>
       <Alert
         variant="danger"
         show={error !== ''}
