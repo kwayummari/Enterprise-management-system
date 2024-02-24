@@ -21,22 +21,26 @@ import ConversionChart from '@/components/Dashboard/ConversionChart'
 import SessionChart from '@/components/Dashboard/SessionChart'
 import apiGateway from '../gateway/gateways'
 
-interface Roles {
+interface Permissions {
   id: number;
   name: string;
 }
 
 export default function Page() {
   const [error, setError] = useState<string | null>('');
-  const [roles, setRoles] = useState<Roles[]>([]);
+  const [permission, setPermission] = useState<Permissions[]>([]);
   useEffect(() => {
-    getRoles();
+    getPermissions();
   }, []);
 
-  const getRoles = async () => {
+  const getPermissions = async () => {
+    const userData = {
+      id: '1',
+    };
     try {
-      const value = await apiGateway.read('getRoles');
-      setRoles(value.roles);
+      const value = await apiGateway.create('getPermission', userData);
+      console.log(value)
+      setPermission(value.roles);
     } catch (err: any) {
       setError(err.message);
     }
@@ -57,7 +61,7 @@ export default function Page() {
             <Card bg="primary" text="white" className="mb-4">
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
-                  <div>{role.name}</div>
+                  <div>hjkl</div>
                 </div>
                 <Dropdown align="end">
                   <DropdownToggle
