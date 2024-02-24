@@ -117,11 +117,10 @@ export default function Page() {
                           <div>{user.phone}</div>
                         </td>
                         <td>
-                          <div>{user.branch}</div>
+                          <div>{user.branch_name}</div>
                         </td>
                         <td>
-                          <div className="small text-black-50">Last login</div>
-                          <div className="fw-semibold">10 sec ago</div>
+                          <div>{user.role_name}</div>
                         </td>
                         <td>
                           <Dropdown align="end">
