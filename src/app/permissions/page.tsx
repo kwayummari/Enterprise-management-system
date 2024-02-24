@@ -29,6 +29,7 @@ interface Permissions {
 export default function Page() {
   const [error, setError] = useState<string | null>('');
   const [permission, setPermission] = useState<Permissions[]>([]);
+  const [selectedPermissionId, setSelectedPermissionId] = useState<number | null>(null);
   useEffect(() => {
     getPermissions();
   }, []);
@@ -44,6 +45,11 @@ export default function Page() {
     } catch (err: any) {
       setError(err.message);
     }
+  };
+
+  const handlePermissionSelect = (permissionId: number) => {
+    setSelectedPermissionId(permissionId);
+    // Perform any additional actions based on the selected permission
   };
   return (
     <>
@@ -81,7 +87,15 @@ export default function Page() {
                 </Dropdown>
               </CardBody>
               <div className="mt-3 mx-3" style={{ height: '70px' }}>
-                
+              <label>
+                  <input
+                    type="radio"
+                    value={permission.id}
+                    checked={selectedPermissionId === permission.id}
+                    onChange={() => handlePermissionSelect(permission.id)}
+                  />
+                  <span>{permission.name}</span>
+                </label>
               </div>
             </Card>
           </div>

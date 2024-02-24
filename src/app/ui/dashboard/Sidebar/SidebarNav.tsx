@@ -30,6 +30,10 @@ interface Permissions {
   id: number;
   name: string;
   icon: IconDefinition;
+  find: string;
+  increase: string;
+  upgrade: string;
+  remove: string;
   submenu: { name: string, url: string }[]; 
 }
 
