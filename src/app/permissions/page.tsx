@@ -29,11 +29,16 @@ interface Permissions {
   upgrade: string;
   remove: string;
 }
+interface SelectedPermission {
+  id: number;
+  typeValue: string;
+  status: string
+}
 
 export default function Page() {
   const [error, setError] = useState<string | null>('');
   const [permission, setPermission] = useState<Permissions[]>([]);
-  const [selectedPermissionId, setSelectedPermissionId] = useState<number | null>(null);
+  const [selectedPermissions, setSelectedPermissions] = useState<SelectedPermission[]>([]);
   const roleId = localStorage.getItem('editRoleId');
   useEffect(() => {
     getPermissions();
@@ -52,9 +57,17 @@ export default function Page() {
     }
   };
 
-  const handlePermissionSelect = (permissionId: number) => {
-    setSelectedPermissionId(permissionId);
-    // Perform any additional actions based on the selected permission
+  const handlePermissionSelect = (permissionId: number, type: string, status: string) => {
+    const index = selectedPermissions.findIndex(item => item.id === permissionId);
+    if (index !== -1) {
+      const newSelectedPermissions = [...selectedPermissions];
+      newSelectedPermissions.splice(index, 1);
+      setSelectedPermissions(newSelectedPermissions);
+      console.log(selectedPermissions)
+    } else {
+      setSelectedPermissions([...selectedPermissions, { id: permissionId, typeValue: type, status: status }]);
+      console.log(selectedPermissions)
+    }
   };
   return (
     <>
@@ -97,7 +110,7 @@ export default function Page() {
                     type="radio"
                     value={permission.find}
                     checked={permission.find === '1' ? true : false}
-                    onChange={() => handlePermissionSelect(permission.id)}
+                    onChange={() => handlePermissionSelect(permission.id, 'find', permission.find)}
                   />
                   <span style={{ marginLeft: '10px' }}>Get Data</span>
                 </label>
@@ -106,7 +119,7 @@ export default function Page() {
                     type="radio"
                     value={permission.increase}
                     checked={permission.increase === '1' ? true : false}
-                    onChange={() => handlePermissionSelect(permission.id)}
+                    onChange={() => handlePermissionSelect(permission.id, 'increase', permission.increase)}
                   />
                   <span style={{ marginLeft: '10px' }}>Post Data</span>
                 </label>
@@ -115,7 +128,7 @@ export default function Page() {
                     type="radio"
                     value={permission.upgrade}
                     checked={permission.upgrade === '1' ? true : false}
-                    onChange={() => handlePermissionSelect(permission.id)}
+                    onChange={() => handlePermissionSelect(permission.id, 'upgrade', permission.upgrade)}
                   />
                   <span style={{ marginLeft: '10px' }}>Update Data</span>
                 </label>
@@ -124,7 +137,7 @@ export default function Page() {
                     type="radio"
                     value={permission.remove}
                     checked={permission.remove === '1' ? true : false}
-                    onChange={() => handlePermissionSelect(permission.id)}
+                    onChange={() => handlePermissionSelect(permission.id, 'remove', permission.remove)}
                   />
                   <span style={{ marginLeft: '10px' }}>Delete Data</span>
                 </label>
