@@ -1,25 +1,9 @@
 'use client'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faArrowDown,
-  faArrowUp,
-  faEllipsisVertical,
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  Alert,
-  Card,
-  CardBody,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from 'react-bootstrap'
-import React, { useEffect, useState } from 'react'
-import UserChart from '@/components/Dashboard/UserChart'
-import IncomeChart from '@/components/Dashboard/IncomeChart'
-import ConversionChart from '@/components/Dashboard/ConversionChart'
-import SessionChart from '@/components/Dashboard/SessionChart'
-import apiGateway from '../gateway/gateways'
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
+import { Alert, Card, CardBody, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'react-bootstrap';
+import apiGateway from '../gateway/gateways';
 
 interface Permissions {
   id: number;
@@ -29,46 +13,59 @@ interface Permissions {
   upgrade: string;
   remove: string;
 }
+
 interface SelectedPermission {
   id: number;
-  typeValue: string;
-  status: string
+  typeValue: keyof Permissions; // This ensures that only valid keys of Permissions can be used
+  status: string;
 }
 
 export default function Page() {
   const [error, setError] = useState<string | null>('');
-  const [permission, setPermission] = useState<Permissions[]>([]);
+  const [permissions, setPermissions] = useState<Permissions[]>([]);
   const [selectedPermissions, setSelectedPermissions] = useState<SelectedPermission[]>([]);
   const roleId = localStorage.getItem('editRoleId');
+
   useEffect(() => {
     getPermissions();
   }, []);
 
   const getPermissions = async () => {
-    const userData = {
-      id: roleId,
-    };
     try {
+      const userData = {
+        id: roleId,
+      };
       const value = await apiGateway.create('getPermission', userData);
-      console.log(value)
-      setPermission(value.contents);
+      setPermissions(value.contents);
     } catch (err: any) {
       setError(err.message);
     }
   };
 
-  const handlePermissionSelect = (permissionId: number, type: string, status: string) => {
+  const handlePermissionSelect = (permissionId: number, type: keyof Permissions, status: string) => {
     const index = selectedPermissions.findIndex(item => item.id === permissionId);
     if (index !== -1) {
       const newSelectedPermissions = [...selectedPermissions];
       newSelectedPermissions.splice(index, 1);
       setSelectedPermissions(newSelectedPermissions);
-      console.log(selectedPermissions)
     } else {
       setSelectedPermissions([...selectedPermissions, { id: permissionId, typeValue: type, status: status }]);
-      console.log(selectedPermissions)
     }
+    console.log(selectedPermissions)
   };
+
+  const isPermissionSelected = (permissionId: number, type: keyof Permissions) => {
+    return selectedPermissions.some(item => item.id === permissionId && item.typeValue === type);
+  };
+
+  const getCheckedStatus = (permissionId: number, type: keyof Permissions) => {
+    const selectedPermission = selectedPermissions.find(item => item.id === permissionId && item.typeValue === type);
+    if (selectedPermission) {
+      return selectedPermission.status === '1' ? true : false;
+    }
+    return permissions.find(permission => permission.id === permissionId)?.[type] === '1' ? true : false;
+  };
+
   return (
     <>
       <Alert
@@ -80,7 +77,7 @@ export default function Page() {
         {error}
       </Alert>
       <div className="row">
-        {permission.map(permission => (
+        {permissions.map(permission => (
           <div key={permission.id} className="col-sm-6 col-lg-3">
             <Card bg="white" text="dark" className="mb-4 border">
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
@@ -96,7 +93,6 @@ export default function Page() {
                   >
                     <FontAwesomeIcon fixedWidth icon={faEllipsisVertical} />
                   </DropdownToggle>
-
                   <DropdownMenu>
                     <DropdownItem href="#/action-1">Edit Role</DropdownItem>
                     <DropdownItem href="#/action-2">Another action</DropdownItem>
@@ -104,12 +100,11 @@ export default function Page() {
                   </DropdownMenu>
                 </Dropdown>
               </CardBody>
-              <div className="mt-3 mx-3" style={{  display: 'flex', flexDirection: 'column' }}>
-              <label style={{ marginBottom: '5px' }}>
+              <div className="mt-3 mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
+                <label style={{ marginBottom: '5px' }}>
                   <input
                     type="radio"
-                    value={permission.find}
-                    checked={permission.find === '1' ? true : false}
+                    checked={getCheckedStatus(permission.id, 'find')}
                     onChange={() => handlePermissionSelect(permission.id, 'find', permission.find)}
                   />
                   <span style={{ marginLeft: '10px' }}>Get Data</span>
@@ -117,8 +112,7 @@ export default function Page() {
                 <label style={{ marginBottom: '5px' }}>
                   <input
                     type="radio"
-                    value={permission.increase}
-                    checked={permission.increase === '1' ? true : false}
+                    checked={getCheckedStatus(permission.id, 'increase')}
                     onChange={() => handlePermissionSelect(permission.id, 'increase', permission.increase)}
                   />
                   <span style={{ marginLeft: '10px' }}>Post Data</span>
@@ -126,8 +120,7 @@ export default function Page() {
                 <label style={{ marginBottom: '5px' }}>
                   <input
                     type="radio"
-                    value={permission.upgrade}
-                    checked={permission.upgrade === '1' ? true : false}
+                    checked={getCheckedStatus(permission.id, 'upgrade')}
                     onChange={() => handlePermissionSelect(permission.id, 'upgrade', permission.upgrade)}
                   />
                   <span style={{ marginLeft: '10px' }}>Update Data</span>
@@ -135,8 +128,7 @@ export default function Page() {
                 <label style={{ marginBottom: '5px' }}>
                   <input
                     type="radio"
-                    value={permission.remove}
-                    checked={permission.remove === '1' ? true : false}
+                    checked={getCheckedStatus(permission.id, 'remove')}
                     onChange={() => handlePermissionSelect(permission.id, 'remove', permission.remove)}
                   />
                   <span style={{ marginLeft: '10px' }}>Delete Data</span>
@@ -144,8 +136,8 @@ export default function Page() {
               </div>
             </Card>
           </div>
-         ))}
+        ))}
       </div>
     </>
-  )
+  );
 }
