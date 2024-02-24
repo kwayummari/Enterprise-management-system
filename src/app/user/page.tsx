@@ -45,7 +45,6 @@ export default function Page() {
   const getUsers = async () => {
     try {
       const value = await apiGateway.read('users');
-      console.log('user',value.users)
       setUsers(value.users);
     } catch (err: any) {
       setError(err.message);
