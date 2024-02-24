@@ -1,3 +1,4 @@
+'use client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowDown,
@@ -12,13 +13,28 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from 'react-bootstrap'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import UserChart from '@/components/Dashboard/UserChart'
 import IncomeChart from '@/components/Dashboard/IncomeChart'
 import ConversionChart from '@/components/Dashboard/ConversionChart'
 import SessionChart from '@/components/Dashboard/SessionChart'
+import apiGateway from '../gateway/gateways'
 
 export default function Page() {
+  const [error, setError] = useState<string | null>('');
+  const [roles, setRoles] = useState<Users[]>([]);
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = async () => {
+    try {
+      const value = await apiGateway.read('getRoles');
+      setRoles(value.roles);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
   return (
     <>
       <div className="row">

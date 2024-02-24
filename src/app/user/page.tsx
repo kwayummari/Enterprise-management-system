@@ -27,7 +27,6 @@ interface Users {
   branch_name: string;
   role: string;
   role_name: string;
-  submenu: { name: string, url: string }[]; 
 }
 
 export default function Page() {
