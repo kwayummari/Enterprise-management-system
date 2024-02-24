@@ -27,6 +27,7 @@ interface Users {
   fullname: string;
   email: string;
   phone: string;
+  date: string;
   submenu: { name: string, url: string }[]; 
 }
 
@@ -40,7 +41,7 @@ export default function Page() {
   const sideBar = async () => {
     try {
       const value = await apiGateway.read('users');
-      setUsers(value.contents);
+      setUsers(value.contents.users);
       console.log(value)
     } catch (err: any) {
       setError(err.message);
@@ -102,7 +103,7 @@ export default function Page() {
                           <div className="small text-black-50">
                             <span>New</span>
                             {' '}
-                            | Registered: Jan 1, 2020
+                            | {user.date}
                           </div>
                         </td>
                         <td>
