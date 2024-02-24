@@ -5,8 +5,8 @@ type Middleware = (request: NextRequest) => NextResponse
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const redirectIfAuthenticated: Middleware = (request) => {
-  // const authSession = request.cookies.get('auth')?.value
-  const authSession = localStorage.getItem('userId');
+  const authSession = request.cookies.get('auth')?.value
+  // const authSession = localStorage.getItem('userId');
 
   if (authSession) {
     return NextResponse.redirect(new URL('/', request.url))
@@ -16,7 +16,8 @@ const redirectIfAuthenticated: Middleware = (request) => {
 }
 
 const authenticated: Middleware = (request) => {
-  const authSession = localStorage.getItem('userId');
+  const authSession = request.cookies.get('auth')?.value
+  // const authSession = localStorage.getItem('userId');
 
   if (!authSession) {
     const response = NextResponse.redirect(new URL('/login', request.url))
