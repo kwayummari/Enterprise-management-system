@@ -24,7 +24,9 @@ import apiGateway from '../gateway/gateways'
 
 interface Users {
   id: number;
-  name: string;
+  fullname: string;
+  email: string;
+  phone: string;
   submenu: { name: string, url: string }[]; 
 }
 
