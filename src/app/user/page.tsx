@@ -28,6 +28,7 @@ interface Users {
   email: string;
   phone: string;
   date: string;
+  branch: string
   submenu: { name: string, url: string }[]; 
 }
 
@@ -35,14 +36,14 @@ export default function Page() {
   const [error, setError] = useState<string | null>('');
   const [users, setUsers] = useState<Users[]>([]);
   useEffect(() => {
-    sideBar();
+    getUsers();
   }, []);
 
-  const sideBar = async () => {
+  const getUsers = async () => {
     try {
       const value = await apiGateway.read('users');
-      setUsers(value.contents.users);
-      console.log(value)
+      console.log('user',value.users)
+      setUsers(value.users);
     } catch (err: any) {
       setError(err.message);
     }
@@ -83,7 +84,7 @@ export default function Page() {
                   </thead>
                   <tbody>
                     {users.map(user => (
-                      <tr className="align-middle">
+                      <tr key={user.id} className="align-middle">
                         {/* <td className="text-center">
                         <div className="avatar avatar-md d-inline-flex position-relative">
                           <Image
@@ -107,20 +108,13 @@ export default function Page() {
                           </div>
                         </td>
                         <td>
-                          <div className="clearfix">
-                            <div className="float-start">
-                              <div className="fw-semibold">50%</div>
-                            </div>
-                            <div className="float-end">
-                              <small className="text-black-50">
-                                Jun 11, 2020 - Jul 10, 2020
-                              </small>
-                            </div>
-                          </div>
-                          <ProgressBar className="progress-thin" variant="success" now={50} />
+                          <div>{user.email}</div>
                         </td>
-                        <td className="text-center" aria-label="icon">
-                          <FontAwesomeIcon icon={faCcAmex} size="lg" fixedWidth />
+                        <td>
+                          <div>{user.phone}</div>
+                        </td>
+                        <td>
+                          <div>{user.branch}</div>
                         </td>
                         <td>
                           <div className="small text-black-50">Last login</div>
