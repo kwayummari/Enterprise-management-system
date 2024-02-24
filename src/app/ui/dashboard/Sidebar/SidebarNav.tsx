@@ -30,7 +30,11 @@ interface Permissions {
   id: number;
   name: string;
   icon: IconDefinition;
-  submenu: { name: string, url: string }[]; 
+  find: string;
+  increase: string;
+  upgrade: string;
+  remove: string;
+  submenu: { name: string, url: string, crud: string }[]; 
 }
 
 export default function SidebarNav() {
@@ -77,10 +81,10 @@ export default function SidebarNav() {
           // toggleIcon={permission.icon}
           <SidebarNavGroup key={permission.id} toggleIcon={faAddressCard} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
-              <SidebarNavItem href={submenu.url}>{submenu.name}</SidebarNavItem>
-              // <li className="nav-item" onClick={() => handleClick(submenu.url)}>
-      // <span className="nav-link">{submenu.name}</span>
-    // </li>
+              (submenu.crud === '1' && permission.find) ?
+                <SidebarNavItem href={submenu.url}>{submenu.name}</SidebarNavItem>
+                :
+                <SidebarNavItem href={submenu.url}>{submenu.name}</SidebarNavItem>  
             ))}
             </SidebarNavGroup>
         ))}
