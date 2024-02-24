@@ -48,13 +48,12 @@ export default function Login() {
       }
       const rolesResponse = await apiGateway.create('getRolesById', rolesData);
       const roles = rolesResponse.roles;
-      console.log(roles);
       
       setSuccess(loginResponse.message)
       localStorage.setItem('userId', user.id);
       localStorage.setItem('roleId', roleId);
       localStorage.setItem('rolesMap', roles);
-      // router.push('/dashboard');
+      router.push('/dashboard');
     } catch (err: any) {
       setError(err.message);
     } finally {
