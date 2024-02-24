@@ -76,9 +76,9 @@ export default function Page() {
       const userData = {
         permissions: selectedPermissions,
       };
-      // Assuming you have an API endpoint for editing permissions
-      const value = await apiGateway.create('editPermissions', userData);
-      // Do something with the response if needed
+      console.log(userData);
+      const value = await apiGateway.create('updateRoles', userData);
+      console.log(value)
     } catch (err: any) {
       setError(err.message);
     }
