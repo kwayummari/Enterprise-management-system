@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEllipsisVertical,
-  faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Alert,
@@ -16,9 +15,6 @@ import {
   DropdownToggle,
   ProgressBar,
 } from 'react-bootstrap'
-import {
-  faCcAmex,
-} from '@fortawesome/free-brands-svg-icons'
 import React, { useEffect, useState } from 'react'
 import apiGateway from '../gateway/gateways'
 
