@@ -43,16 +43,21 @@ export default function Page() {
   };
 
   const handlePermissionSelect = (permissionId: number, type: keyof Permissions, status: string) => {
-    const index = selectedPermissions.findIndex(item => item.id === permissionId);
+    const index = selectedPermissions.findIndex(item => item.id === permissionId && item.typeValue === type);
+    const newSelectedPermissions = [...selectedPermissions];
+    
     if (index !== -1) {
-      const newSelectedPermissions = [...selectedPermissions];
+      // Remove the selected permission if it already exists
       newSelectedPermissions.splice(index, 1);
-      setSelectedPermissions(newSelectedPermissions);
     } else {
-      setSelectedPermissions([...selectedPermissions, { id: permissionId, typeValue: type, status: status }]);
+      // Add the selected permission with the opposite status
+      newSelectedPermissions.push({ id: permissionId, typeValue: type, status: status === '1' ? '0' : '1' });
+      console.log(selectedPermissions)
     }
-    console.log(selectedPermissions)
+    
+    setSelectedPermissions(newSelectedPermissions);
   };
+  
 
   const isPermissionSelected = (permissionId: number, type: keyof Permissions) => {
     return selectedPermissions.some(item => item.id === permissionId && item.typeValue === type);
@@ -65,6 +70,20 @@ export default function Page() {
     }
     return permissions.find(permission => permission.id === permissionId)?.[type] === '1' ? true : false;
   };
+
+  const handleEditPermissions = async (selectedPermissions: SelectedPermission[]) => {
+    try {
+      const userData = {
+        permissions: selectedPermissions,
+      };
+      // Assuming you have an API endpoint for editing permissions
+      const value = await apiGateway.create('editPermissions', userData);
+      // Do something with the response if needed
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+  
 
   return (
     <>
@@ -137,6 +156,7 @@ export default function Page() {
             </Card>
           </div>
         ))}
+        <button type="button" className="btn btn-dark" onClick={() => handleEditPermissions(selectedPermissions)}>Submit</button>
       </div>
     </>
   );
