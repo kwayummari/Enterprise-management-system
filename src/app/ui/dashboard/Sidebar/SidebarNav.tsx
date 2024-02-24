@@ -50,7 +50,6 @@ export default function SidebarNav() {
       };
       const value = await apiGateway.create('getPermission', userData);
       setPermissions(value.contents);
-      console.log(value)
     } catch (err: any) {
       setError(err.message);
     }

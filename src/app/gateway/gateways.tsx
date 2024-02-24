@@ -21,7 +21,7 @@ const apiGateway = {
       const authToken = localStorage.getItem('authToken');
       const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
 
-      const response = await axios.get(`${BASE_URL}/${endpoint}`, { headers });
+      const response = await axios.get(`${BASE_URL}${endpoint}`, { headers });
       return response.data;
     } catch (error: any) {
       throw (error.response?.data || error.message) as string;

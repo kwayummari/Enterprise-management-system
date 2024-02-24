@@ -6,6 +6,7 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import {
+  Alert,
   Card,
   CardBody,
   CardHeader,
@@ -22,7 +23,8 @@ import {
   faCcStripe,
   faCcVisa,
 } from '@fortawesome/free-brands-svg-icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import apiGateway from '../gateway/gateways'
 
 interface Users {
   id: number;
@@ -31,9 +33,31 @@ interface Users {
 }
 
 export default function Page() {
+  const [error, setError] = useState<string | null>('');
   const [users, setUsers] = useState<Users[]>([]);
+  useEffect(() => {
+    sideBar();
+  }, []);
+
+  const sideBar = async () => {
+    try {
+      const value = await apiGateway.read('users');
+      setUsers(value.contents);
+      console.log(value)
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
   return (
     <>
+      <Alert
+        variant="danger"
+        show={error !== ''}
+        onClose={() => setError('')}
+        dismissible
+      >
+        {error}
+      </Alert>
       <div className="row">
         <div className="col-md-12">
           <Card>
