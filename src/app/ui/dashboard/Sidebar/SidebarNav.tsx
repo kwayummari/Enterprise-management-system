@@ -18,6 +18,7 @@ import SidebarNavGroup from '@/app/ui/dashboard/Sidebar/SidebarNavGroup'
 import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem'
 import apiGateway from '@/app/gateway/gateways'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import { useRouter } from 'next/navigation'
 
 const SidebarNavTitle = (props: PropsWithChildren) => {
   const { children } = props
@@ -33,6 +34,7 @@ interface Permissions {
 }
 
 export default function SidebarNav() {
+  const router = useRouter();
   const [error, setError] = useState<string | null>('');
   const roleId = localStorage.getItem('roleId');
   const [permissions, setPermissions] = useState<Permissions[]>([]);
@@ -52,6 +54,9 @@ export default function SidebarNav() {
     } catch (err: any) {
       setError(err.message);
     }
+  };
+  const handleClick = (url: string) => {
+    router.push(url);
   };
   return (
     <>
@@ -74,6 +79,9 @@ export default function SidebarNav() {
           <SidebarNavGroup key={permission.id} toggleIcon={faAddressCard} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
               <SidebarNavItem href={submenu.url}>{submenu.name}</SidebarNavItem>
+              // <li className="nav-item" onClick={() => handleClick(submenu.url)}>
+      // <span className="nav-link">{submenu.name}</span>
+    // </li>
             ))}
             </SidebarNavGroup>
         ))}
