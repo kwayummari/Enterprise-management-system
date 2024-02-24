@@ -28,7 +28,10 @@ interface Users {
   email: string;
   phone: string;
   date: string;
-  branch: string
+  branch: string;
+  branch_name: string;
+  role: string;
+  role_name: string;
   submenu: { name: string, url: string }[]; 
 }
 
@@ -76,7 +79,7 @@ export default function Page() {
                       </th> */}
                       <th>Fullname</th>
                       <th>Email</th>
-                      <th className="text-center">Phone number</th>
+                      <th >Phone number</th>
                       <th>Branch</th>
                       <th>Role</th>
                       <th aria-label="Action" />
