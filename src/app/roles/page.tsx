@@ -70,7 +70,7 @@ export default function Page() {
                   </DropdownToggle>
 
                   <DropdownMenu>
-                    <DropdownItem href="#/action-1">Edit Role</DropdownItem>
+                    <DropdownItem href="permissions">Edit Role</DropdownItem>
                     <DropdownItem href="#/action-2">Another action</DropdownItem>
                     <DropdownItem href="#/action-3">Something else</DropdownItem>
                   </DropdownMenu>
