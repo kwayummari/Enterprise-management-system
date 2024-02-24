@@ -40,16 +40,20 @@ export default function Login() {
       
       validateLoginData(userData);
   
-      const value = await apiGateway.create('login', userData);
+      const loginResponse = await apiGateway.create('login', userData);
+      const user = loginResponse.user;
+      const roleId = user.role;
       const rolesData = {
-        id: value.role
+        id: roleId
       }
-      const roles = await apiGateway.create('getRolesById', rolesData);
-      console.log(roles)
-      setSuccess(value.message)
-      localStorage.setItem('userId', value.id);
-      localStorage.setItem('roleId', value.role);
-      localStorage.setItem('rolesMap', roles.roles);
+      const rolesResponse = await apiGateway.create('getRolesById', rolesData);
+      const roles = rolesResponse.roles;
+      console.log(roles);
+      
+      setSuccess(loginResponse.message)
+      localStorage.setItem('userId', user.id);
+      localStorage.setItem('roleId', roleId);
+      localStorage.setItem('rolesMap', roles);
       // router.push('/dashboard');
     } catch (err: any) {
       setError(err.message);
@@ -57,6 +61,7 @@ export default function Login() {
       setSubmitting(false);
     }
   };
+  
   
   
 

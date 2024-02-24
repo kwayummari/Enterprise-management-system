@@ -77,7 +77,6 @@ export default function Page() {
       const userData = {
         permissions: selectedPermissions,
       };
-      console.log(userData);
       const value = await apiGateway.create('updateRoles', userData);
       setSuccess(value.message)
       setSelectedPermissions([])
