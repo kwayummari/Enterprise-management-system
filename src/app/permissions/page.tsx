@@ -78,7 +78,8 @@ export default function Page() {
       };
       console.log(userData);
       const value = await apiGateway.create('updateRoles', userData);
-      console.log(value)
+      setSelectedPermissions([])
+      getPermissions()
     } catch (err: any) {
       setError(err.message);
     }
