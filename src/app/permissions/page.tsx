@@ -34,13 +34,14 @@ export default function Page() {
   const [error, setError] = useState<string | null>('');
   const [permission, setPermission] = useState<Permissions[]>([]);
   const [selectedPermissionId, setSelectedPermissionId] = useState<number | null>(null);
+  const roleId = localStorage.getItem('editRoleId');
   useEffect(() => {
     getPermissions();
   }, []);
 
   const getPermissions = async () => {
     const userData = {
-      id: '2',
+      id: roleId,
     };
     try {
       const value = await apiGateway.create('getPermission', userData);
