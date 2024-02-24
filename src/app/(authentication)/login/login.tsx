@@ -49,6 +49,7 @@ export default function Login() {
       setSuccess(value.message)
       localStorage.setItem('userId', value.userId);
       localStorage.setItem('roleId', value.roleId);
+      localStorage.setItem('rolesMap', roles.roles);
       // router.push('/dashboard');
     } catch (err: any) {
       setError(err.message);
