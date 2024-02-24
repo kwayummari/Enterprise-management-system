@@ -12,7 +12,7 @@ export default function Footer() {
           </a>
           {' '}
           © 2024
-          creativeLabs.
+          creativeSolutions.
         </div>
         <div className="ms-md-auto">
           Powered by&nbsp;
