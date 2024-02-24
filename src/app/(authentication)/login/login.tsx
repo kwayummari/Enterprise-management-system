@@ -42,13 +42,13 @@ export default function Login() {
   
       const value = await apiGateway.create('login', userData);
       const rolesData = {
-        id: value.roleId
+        id: value.role
       }
       const roles = await apiGateway.create('getRolesById', rolesData);
       console.log(roles)
       setSuccess(value.message)
-      localStorage.setItem('userId', value.userId);
-      localStorage.setItem('roleId', value.roleId);
+      localStorage.setItem('userId', value.id);
+      localStorage.setItem('roleId', value.role);
       localStorage.setItem('rolesMap', roles.roles);
       // router.push('/dashboard');
     } catch (err: any) {
