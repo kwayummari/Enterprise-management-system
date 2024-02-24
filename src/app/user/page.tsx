@@ -18,10 +18,6 @@ import {
 } from 'react-bootstrap'
 import {
   faCcAmex,
-  faCcApplePay,
-  faCcPaypal,
-  faCcStripe,
-  faCcVisa,
 } from '@fortawesome/free-brands-svg-icons'
 import React, { useEffect, useState } from 'react'
 import apiGateway from '../gateway/gateways'
