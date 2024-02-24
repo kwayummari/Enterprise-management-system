@@ -41,6 +41,10 @@ export default function Page() {
       setError(err.message);
     }
   };
+  const handleEditRole = (roleId: number) => {
+    localStorage.setItem('editRoleId', String(roleId));
+    window.location.href = '/permissions';
+  };
   return (
     <>
       <Alert
@@ -68,9 +72,8 @@ export default function Page() {
                   >
                     <FontAwesomeIcon fixedWidth icon={faEllipsisVertical} />
                   </DropdownToggle>
-
                   <DropdownMenu>
-                    <DropdownItem href="permissions">Edit Role</DropdownItem>
+                    <DropdownItem onClick={() => handleEditRole(role.id)}>Edit Role</DropdownItem>
                     <DropdownItem href="#/action-2">Another action</DropdownItem>
                     <DropdownItem href="#/action-3">Something else</DropdownItem>
                   </DropdownMenu>
