@@ -24,6 +24,10 @@ import apiGateway from '../gateway/gateways'
 interface Permissions {
   id: number;
   name: string;
+  find: string;
+  increase: string;
+  upgrade: string;
+  remove: string;
 }
 
 export default function Page() {
