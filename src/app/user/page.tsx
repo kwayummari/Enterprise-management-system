@@ -13,7 +13,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  ProgressBar,
 } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import apiGateway from '../gateway/gateways'
