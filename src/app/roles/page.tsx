@@ -20,9 +20,14 @@ import ConversionChart from '@/components/Dashboard/ConversionChart'
 import SessionChart from '@/components/Dashboard/SessionChart'
 import apiGateway from '../gateway/gateways'
 
+interface Roles {
+  id: number;
+  name: string;
+}
+
 export default function Page() {
   const [error, setError] = useState<string | null>('');
-  const [roles, setRoles] = useState<Users[]>([]);
+  const [roles, setRoles] = useState<Roles[]>([]);
   useEffect(() => {
     getUsers();
   }, []);
