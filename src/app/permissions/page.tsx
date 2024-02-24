@@ -90,15 +90,42 @@ export default function Page() {
                   </DropdownMenu>
                 </Dropdown>
               </CardBody>
-              <div className="mt-3 mx-3" style={{ height: '70px' }}>
-              <label>
+              <div className="mt-3 mx-3" style={{  display: 'flex', flexDirection: 'column' }}>
+              <label style={{ marginBottom: '5px' }}>
                   <input
                     type="radio"
-                    value={permission.id}
+                    value={permission.find}
                     checked={selectedPermissionId === permission.id}
                     onChange={() => handlePermissionSelect(permission.id)}
                   />
-                  <span>{permission.name}</span>
+                  <span style={{ marginLeft: '10px' }}>Get Data</span>
+                </label>
+                <label style={{ marginBottom: '5px' }}>
+                  <input
+                    type="radio"
+                    value={permission.increase}
+                    checked={selectedPermissionId === permission.id}
+                    onChange={() => handlePermissionSelect(permission.id)}
+                  />
+                  <span style={{ marginLeft: '10px' }}>Post Data</span>
+                </label>
+                <label style={{ marginBottom: '5px' }}>
+                  <input
+                    type="radio"
+                    value={permission.upgrade}
+                    checked={selectedPermissionId === permission.id}
+                    onChange={() => handlePermissionSelect(permission.id)}
+                  />
+                  <span style={{ marginLeft: '10px' }}>Update Data</span>
+                </label>
+                <label style={{ marginBottom: '5px' }}>
+                  <input
+                    type="radio"
+                    value={permission.remove}
+                    checked={selectedPermissionId === permission.id}
+                    onChange={() => handlePermissionSelect(permission.id)}
+                  />
+                  <span style={{ marginLeft: '10px' }}>Delete Data</span>
                 </label>
               </div>
             </Card>
