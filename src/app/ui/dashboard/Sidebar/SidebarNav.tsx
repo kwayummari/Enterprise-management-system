@@ -68,7 +68,7 @@ export default function SidebarNav() {
         {error}
       </Alert>
        <ul className="list-unstyled">
-      <SidebarNavItem icon={faGauge} href="/">
+      <SidebarNavItem icon={faGauge} href="/dashboard">
         Dashboard
         <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
         </SidebarNavItem>

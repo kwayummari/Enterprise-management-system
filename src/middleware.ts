@@ -41,7 +41,7 @@ export default function middleware(request: NextRequest) {
   // }
 
   if ([
-    '/',
+    // '/',
     '/pokemons',
   ].includes(request.nextUrl.pathname)) {
     return authenticated(request)
