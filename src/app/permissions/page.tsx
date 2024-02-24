@@ -52,7 +52,7 @@ export default function Page() {
         {error}
       </Alert>
       <div className="row">
-        {roles.map(role => (
+        {/* {roles.map(role => ( */}
           <div className="col-sm-6 col-lg-3">
             <Card bg="primary" text="white" className="mb-4">
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
@@ -80,7 +80,7 @@ export default function Page() {
               </div>
             </Card>
           </div>
-        ))}
+        {/* ))} */}
       </div>
     </>
   )
