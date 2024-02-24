@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -21,9 +22,16 @@ import {
   faCcStripe,
   faCcVisa,
 } from '@fortawesome/free-brands-svg-icons'
-import React from 'react'
+import React, { useState } from 'react'
+
+interface Users {
+  id: number;
+  name: string;
+  submenu: { name: string, url: string }[]; 
+}
 
 export default function Page() {
+  const [users, setUsers] = useState<Users[]>([]);
   return (
     <>
       <div className="row">
