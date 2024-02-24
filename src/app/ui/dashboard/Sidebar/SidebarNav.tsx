@@ -79,7 +79,7 @@ export default function SidebarNav() {
         {/* <SidebarNavTitle>Components</SidebarNavTitle> */}
         {permissions.map(permission => (
           // toggleIcon={permission.icon}
-          (permission.increase != '1' && permission.find != '1' && permission.upgrade != '1' && permission.remove != '1') ?
+          (permission.increase === '1' && permission.find === '1' && permission.upgrade === '1' && permission.remove === '1') ?
           <SidebarNavGroup key={permission.id} toggleIcon={faAddressCard} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
               (submenu.crud === '1' && permission.increase === '1') ?
