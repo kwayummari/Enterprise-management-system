@@ -16,7 +16,7 @@ interface Permissions {
 
 interface SelectedPermission {
   id: number;
-  typeValue: keyof Permissions; // This ensures that only valid keys of Permissions can be used
+  typeValue: keyof Permissions;
   status: string;
 }
 
@@ -48,18 +48,13 @@ export default function Page() {
     const newSelectedPermissions = [...selectedPermissions];
     
     if (index !== -1) {
-      // Remove the selected permission if it already exists
       newSelectedPermissions.splice(index, 1);
     } else {
-      // Add the selected permission with the opposite status
       newSelectedPermissions.push({ id: permissionId, typeValue: type, status: status === '1' ? '0' : '1' });
       console.log(selectedPermissions)
     }
-    
     setSelectedPermissions(newSelectedPermissions);
   };
-  
-
   const isPermissionSelected = (permissionId: number, type: keyof Permissions) => {
     return selectedPermissions.some(item => item.id === permissionId && item.typeValue === type);
   };
