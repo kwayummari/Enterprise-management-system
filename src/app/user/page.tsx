@@ -3,7 +3,9 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisVertical,
+  faEnvelope,
   faLock,
+  faPhone,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -69,7 +71,7 @@ export default function Page() {
     setSubmitting(true);
     try {
       const target = e.target as typeof e.target & {
-        fullname: {value: string}
+        fullname: { value: string };
         email: { value: string };
         password: { value: string };
       };
@@ -131,7 +133,23 @@ export default function Page() {
                   </Modal.Header>
                   <Modal.Body>
                     <Form onSubmit={registering}>
-                    <InputGroup className="mb-3">
+                      <Alert
+                        variant="danger"
+                        show={error !== ""}
+                        onClose={() => setError("")}
+                        dismissible
+                      >
+                        {error}
+                      </Alert>
+                      <Alert
+                        variant="success"
+                        show={success !== ""}
+                        onClose={() => setSuccess("")}
+                        dismissible
+                      >
+                        {success}
+                      </Alert>
+                      <InputGroup className="mb-3">
                         <InputGroupText>
                           <FontAwesomeIcon icon={faUser} fixedWidth />
                         </InputGroupText>
@@ -139,13 +157,13 @@ export default function Page() {
                           name="fullname"
                           required
                           disabled={submitting}
-                          placeholder="fullname"
+                          placeholder="Fullname"
                           aria-label="fullname"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
-                          <FontAwesomeIcon icon={faUser} fixedWidth />
+                          <FontAwesomeIcon icon={faEnvelope} fixedWidth />
                         </InputGroupText>
                         <FormControl
                           name="email"
@@ -153,6 +171,18 @@ export default function Page() {
                           disabled={submitting}
                           placeholder="Email"
                           aria-label="Email"
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faPhone} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          name="phone"
+                          required
+                          disabled={submitting}
+                          placeholder="Phone"
+                          aria-label="phone"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
