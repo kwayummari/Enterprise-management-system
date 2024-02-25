@@ -220,7 +220,7 @@ export default function Page() {
                         </InputGroupText>
                         <FormControl
         readOnly
-        value={selectedItem ? selectedItem.name : ""}
+        value={selectedItem ? selectedItem : ""}
         placeholder="Select"
       />
       <Dropdown.Menu>
