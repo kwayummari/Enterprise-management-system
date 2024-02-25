@@ -93,10 +93,8 @@ export default function Login() {
             disabled={submitting}
             placeholder="Email"
             aria-label="Email"
-            defaultValue="Email"
           />
         </InputGroup>
-
         <InputGroup className="mb-3">
           <InputGroupText>
             <FontAwesomeIcon
@@ -111,10 +109,8 @@ export default function Login() {
             disabled={submitting}
             placeholder="Password"
             aria-label="Password"
-            defaultValue="Password"
           />
         </InputGroup>
-
         <Row className="align-items-center">
           <Col xs={6}>
             <Button
