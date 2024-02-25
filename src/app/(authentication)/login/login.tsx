@@ -8,13 +8,10 @@ import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
 import { SyntheticEvent, useState } from 'react'
-import { deleteCookie, getCookie } from 'cookies-next'
 import Link from 'next/link'
 import InputGroupText from 'react-bootstrap/InputGroupText'
 import { validateLoginData } from '@/app/gateway/validators'
 import apiGateway from '@/app/gateway/gateways'
-import { useDispatch, useSelector } from 'react-redux'
-// import { setUserId } from '@/lib/login'
 
 export default function Login() {
   const router = useRouter()
