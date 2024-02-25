@@ -14,12 +14,12 @@ export const validateLoginData = (data: { email: string; password: string }) => 
 };
 
 
-export const validateRegistrationData = (data: { username: string; email: string; password: string; phoneNumber?: string }) => {
-  if (!data.username || !data.email || !data.password) {
-    throw new Error('Username, email, and password are required');
+export const validateRegistrationData = (data: { fullname: string; email: string; password: string; phoneNumber?: string }) => {
+  if (!data.fullname || !data.email || !data.password) {
+    throw new Error('fullname, email, and password are required');
   }
 
-  if (data.username.length < 4 || data.username.length > 15) {
+  if (data.fullname.length < 4 || data.fullname.length > 15) {
     throw new Error('Username must be between 4 and 15 characters long');
   }
 
