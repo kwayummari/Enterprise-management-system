@@ -46,6 +46,7 @@ interface Users {
 
 export default function Page() {
   const [error, setError] = useState<string | null>("");
+  const [dropdownData, setDropdownData] = useState([]);
   const [users, setUsers] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -85,7 +86,7 @@ export default function Page() {
 
       validateRegistrationData(userData);
 
-      const registeringResponse = await apiGateway.create("registration", userData);
+      const registeringResponse = await apiGateway.create("register_user", userData);
     } catch (err: any) {
       setError(err.message);
     } finally {
