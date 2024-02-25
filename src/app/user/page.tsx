@@ -16,6 +16,7 @@ import {
   CardHeader,
   Col,
   Dropdown,
+  DropdownButton,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
@@ -43,10 +44,15 @@ interface Users {
   role: string;
   role_name: string;
 }
+interface DropdownItem {
+  id: number;
+  name: string;
+}
 
 export default function Page() {
   const [error, setError] = useState<string | null>("");
-  const [dropdownData, setDropdownData] = useState([]);
+  const [branchData, setBranchData] = useState<DropdownItem[]>([]);
+  const [dropdownDataChosen, setDropdownDataChosen] = useState<number>();
   const [users, setUsers] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -60,6 +66,8 @@ export default function Page() {
   const getUsers = async () => {
     try {
       const value = await apiGateway.read("users");
+      const data = await apiGateway.read("getBranch");
+      setBranchData(data.branch);
       setUsers(value.users);
     } catch (err: any) {
       setError(err.message);
@@ -82,16 +90,23 @@ export default function Page() {
         fullname: target.fullname.value,
         email: target.email.value,
         password: target.password.value,
+        branch: dropdownDataChosen,
       };
 
       validateRegistrationData(userData);
 
-      const registeringResponse = await apiGateway.create("register_user", userData);
+      const registeringResponse = await apiGateway.create(
+        "register_user",
+        userData
+      );
     } catch (err: any) {
       setError(err.message);
     } finally {
       setSubmitting(false);
     }
+  };
+  const handleDropdownItemClick = (item: number) => {
+    setDropdownDataChosen(item);
   };
 
   return (
@@ -175,7 +190,20 @@ export default function Page() {
                           aria-label="phone"
                         />
                       </InputGroup>
-                      <InputGroup className="mb-3">
+                      <DropdownButton
+                        id="dropdown-basic-button"
+                        title="Dropdown"
+                      >
+                        {branchData.map((item) => (
+                          <Dropdown.Item
+                            key={item.id}
+                            onClick={() => handleDropdownItemClick(item.id)}
+                          >
+                            {item.name}
+                          </Dropdown.Item>
+                        ))}
+                      </DropdownButton>
+                      {/* <InputGroup className="mb-3">
                         <InputGroupText>
                           <FontAwesomeIcon icon={faLock} fixedWidth />
                         </InputGroupText>
@@ -187,7 +215,7 @@ export default function Page() {
                           placeholder="Password"
                           aria-label="Password"
                         />
-                      </InputGroup>
+                      </InputGroup> */}
                       <Row className="align-items-center">
                         <Col xs={6}>
                           <Button
