@@ -168,7 +168,6 @@ export default function Page() {
                           aria-label="Password"
                         />
                       </InputGroup>
-
                       <Row className="align-items-center">
                         <Col xs={6}>
                           <Button
