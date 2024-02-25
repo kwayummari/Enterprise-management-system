@@ -85,7 +85,7 @@ export default function Page() {
 
       validateRegistrationData(userData);
 
-      const loginResponse = await apiGateway.create("login", userData);
+      const loginResponse = await apiGateway.create("registration", userData);
       const user = loginResponse.user;
       const roleId = user.role;
       const rolesData = {
