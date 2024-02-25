@@ -99,6 +99,7 @@ export default function Page() {
         "register_user",
         userData
       );
+      console.log(registeringResponse)
     } catch (err: any) {
       setError(err.message);
     } finally {
