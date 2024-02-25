@@ -100,7 +100,7 @@ export default function Page() {
         "register_user",
         userData
       );
-      console.log(registeringResponse)
+      console.log(registeringResponse);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -193,24 +193,45 @@ export default function Page() {
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
-                      <InputGroupText>
+                        <InputGroupText>
                           <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
                         </InputGroupText>
-                      <DropdownButton
-                        className="mb-3"
-                        title="Branches"
+                        <DropdownButton
+                          className="mb-3"
+                          title="Branches"
                           variant="outline-secondary"
-                      >
-                        {branchData.map((item) => (
-                          <Dropdown.Item
-                            key={item.id}
-                            onClick={() => handleDropdownItemClick(item.id)}
-                          >
-                            {item.name}
-                          </Dropdown.Item>
-                        ))}
+                          style={{width: '100px'}}
+                        >
+                          {branchData.map((item) => (
+                            <Dropdown.Item
+                              key={item.id}
+                              onClick={() => handleDropdownItemClick(item.id)}
+                            >
+                              {item.name}
+                            </Dropdown.Item>
+                          ))}
                         </DropdownButton>
-                        </InputGroup>
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
+                        </InputGroupText>
+                        <DropdownButton
+                          className="mb-3"
+                          title="Branches"
+                          variant="outline-secondary"
+                          style={{width: '500px'}}
+                        >
+                          {branchData.map((item) => (
+                            <Dropdown.Item
+                              key={item.id}
+                              onClick={() => handleDropdownItemClick(item.id)}
+                            >
+                              {item.name}
+                            </Dropdown.Item>
+                          ))}
+                        </DropdownButton>
+                      </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
                           <FontAwesomeIcon icon={faLock} fixedWidth />
