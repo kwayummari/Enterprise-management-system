@@ -204,7 +204,7 @@ export default function Page() {
                           </Dropdown.Item>
                         ))}
                       </DropdownButton>
-                      {/* <InputGroup className="mb-3">
+                      <InputGroup className="mb-3">
                         <InputGroupText>
                           <FontAwesomeIcon icon={faLock} fixedWidth />
                         </InputGroupText>
@@ -212,11 +212,12 @@ export default function Page() {
                           type="password"
                           name="password"
                           required
-                          disabled={submitting}
+                          value={"Password@2024"}
+                          disabled={true}
                           placeholder="Password"
                           aria-label="Password"
                         />
-                      </InputGroup> */}
+                      </InputGroup>
                       <Row className="align-items-center">
                         <Col xs={6}>
                           <Button
