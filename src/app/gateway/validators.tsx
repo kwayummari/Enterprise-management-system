@@ -14,7 +14,7 @@ export const validateLoginData = (data: { email: string; password: string }) => 
 };
 
 
-export const validateRegistrationData = (data: { fullname: string; email: string; password: string; phoneNumber?: string }) => {
+export const validateRegistrationData = (data: { fullname: string; email: string; password: string; phone?: string }) => {
   if (!data.fullname || !data.email || !data.password) {
     throw new Error('fullname, email, and password are required');
   }
@@ -27,7 +27,7 @@ export const validateRegistrationData = (data: { fullname: string; email: string
     throw new Error('Invalid email address');
   }
 
-  if (!/^(07|06)\d{8}$/.test(data.phoneNumber || '')) {
+  if (!/^(07|06)\d{8}$/.test(data.phone || '')) {
     throw new Error('Invalid phone number. Phone number should start with 07 or 06 and have 10 digits.');
   }
 
