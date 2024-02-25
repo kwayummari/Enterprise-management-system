@@ -141,7 +141,6 @@ export default function Page() {
                           disabled={submitting}
                           placeholder="fullname"
                           aria-label="fullname"
-                          defaultValue="fullname"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -154,7 +153,6 @@ export default function Page() {
                           disabled={submitting}
                           placeholder="Email"
                           aria-label="Email"
-                          defaultValue="Email"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -168,7 +166,6 @@ export default function Page() {
                           disabled={submitting}
                           placeholder="Password"
                           aria-label="Password"
-                          defaultValue="Password"
                         />
                       </InputGroup>
 
