@@ -172,17 +172,12 @@ export default function Page() {
                         <Col xs={6}>
                           <Button
                             className="px-4"
-                            variant="primary"
+                            variant="dark"
                             type="submit"
                             disabled={submitting}
                           >
-                            Login
+                            Register User
                           </Button>
-                        </Col>
-                        <Col xs={6} className="text-end">
-                          <Link className="px-0" href="#">
-                            Forgot password?
-                          </Link>
                         </Col>
                       </Row>
                     </Form>
