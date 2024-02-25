@@ -54,6 +54,7 @@ export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
   const [dropdownDataChosen, setDropdownDataChosen] = useState<number>();
+  const [selectedItem, setSelectedItem] = useState<string | null>("");
   const [users, setUsers] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -107,8 +108,9 @@ export default function Page() {
       setSubmitting(false);
     }
   };
-  const handleDropdownItemClick = (item: number) => {
+  const handleDropdownItemClick = (item: number, name: string) => {
     setDropdownDataChosen(item);
+    setSelectedItem(name)
   };
 
   return (
@@ -197,10 +199,10 @@ export default function Page() {
                           <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
                         </InputGroupText>
                         <DropdownButton
-                          className="mb-3"
+                          // className=" w-100 mb-3"
+                          className="full-width-dropdown-button"
                           title="Branches"
                           variant="outline-secondary"
-                          style={{width: '100px'}}
                         >
                           {branchData.map((item) => (
                             <Dropdown.Item
@@ -216,21 +218,18 @@ export default function Page() {
                         <InputGroupText>
                           <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
                         </InputGroupText>
-                        <DropdownButton
-                          className="mb-3"
-                          title="Branches"
-                          variant="outline-secondary"
-                          style={{width: '500px'}}
-                        >
-                          {branchData.map((item) => (
-                            <Dropdown.Item
-                              key={item.id}
-                              onClick={() => handleDropdownItemClick(item.id)}
-                            >
-                              {item.name}
-                            </Dropdown.Item>
-                          ))}
-                        </DropdownButton>
+                        <FormControl
+        readOnly
+        value={selectedItem ? selectedItem.name : ""}
+        placeholder="Select"
+      />
+      <Dropdown.Menu>
+        {branchData.map((item) => (
+          <Dropdown.Item key={item.id} onClick={() => handleDropdownItemClick(item.id, item.name)}>
+            {item.name}
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
