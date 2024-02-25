@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCodeBranch,
   faEllipsisVertical,
   faEnvelope,
   faLock,
@@ -99,7 +100,7 @@ export default function Page() {
         "register_user",
         userData
       );
-      console.log(userData)
+      console.log(registeringResponse)
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -191,9 +192,15 @@ export default function Page() {
                           aria-label="phone"
                         />
                       </InputGroup>
+                      <InputGroup className="mb-3">
+                      <InputGroupText>
+                          <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
+                        </InputGroupText>
                       <DropdownButton
-                        id="dropdown-basic-button"
-                        title="Dropdown"
+                        className="mb-3 w-100"
+                        title="Branches"
+                          variant="outline-secondary"
+                          style={{ width: "100%" }}
                       >
                         {branchData.map((item) => (
                           <Dropdown.Item
@@ -203,7 +210,8 @@ export default function Page() {
                             {item.name}
                           </Dropdown.Item>
                         ))}
-                      </DropdownButton>
+                        </DropdownButton>
+                        </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
                           <FontAwesomeIcon icon={faLock} fixedWidth />
