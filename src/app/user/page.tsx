@@ -85,20 +85,7 @@ export default function Page() {
 
       validateRegistrationData(userData);
 
-      const loginResponse = await apiGateway.create("registration", userData);
-      const user = loginResponse.user;
-      const roleId = user.role;
-      const rolesData = {
-        id: roleId,
-      };
-      const rolesResponse = await apiGateway.create("getRolesById", rolesData);
-      const roles = rolesResponse.roles;
-
-      setSuccess(loginResponse.message);
-      localStorage.setItem("userId", user.id);
-      localStorage.setItem("roleId", roleId);
-      localStorage.setItem("rolesMap", roles);
-      router.push("/dashboard");
+      const registeringResponse = await apiGateway.create("registration", userData);
     } catch (err: any) {
       setError(err.message);
     } finally {
