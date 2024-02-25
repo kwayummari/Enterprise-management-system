@@ -197,10 +197,9 @@ export default function Page() {
                           <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
                         </InputGroupText>
                       <DropdownButton
-                        className="mb-3 w-100"
+                        className="mb-3"
                         title="Branches"
                           variant="outline-secondary"
-                          style={{ width: "100%" }}
                       >
                         {branchData.map((item) => (
                           <Dropdown.Item
