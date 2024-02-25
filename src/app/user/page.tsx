@@ -71,11 +71,13 @@ export default function Page() {
     setSubmitting(true);
     try {
       const target = e.target as typeof e.target & {
+        phone: { value: string };
         fullname: { value: string };
         email: { value: string };
         password: { value: string };
       };
       const userData = {
+        phone: target.phone.value,
         fullname: target.fullname.value,
         email: target.email.value,
         password: target.password.value,
