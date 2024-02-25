@@ -207,7 +207,7 @@ export default function Page() {
                           {branchData.map((item) => (
                             <Dropdown.Item
                               key={item.id}
-                              onClick={() => handleDropdownItemClick(item.id)}
+                              onClick={() => handleDropdownItemClick(item.id, item.name)}
                             >
                               {item.name}
                             </Dropdown.Item>
