@@ -86,6 +86,7 @@ export default function Page() {
         fullname: { value: string };
         email: { value: string };
         branch: { value: string };
+        role: { value: string };
         password: { value: string };
       };
       const userData = {
@@ -94,6 +95,7 @@ export default function Page() {
         email: target.email.value,
         password: target.password.value,
         branch: target.branch.value,
+        role: target.role.value,
       };
 
       validateRegistrationData(userData);
