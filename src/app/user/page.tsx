@@ -31,6 +31,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import { validateRegistrationData } from "../gateway/validators";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
   id: number;
@@ -138,6 +139,14 @@ export default function Page() {
         dismissible
       >
         {error}
+      </Alert>
+      <Alert
+        variant="danger"
+        show={success !== ""}
+        onClose={() => setError("")}
+        dismissible
+      >
+        {success}
       </Alert>
       <div className="row">
         <div className="col-md-12">
@@ -354,11 +363,15 @@ export default function Page() {
                             <DropdownMenu>
                               <Button
                                 type="button"
-                                variant="danger"
+                                variant="success"
                                 className="mx-2 text-white"
                                 onClick={() => {
                                 }}
                               >
+                                <FontAwesomeIcon
+                                fixedWidth
+                                icon={faEdit}
+                              /> 
                                 Edit
                               </Button>
                               <Button
