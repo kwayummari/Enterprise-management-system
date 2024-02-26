@@ -52,6 +52,7 @@ interface DropdownItem {
 export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
+  const [roleData, setRoleData] = useState<DropdownItem[]>([]);
   const [users, setUsers] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -68,6 +69,7 @@ export default function Page() {
       const branchData = await apiGateway.read("getBranch");
       const rolesData = await apiGateway.read("getAllRoles");
       setBranchData(branchData.branch);
+      setRoleData(rolesData.roles)
       setUsers(value.users);
     } catch (err: any) {
       setError(err.message);
