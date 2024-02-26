@@ -6,6 +6,7 @@ import {
   faBug,
   faCalculator,
   faChartPie,
+  faDashboard,
   faGauge,
   faLayerGroup,
   faLocationArrow,
@@ -19,6 +20,8 @@ import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem'
 import apiGateway from '@/app/gateway/gateways'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { useRouter } from 'next/navigation'
+import { faAccessibleIcon, faSlack } from '@fortawesome/free-brands-svg-icons'
+import { Icon } from 'next/dist/lib/metadata/types/metadata-types'
 
 const SidebarNavTitle = (props: PropsWithChildren) => {
   const { children } = props
@@ -69,7 +72,7 @@ export default function SidebarNav() {
         {error}
       </Alert>
        <ul className="list-unstyled">
-      <SidebarNavItem icon={faGauge} href="/dashboard">
+      <SidebarNavItem icon={faSlack} href="/dashboard">
         Dashboard
         <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
         </SidebarNavItem>
@@ -77,7 +80,7 @@ export default function SidebarNav() {
         {permissions.map(permission => (
           // toggleIcon={permission.icon}
           (permission.increase === '1' && permission.find === '1' && permission.upgrade === '1' && permission.remove === '1') &&
-          <SidebarNavGroup key={permission.id} toggleIcon={faAddressCard} toggleText={permission.name}>
+          <SidebarNavGroup key={permission.id} toggleIcon={faAccessibleIcon} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
               (submenu.crud === '1' && permission.increase === '1') ?
                 <SidebarNavItem href={submenu.url}>{submenu.name}</SidebarNavItem>
