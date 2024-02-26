@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCodeBranch,
+  faDeleteLeft,
   faEllipsisVertical,
   faEnvelope,
   faLock,
@@ -118,12 +119,12 @@ export default function Page() {
     const userData = {
       id: deleteId,
     };
-    console.log(userData);
     const deletingResponse = await apiGateway.create(
       "deleteUserById",
       userData
     );
     setSuccess(deletingResponse.message);
+    handleCloseModal2;
     getUsers();
   };
 
@@ -356,13 +357,16 @@ export default function Page() {
                               <Button
                                 type="button"
                                 variant="danger"
-                                className="px-4 text-white"
+                                className="mx-2 text-white"
                                 onClick={() => {
                                   handleShowModal2();
                                   setDeleteId(user.id);
                                 }}
                               >
-                                Delete Account
+                                <FontAwesomeIcon
+                                fixedWidth
+                                icon={faDeleteLeft}
+                              /> Delete
                               </Button>
                             </DropdownMenu>
                           </Dropdown>
