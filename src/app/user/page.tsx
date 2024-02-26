@@ -277,7 +277,6 @@ export default function Page() {
                     <button className="btn btn-dark" onClick={handleCloseModal}>
                       Close
                     </button>
-                    {/* Add any other buttons or actions you need */}
                   </Modal.Footer>
                 </Modal>
               </span>
@@ -353,7 +352,6 @@ export default function Page() {
                               </DropdownItem>
                               <DropdownItem
                                 className="text-danger"
-                                // href="#/action-3"
                                 onClick={() => handleDeleteConfirmation(user.id)}
                               >
                                 Delete Account
