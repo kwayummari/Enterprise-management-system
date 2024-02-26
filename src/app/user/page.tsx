@@ -115,16 +115,16 @@ export default function Page() {
     }
   };
   const handleDeleteConfirmation = async () => {
-      const userData = {
-        id: deleteId,
-      };
-    console.log(userData)
-      const deletingResponse = await apiGateway.create(
-        "deleteUserById",
-        userData
-      );
-      setSuccess(deletingResponse.message);
-      // getUsers();
+    const userData = {
+      id: deleteId,
+    };
+    console.log(userData);
+    const deletingResponse = await apiGateway.create(
+      "deleteUserById",
+      userData
+    );
+    setSuccess(deletingResponse.message);
+    getUsers();
   };
 
   return (
@@ -353,17 +353,17 @@ export default function Page() {
                               <DropdownItem href="#/action-2">
                                 Edit
                               </DropdownItem>
-                              <DropdownItem
+                              <Button
                                 type="button"
-                                className="text-danger"
+                                variant="danger"
+                                className="px-4 text-white"
                                 onClick={() => {
                                   handleShowModal2();
-                                  setDeleteId(user.id)
-                                }
-                                }
+                                  setDeleteId(user.id);
+                                }}
                               >
                                 Delete Account
-                              </DropdownItem>
+                              </Button>
                             </DropdownMenu>
                           </Dropdown>
                           <Modal
@@ -380,9 +380,11 @@ export default function Page() {
                                 <Col xs={6}>
                                   <Button
                                     className="px-4"
-                                    variant="dark"
+                                    variant="danger"
                                     disabled={submitting}
-                                    onClick={() => { handleDeleteConfirmation();  }}
+                                    onClick={() => {
+                                      handleDeleteConfirmation();
+                                    }}
                                   >
                                     Delete User
                                   </Button>
