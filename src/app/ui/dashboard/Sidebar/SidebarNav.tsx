@@ -7,6 +7,7 @@ import {
   faCalculator,
   faChartPie,
   faDashboard,
+  faFolder,
   faGauge,
   faLayerGroup,
   faLocationArrow,
@@ -78,9 +79,8 @@ export default function SidebarNav() {
         </SidebarNavItem>
         {/* <SidebarNavTitle>Components</SidebarNavTitle> */}
         {permissions.map(permission => (
-          // toggleIcon={permission.icon}
           (permission.increase === '1' && permission.find === '1' && permission.upgrade === '1' && permission.remove === '1') &&
-          <SidebarNavGroup key={permission.id} toggleIcon={faAccessibleIcon} toggleText={permission.name}>
+          <SidebarNavGroup key={permission.id} toggleIcon={faFolder} toggleText={permission.name}>
             {permission.submenu.map(submenu => (
               (submenu.crud === '1' && permission.increase === '1') ?
                 <SidebarNavItem href={submenu.url}>{submenu.name}</SidebarNavItem>
