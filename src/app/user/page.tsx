@@ -117,7 +117,7 @@ export default function Page() {
       const userData = {
         phone: id,
       };
-      const deletingResponse = await apiGateway.create("delete_user", userData);
+      const deletingResponse = await apiGateway.create("deleteUserById", userData);
       setSuccess(deletingResponse.message)
       getUsers();
     }
