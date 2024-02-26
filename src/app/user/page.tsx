@@ -85,6 +85,7 @@ export default function Page() {
         phone: { value: string };
         fullname: { value: string };
         email: { value: string };
+        branch: { value: string };
         password: { value: string };
       };
       const userData = {
@@ -92,7 +93,7 @@ export default function Page() {
         fullname: target.fullname.value,
         email: target.email.value,
         password: target.password.value,
-        branch: dropdownDataChosen,
+        branch: target.branch.value,
       };
 
       validateRegistrationData(userData);
@@ -110,7 +111,7 @@ export default function Page() {
   };
   const handleDropdownItemClick = (item: number, name: string) => {
     setDropdownDataChosen(item);
-    setSelectedItem(name)
+    setSelectedItem(name);
   };
 
   return (
@@ -198,38 +199,25 @@ export default function Page() {
                         <InputGroupText>
                           <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
                         </InputGroupText>
-                        <DropdownButton
-                          // className=" w-100 mb-3"
-                          className="full-width-dropdown-button"
-                          title="Branches"
-                          variant="outline-secondary"
-                        >
-                          {branchData.map((item) => (
-                            <Dropdown.Item
-                              key={item.id}
-                              onClick={() => handleDropdownItemClick(item.id, item.name)}
-                            >
-                              {item.name}
-                            </Dropdown.Item>
-                          ))}
-                        </DropdownButton>
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
-                        </InputGroupText>
                         <FormControl
-        readOnly
-        value={selectedItem ? selectedItem : ""}
-        placeholder="Select"
-      />
-      <Dropdown.Menu>
-        {branchData.map((item) => (
-          <Dropdown.Item key={item.id} onClick={() => handleDropdownItemClick(item.id, item.name)}>
-            {item.name}
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Menu>
+                          as="select"
+                          name="branch"
+                          required
+                          disabled={submitting}
+                          // value={selectedItem ? selectedItem : ""}
+                          placeholder="Phone"
+                          aria-label="phone"
+                          // onChange={(e) =>
+                          //   handleDropdownChange(parseInt(e.target.value))
+                          // }
+                        >
+                          <option value="">Select Branch</option>
+                          {branchData.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </FormControl>
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
