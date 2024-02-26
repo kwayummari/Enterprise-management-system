@@ -52,26 +52,11 @@ export default function Page() {
       <div className="row">
         {roles.map(role => (
           <div className="col-sm-6 col-lg-3">
-            <Card bg="white" text="dark" className="mb-4" style={{ height: '70px' }}>
+            <Card onClick={() => handleEditRole(role.id)} bg="white" text="dark" className="mb-4" style={{ height: '70px' }}>
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
                   <div>{role.name}</div>
                 </div>
-                <Dropdown align="end">
-                  <DropdownToggle
-                    as="button"
-                    bsPrefix="btn"
-                    className="btn-link rounded-0 text-white shadow-none p-0"
-                    id="dropdown-chart1"
-                  >
-                    <FontAwesomeIcon fixedWidth icon={faEllipsisVertical} />
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem onClick={() => handleEditRole(role.id)}>Edit Role</DropdownItem>
-                    <DropdownItem href="#/action-2">Another action</DropdownItem>
-                    <DropdownItem href="#/action-3">Something else</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
               </CardBody>
             </Card>
           </div>
