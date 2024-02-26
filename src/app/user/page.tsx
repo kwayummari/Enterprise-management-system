@@ -364,7 +364,7 @@ export default function Page() {
                               <Button
                                 type="button"
                                 variant="success"
-                                className="mx-2 text-white"
+                                className="m-2 text-white"
                                 onClick={() => {
                                 }}
                               >
@@ -377,7 +377,7 @@ export default function Page() {
                               <Button
                                 type="button"
                                 variant="danger"
-                                className="mx-2 text-white"
+                                className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal2();
                                   setDeleteId(user.id);
