@@ -109,6 +109,7 @@ export default function Page() {
       );
       setSuccess(registeringResponse.message);
       getUsers();
+      handleCloseModal
     } catch (err: any) {
       setError(err.message);
     } finally {
