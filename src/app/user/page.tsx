@@ -17,7 +17,6 @@ import {
   CardHeader,
   Col,
   Dropdown,
-  DropdownButton,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
@@ -53,8 +52,6 @@ interface DropdownItem {
 export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
-  const [dropdownDataChosen, setDropdownDataChosen] = useState<number>();
-  const [selectedItem, setSelectedItem] = useState<string | null>("");
   const [users, setUsers] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -108,10 +105,6 @@ export default function Page() {
     } finally {
       setSubmitting(false);
     }
-  };
-  const handleDropdownItemClick = (item: number, name: string) => {
-    setDropdownDataChosen(item);
-    setSelectedItem(name);
   };
 
   return (
