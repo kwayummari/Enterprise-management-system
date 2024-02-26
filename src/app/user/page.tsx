@@ -301,9 +301,6 @@ export default function Page() {
                 <table className="table border mb-0">
                   <thead className="table-light fw-semibold">
                     <tr className="align-middle">
-                      {/* <th className="text-center" aria-label="icon">
-                        <FontAwesomeIcon icon={faUsers} fixedWidth />
-                      </th> */}
                       <th>Fullname</th>
                       <th>Email</th>
                       <th>Phone number</th>
@@ -315,20 +312,6 @@ export default function Page() {
                   <tbody>
                     {users.map((user) => (
                       <tr key={user.id} className="align-middle">
-                        {/* <td className="text-center">
-                        <div className="avatar avatar-md d-inline-flex position-relative">
-                          <Image
-                            fill
-                            sizes="40px"
-                            className="rounded-circle"
-                            src="/assets/img/avatars/1.jpg"
-                            alt="user@email.com"
-                          />
-                          <span
-                            className="avatar-status position-absolute d-block bottom-0 end-0 bg-success rounded-circle border border-white"
-                          />
-                        </div>
-                      </td> */}
                         <td>
                           <div>{user.fullname}</div>
                           <div className="small text-black-50">
