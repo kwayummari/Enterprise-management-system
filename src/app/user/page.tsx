@@ -118,13 +118,13 @@ export default function Page() {
       const userData = {
         id: deleteId,
       };
+    console.log(userData)
       const deletingResponse = await apiGateway.create(
         "deleteUserById",
         userData
       );
-    console.log(deletingResponse)
       setSuccess(deletingResponse.message);
-      getUsers();
+      // getUsers();
   };
 
   return (
