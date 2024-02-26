@@ -104,14 +104,25 @@ export default function Page() {
         "register_user",
         userData
       );
+      setSuccess(registeringResponse.message)
       getUsers();
-      console.log(registeringResponse);
     } catch (err: any) {
       setError(err.message);
     } finally {
       setSubmitting(false);
     }
   };
+  const handleDeleteConfirmation = async (id: number) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      const userData = {
+        phone: id,
+      };
+      const deletingResponse = await apiGateway.create("delete_user", userData);
+      setSuccess(deletingResponse.message)
+      getUsers();
+    }
+  };
+  
 
   return (
     <>
@@ -345,7 +356,7 @@ export default function Page() {
                                 // href="#/action-3"
                                 onClick={() => handleDeleteConfirmation(user.id)}
                               >
-                                Delete
+                                Delete Account
                               </DropdownItem>
                             </DropdownMenu>
                           </Dropdown>
