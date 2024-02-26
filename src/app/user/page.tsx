@@ -29,8 +29,6 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import Link from "next/link";
-import router from "next/router";
 import { validateRegistrationData } from "../gateway/validators";
 
 interface Users {
@@ -59,6 +57,10 @@ export default function Page() {
   const handleCloseModal = () => setShowModal(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState<string | null>("");
+  const [showModal2, setShowModal2] = useState(false);
+  const handleShowModal2 = () => setShowModal2(true);
+  const handleCloseModal2 = () => setShowModal2(false);
+  const [deleteId, setDeleteId] = useState<number>();
   useEffect(() => {
     getUsers();
   }, []);
@@ -69,7 +71,7 @@ export default function Page() {
       const branchData = await apiGateway.read("getBranch");
       const rolesData = await apiGateway.read("getAllRoles");
       setBranchData(branchData.branch);
-      setRoleData(rolesData.roles)
+      setRoleData(rolesData.roles);
       setUsers(value.users);
     } catch (err: any) {
       setError(err.message);
@@ -104,7 +106,7 @@ export default function Page() {
         "register_user",
         userData
       );
-      setSuccess(registeringResponse.message)
+      setSuccess(registeringResponse.message);
       getUsers();
     } catch (err: any) {
       setError(err.message);
@@ -112,17 +114,17 @@ export default function Page() {
       setSubmitting(false);
     }
   };
-  const handleDeleteConfirmation = async (id: number) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+  const handleDeleteConfirmation = async () => {
       const userData = {
-        phone: id,
+        id: deleteId,
       };
-      const deletingResponse = await apiGateway.create("deleteUserById", userData);
-      setSuccess(deletingResponse.message)
+      const deletingResponse = await apiGateway.create(
+        "deleteUserById",
+        userData
+      );
+      setSuccess(deletingResponse.message);
       getUsers();
-    }
   };
-  
 
   return (
     <>
@@ -352,12 +354,49 @@ export default function Page() {
                               </DropdownItem>
                               <DropdownItem
                                 className="text-danger"
-                                onClick={() => handleDeleteConfirmation(user.id)}
+                                onClick={() => {
+                                  handleShowModal2();
+                                  setDeleteId(user.id)
+                                }
+                                }
                               >
                                 Delete Account
                               </DropdownItem>
                             </DropdownMenu>
                           </Dropdown>
+                          <Modal
+                            show={showModal2}
+                            onHide={handleCloseModal2}
+                            centered
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Delete User</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              Are you sure you want to delete this user?
+                              <Row className="align-items-center">
+                                <Col xs={6}>
+                                  <Button
+                                    className="px-4"
+                                    variant="dark"
+                                    type="submit"
+                                    disabled={submitting}
+                                    onClick={() => { handleDeleteConfirmation();  }}
+                                  >
+                                    Delete User
+                                  </Button>
+                                </Col>
+                              </Row>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <button
+                                className="btn btn-dark"
+                                onClick={handleCloseModal2}
+                              >
+                                Close
+                              </button>
+                            </Modal.Footer>
+                          </Modal>
                         </td>
                       </tr>
                     ))}
