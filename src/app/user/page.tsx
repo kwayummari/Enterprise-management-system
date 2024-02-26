@@ -379,7 +379,6 @@ export default function Page() {
                                   <Button
                                     className="px-4"
                                     variant="dark"
-                                    type="submit"
                                     disabled={submitting}
                                     onClick={() => { handleDeleteConfirmation();  }}
                                   >
