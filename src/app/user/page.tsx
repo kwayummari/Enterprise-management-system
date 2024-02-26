@@ -102,6 +102,7 @@ export default function Page() {
         "register_user",
         userData
       );
+      getUsers();
       console.log(registeringResponse);
     } catch (err: any) {
       setError(err.message);
