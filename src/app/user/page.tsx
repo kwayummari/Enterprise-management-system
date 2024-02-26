@@ -354,6 +354,7 @@ export default function Page() {
                                 Edit
                               </DropdownItem>
                               <DropdownItem
+                                type="button"
                                 className="text-danger"
                                 onClick={() => {
                                   handleShowModal2();
