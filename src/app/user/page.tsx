@@ -65,8 +65,9 @@ export default function Page() {
   const getUsers = async () => {
     try {
       const value = await apiGateway.read("users");
-      const data = await apiGateway.read("getBranch");
-      setBranchData(data.branch);
+      const branchData = await apiGateway.read("getBranch");
+      const rolesData = await apiGateway.read("getAllRoles");
+      setBranchData(branchData.branch);
       setUsers(value.users);
     } catch (err: any) {
       setError(err.message);
