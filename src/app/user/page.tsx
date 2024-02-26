@@ -122,6 +122,7 @@ export default function Page() {
         "deleteUserById",
         userData
       );
+    console.log(deletingResponse)
       setSuccess(deletingResponse.message);
       getUsers();
   };
