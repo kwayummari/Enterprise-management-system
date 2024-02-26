@@ -336,17 +336,14 @@ export default function Page() {
                                 icon={faEllipsisVertical}
                               />
                             </DropdownToggle>
-
                             <DropdownMenu>
-                              <DropdownItem href="#/action-1">
-                                Info
-                              </DropdownItem>
                               <DropdownItem href="#/action-2">
                                 Edit
                               </DropdownItem>
                               <DropdownItem
                                 className="text-danger"
-                                href="#/action-3"
+                                // href="#/action-3"
+                                onClick={() => handleDeleteConfirmation(user.id)}
                               >
                                 Delete
                               </DropdownItem>
