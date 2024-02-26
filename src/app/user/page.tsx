@@ -352,9 +352,15 @@ export default function Page() {
                               />
                             </DropdownToggle>
                             <DropdownMenu>
-                              <DropdownItem href="#/action-2">
+                              <Button
+                                type="button"
+                                variant="danger"
+                                className="mx-2 text-white"
+                                onClick={() => {
+                                }}
+                              >
                                 Edit
-                              </DropdownItem>
+                              </Button>
                               <Button
                                 type="button"
                                 variant="danger"
