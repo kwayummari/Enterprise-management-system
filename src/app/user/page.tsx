@@ -200,15 +200,31 @@ export default function Page() {
                           name="branch"
                           required
                           disabled={submitting}
-                          // value={selectedItem ? selectedItem : ""}
-                          placeholder="Phone"
-                          aria-label="phone"
-                          // onChange={(e) =>
-                          //   handleDropdownChange(parseInt(e.target.value))
-                          // }
+                          placeholder="Branch"
+                          aria-label="branch"
                         >
                           <option value="">Select Branch</option>
                           {branchData.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </FormControl>
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          as="select"
+                          name="role"
+                          required
+                          disabled={submitting}
+                          placeholder="Role"
+                          aria-label="role"
+                        >
+                          <option value="">Select Role</option>
+                          {roleData.map((item) => (
                             <option key={item.id} value={item.id}>
                               {item.name}
                             </option>
