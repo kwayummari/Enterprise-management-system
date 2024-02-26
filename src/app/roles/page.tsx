@@ -52,7 +52,7 @@ export default function Page() {
       <div className="row">
         {roles.map(role => (
           <div className="col-sm-6 col-lg-3">
-            <Card bg="primary" text="white" className="mb-4">
+            <Card bg="white" text="dark" className="mb-4">
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
                   <div>{role.name}</div>
@@ -73,8 +73,6 @@ export default function Page() {
                   </DropdownMenu>
                 </Dropdown>
               </CardBody>
-              <div className="mt-3 mx-3" style={{ height: '70px' }}>
-              </div>
             </Card>
           </div>
         ))}
