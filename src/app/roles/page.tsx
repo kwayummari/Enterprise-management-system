@@ -11,7 +11,7 @@ import {
   Modal,
   Row,
 } from 'react-bootstrap'
-import React, { useEffect, useState } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import apiGateway from '../gateway/gateways'
 import InputGroupText from 'react-bootstrap/esm/InputGroupText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
