@@ -87,13 +87,6 @@ export default function Page() {
         {error}
       </Alert>
       <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
-        <button
-          type="button"
-          className="btn btn-dark"
-          onClick={handleShowModal}
-        >
-          Add Role
-        </button>
         <Modal show={showModal} onHide={handleCloseModal} centered>
           <Modal.Header closeButton>
             <Modal.Title>Add Role</Modal.Title>
@@ -169,9 +162,9 @@ export default function Page() {
         ))}
         <div className="col-sm-6 col-lg-2">
         <Card
-              onClick={() => handleShowModal}
-              bg="white"
-              text="secondary"
+              onClick={() => handleShowModal()}
+              bg="secondary"
+              text="white"
               className="mb-4"
               style={{ height: "70px" }}
             >
