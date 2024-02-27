@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Alert,
   Button,
@@ -10,13 +10,14 @@ import {
   InputGroup,
   Modal,
   Row,
-} from 'react-bootstrap'
-import React, { SyntheticEvent, useEffect, useState } from 'react'
-import apiGateway from '../gateway/gateways'
-import InputGroupText from 'react-bootstrap/esm/InputGroupText';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { validateRoleData } from '../gateway/validators';
+} from "react-bootstrap";
+import React, { SyntheticEvent, useEffect, useState } from "react";
+import apiGateway from "../gateway/gateways";
+import InputGroupText from "react-bootstrap/esm/InputGroupText";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { validateRoleData } from "../gateway/validators";
+import { faRouble } from "@fortawesome/free-solid-svg-icons";
 
 interface Roles {
   id: number;
@@ -24,7 +25,7 @@ interface Roles {
 }
 
 export default function Page() {
-  const [error, setError] = useState<string | null>('');
+  const [error, setError] = useState<string | null>("");
   const [roles, setRoles] = useState<Roles[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -37,15 +38,15 @@ export default function Page() {
 
   const getRoles = async () => {
     try {
-      const value = await apiGateway.read('getRoles');
+      const value = await apiGateway.read("getRoles");
       setRoles(value.roles);
     } catch (err: any) {
       setError(err.message);
     }
   };
   const handleEditRole = (roleId: number) => {
-    localStorage.setItem('editRoleId', String(roleId));
-    window.location.href = '/permissions';
+    localStorage.setItem("editRoleId", String(roleId));
+    window.location.href = "/permissions";
   };
 
   const registering = async (e: SyntheticEvent) => {
@@ -69,7 +70,7 @@ export default function Page() {
       );
       setSuccess(registeringResponse.message);
       getRoles();
-      handleCloseModal()
+      handleCloseModal();
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -80,79 +81,85 @@ export default function Page() {
     <>
       <Alert
         variant="danger"
-        show={error !== ''}
-        onClose={() => setError('')}
+        show={error !== ""}
+        onClose={() => setError("")}
         dismissible
       >
         {error}
       </Alert>
       <span style={{ marginLeft: "20px" }}>
-                <button
-                  type="button"
-                  className="btn btn-dark"
-                  onClick={handleShowModal}
-                >
-                  Add User
-                </button>
-                <Modal show={showModal} onHide={handleCloseModal} centered>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Add User</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Form onSubmit={registering}>
-                      <Alert
-                        variant="danger"
-                        show={error !== ""}
-                        onClose={() => setError("")}
-                        dismissible
-                      >
-                        {error}
-                      </Alert>
-                      <Alert
-                        variant="success"
-                        show={success !== ""}
-                        onClose={() => setSuccess("")}
-                        dismissible
-                      >
-                        {success}
-                      </Alert>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faUser} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          name="name"
-                          required
-                          disabled={submitting}
-                          placeholder="Name"
-                          aria-label="Name"
-                        />
-                      </InputGroup>
-                      <Row className="align-items-center">
-                        <Col xs={6}>
-                          <Button
-                            className="px-4"
-                            variant="dark"
-                            type="submit"
-                            disabled={submitting}
-                          >
-                            Register Role
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button className="btn btn-dark" onClick={handleCloseModal}>
-                      Close
-                    </button>
-                  </Modal.Footer>
-                </Modal>
-              </span>
+        <button
+          type="button"
+          className="btn btn-dark"
+          onClick={handleShowModal}
+        >
+          Add Role
+        </button>
+        <Modal show={showModal} onHide={handleCloseModal} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Role</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={registering}>
+              <Alert
+                variant="danger"
+                show={error !== ""}
+                onClose={() => setError("")}
+                dismissible
+              >
+                {error}
+              </Alert>
+              <Alert
+                variant="success"
+                show={success !== ""}
+                onClose={() => setSuccess("")}
+                dismissible
+              >
+                {success}
+              </Alert>
+              <InputGroup className="mb-3">
+                <InputGroupText>
+                  <FontAwesomeIcon icon={faRouble} fixedWidth />
+                </InputGroupText>
+                <FormControl
+                  name="name"
+                  required
+                  disabled={submitting}
+                  placeholder="Name"
+                  aria-label="Name"
+                />
+              </InputGroup>
+              <Row className="align-items-center">
+                <Col xs={6}>
+                  <Button
+                    className="px-4"
+                    variant="dark"
+                    type="submit"
+                    disabled={submitting}
+                  >
+                    Register Role
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="btn btn-dark" onClick={handleCloseModal}>
+              Close
+            </button>
+          </Modal.Footer>
+        </Modal>
+      </span>
       <div className="row">
-        {roles.map(role => (
+        {roles.map((role) => (
           <div className="col-sm-6 col-lg-3">
-            <Card onClick={() => handleEditRole(role.id)} bg="white" text="dark" className="mb-4" style={{ height: '70px' }}>
+            <Card
+              onClick={() => handleEditRole(role.id)}
+              bg="white"
+              text="dark"
+              className="mb-4"
+              style={{ height: "70px" }}
+            >
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
                   <div>{role.name}</div>
@@ -163,5 +170,5 @@ export default function Page() {
         ))}
       </div>
     </>
-  )
+  );
 }
