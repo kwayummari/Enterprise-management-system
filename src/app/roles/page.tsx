@@ -86,7 +86,7 @@ export default function Page() {
       >
         {error}
       </Alert>
-      <span style={{ marginLeft: "20px" }}>
+      <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
         <button
           type="button"
           className="btn btn-dark"
@@ -167,6 +167,21 @@ export default function Page() {
             </Card>
           </div>
         ))}
+        <div className="col-sm-6 col-lg-3">
+        <Card
+              onClick={() => handleShowModal}
+              bg="white"
+              text="dark"
+              className="mb-4"
+              style={{ height: "70px" }}
+            >
+              <CardBody className="pb-0 d-flex justify-content-between align-items-start">
+                <div>
+                  <div>Add Role</div>
+                </div>
+              </CardBody>
+          </Card>
+          </div>
       </div>
     </>
   );
