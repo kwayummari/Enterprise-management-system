@@ -45,16 +45,21 @@ export default function Page() {
 
   const handlePermissionSelect = (permissionId: number, type: keyof Permissions, status: string) => {
     const index = selectedPermissions.findIndex(item => item.id === permissionId && item.typeValue === type);
+    console.log(index)
     const newSelectedPermissions = [...selectedPermissions];
-    
+  
     if (index !== -1) {
+      // Item exists, remove it
       newSelectedPermissions.splice(index, 1);
+      console.log(selectedPermissions)
     } else {
+      // Item doesn't exist, add it
       newSelectedPermissions.push({ id: permissionId, typeValue: type, status: status === '1' ? '0' : '1' });
       console.log(selectedPermissions)
     }
     setSelectedPermissions(newSelectedPermissions);
   };
+  
   const isPermissionSelected = (permissionId: number, type: keyof Permissions) => {
     return selectedPermissions.some(item => item.id === permissionId && item.typeValue === type);
   };
@@ -127,7 +132,7 @@ export default function Page() {
               <div className="mt-3 mx-3" style={{ display: 'flex', flexDirection: 'column' }}>
                 <label style={{ marginBottom: '5px' }}>
                   <input
-                    type="radio"
+                    type="checkbox"
                     checked={getCheckedStatus(permission.id, 'find')}
                     onChange={() => handlePermissionSelect(permission.id, 'find', permission.find)}
                   />
@@ -135,7 +140,7 @@ export default function Page() {
                 </label>
                 <label style={{ marginBottom: '5px' }}>
                   <input
-                    type="radio"
+                    type="checkbox"
                     checked={getCheckedStatus(permission.id, 'increase')}
                     onChange={() => handlePermissionSelect(permission.id, 'increase', permission.increase)}
                   />
@@ -143,7 +148,7 @@ export default function Page() {
                 </label>
                 <label style={{ marginBottom: '5px' }}>
                   <input
-                    type="radio"
+                    type="checkbox"
                     checked={getCheckedStatus(permission.id, 'upgrade')}
                     onChange={() => handlePermissionSelect(permission.id, 'upgrade', permission.upgrade)}
                   />
@@ -151,7 +156,7 @@ export default function Page() {
                 </label>
                 <label style={{ marginBottom: '5px' }}>
                   <input
-                    type="radio"
+                    type="checkbox"
                     checked={getCheckedStatus(permission.id, 'remove')}
                     onChange={() => handlePermissionSelect(permission.id, 'remove', permission.remove)}
                   />
