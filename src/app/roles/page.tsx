@@ -15,7 +15,6 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { validateRoleData } from "../gateway/validators";
 import { faRouble } from "@fortawesome/free-solid-svg-icons";
 
