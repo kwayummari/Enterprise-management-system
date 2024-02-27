@@ -7,10 +7,6 @@ import {
   Alert,
   Card,
   CardBody,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
 } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import apiGateway from '../gateway/gateways'
