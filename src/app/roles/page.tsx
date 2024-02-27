@@ -16,6 +16,7 @@ import apiGateway from '../gateway/gateways'
 import InputGroupText from 'react-bootstrap/esm/InputGroupText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { validateRoleData } from '../gateway/validators';
 
 interface Roles {
   id: number;
@@ -60,10 +61,10 @@ export default function Page() {
         name: target.name.value,
       };
 
-      validateRegistrationData(userData);
+      validateRoleData(userData);
 
       const registeringResponse = await apiGateway.create(
-        "register_user",
+        "register_role",
         userData
       );
       setSuccess(registeringResponse.message);
