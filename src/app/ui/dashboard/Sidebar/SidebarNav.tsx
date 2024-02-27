@@ -9,10 +9,13 @@ import {
   faDashboard,
   faFolder,
   faGauge,
+  faGear,
   faLayerGroup,
   faLocationArrow,
   faPuzzlePiece,
   faRightToBracket,
+  faUserGear,
+  faUserPen,
 } from '@fortawesome/free-solid-svg-icons'
 import React, { PropsWithChildren, useState, useEffect } from 'react'
 import { Alert, Badge } from 'react-bootstrap'
@@ -99,8 +102,8 @@ export default function SidebarNav() {
         ))}
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
-      <SidebarNavGroup toggleIcon={faStar} toggleText="Configurations">
-        <SidebarNavItem icon={faRightToBracket} href="roles">Roles</SidebarNavItem>
+      <SidebarNavGroup toggleIcon={faGear} toggleText="Configurations">
+        <SidebarNavItem icon={faUserGear} href="roles">Roles</SidebarNavItem>
       </SidebarNavGroup>
 
       <SidebarNavItem icon={faFileLines} href="#">Docs</SidebarNavItem>
