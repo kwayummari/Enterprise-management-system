@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardHeader,
   Col,
   Form,
   FormControl,
@@ -87,20 +86,8 @@ export default function Page() {
       >
         {error}
       </Alert>
-      <div className="row">
-        {roles.map((role) => (
-          <div className="col-sm-6 col-lg-3">
-            <Card
-              onClick={() => handleEditRole(role.id)}
-              bg="white"
-              text="dark"
-              className="mb-4"
-              style={{ height: "70px" }}
-            >
-              <CardHeader>
-              User &amp; Management
-                <span style={{ marginLeft: "20px" }}>
-                <button
+      <span style={{ marginLeft: "20px" }}>
+        <button
           type="button"
           className="btn btn-dark"
           onClick={handleShowModal}
@@ -161,7 +148,17 @@ export default function Page() {
             </button>
           </Modal.Footer>
         </Modal>
-                </span></CardHeader>
+      </span>
+      <div className="row">
+        {roles.map((role) => (
+          <div className="col-sm-6 col-lg-3">
+            <Card
+              onClick={() => handleEditRole(role.id)}
+              bg="white"
+              text="dark"
+              className="mb-4"
+              style={{ height: "70px" }}
+            >
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
                   <div>{role.name}</div>
