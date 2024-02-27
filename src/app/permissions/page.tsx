@@ -55,7 +55,6 @@ export default function Page() {
     } else {
       // Item doesn't exist, add it
       newSelectedPermissions.push({ id: permissionId, typeValue: type, status: status === '1' ? '0' : '1' });
-      console.log(selectedPermissions)
     }
     setSelectedPermissions(newSelectedPermissions);
   };
