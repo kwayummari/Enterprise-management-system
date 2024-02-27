@@ -16,7 +16,7 @@ import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { validateRoleData } from "../gateway/validators";
-import { faRouble } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faRouble } from "@fortawesome/free-solid-svg-icons";
 
 interface Roles {
   id: number;
@@ -167,17 +167,17 @@ export default function Page() {
             </Card>
           </div>
         ))}
-        <div className="col-sm-6 col-lg-3">
+        <div className="col-sm-6 col-lg-2">
         <Card
               onClick={() => handleShowModal}
               bg="white"
-              text="dark"
+              text="secondary"
               className="mb-4"
               style={{ height: "70px" }}
             >
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
                 <div>
-                  <div>Add Role</div>
+                  <div><FontAwesomeIcon icon={faAdd} fixedWidth /> Add Role</div>
                 </div>
               </CardBody>
           </Card>
