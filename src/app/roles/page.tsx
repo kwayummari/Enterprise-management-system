@@ -67,7 +67,7 @@ export default function Page() {
         userData
       );
       setSuccess(registeringResponse.message);
-      getUsers();
+      getRoles();
       handleCloseModal()
     } catch (err: any) {
       setError(err.message);

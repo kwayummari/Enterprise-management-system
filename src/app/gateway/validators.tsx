@@ -33,3 +33,15 @@ export const validateRegistrationData = (data: { fullname: string; email: string
 
   return true;
 };
+
+export const validateRoleData = (data: { name: string}) => {
+  if (!data.name) {
+    throw new Error('Name');
+  }
+
+  if (data.name.length < 4 || data.name.length > 15) {
+    throw new Error('Name must be between 4 and 15 characters long');
+  }
+
+  return true;
+};
