@@ -62,6 +62,10 @@ export default function Page() {
   const handleShowModal2 = () => setShowModal2(true);
   const handleCloseModal2 = () => setShowModal2(false);
   const [deleteId, setDeleteId] = useState<number>();
+  const [showModal3, setShowModal3] = useState(false);
+  const handleShowModal3 = () => setShowModal3(true);
+  const handleCloseModal3 = () => setShowModal3(false);
+  const [editData, setEditData] = useState<Users[]>([]);
   useEffect(() => {
     getUsers();
   }, []);
@@ -348,6 +352,8 @@ export default function Page() {
                                 variant="success"
                                 className="m-2 text-white"
                                 onClick={() => {
+                                  handleShowModal3();
+                                  setEditData(user);
                                 }}
                               >
                                 <FontAwesomeIcon
