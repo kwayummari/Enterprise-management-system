@@ -78,7 +78,7 @@ export default function Page() {
   const getUsers = async () => {
     try {
       const value = await apiGateway.read("users");
-      console.log(value)
+      console.log(value);
       const branchData = await apiGateway.read("getBranch");
       const rolesData = await apiGateway.read("getAllRoles");
       setBranchData(branchData.branch);
@@ -119,7 +119,7 @@ export default function Page() {
       );
       setSuccess(registeringResponse.message);
       getUsers();
-      handleCloseModal()
+      handleCloseModal();
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -360,16 +360,13 @@ export default function Page() {
                                 onClick={() => {
                                   handleShowModal3();
                                   setEditId(user.id);
-                                  setEditBranch(user.branch)
-                                  setEditEmail(user.email)
-                                  setEditFullname(user.fullname)
-                                  setEditPhone(user.phone)
+                                  setEditBranch(user.branch);
+                                  setEditEmail(user.email);
+                                  setEditFullname(user.fullname);
+                                  setEditPhone(user.phone);
                                 }}
                               >
-                                <FontAwesomeIcon
-                                fixedWidth
-                                icon={faEdit}
-                              /> 
+                                <FontAwesomeIcon fixedWidth icon={faEdit} />
                                 Edit
                               </Button>
                               <Button
@@ -382,9 +379,10 @@ export default function Page() {
                                 }}
                               >
                                 <FontAwesomeIcon
-                                fixedWidth
-                                icon={faDeleteLeft}
-                              /> Delete
+                                  fixedWidth
+                                  icon={faDeleteLeft}
+                                />{" "}
+                                Delete
                               </Button>
                             </DropdownMenu>
                           </Dropdown>
@@ -417,6 +415,162 @@ export default function Page() {
                               <button
                                 className="btn btn-dark"
                                 onClick={handleCloseModal2}
+                              >
+                                Close
+                              </button>
+                            </Modal.Footer>
+                          </Modal>
+                          <Modal
+                            show={showModal3}
+                            onHide={handleCloseModal3}
+                            centered
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Add User</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <Form onSubmit={registering}>
+                                <Alert
+                                  variant="danger"
+                                  show={error !== ""}
+                                  onClose={() => setError("")}
+                                  dismissible
+                                >
+                                  {error}
+                                </Alert>
+                                <Alert
+                                  variant="success"
+                                  show={success !== ""}
+                                  onClose={() => setSuccess("")}
+                                  dismissible
+                                >
+                                  {success}
+                                </Alert>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon icon={faUser} fixedWidth />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="fullname"
+                                    required
+                                    disabled={submitting}
+                                    placeholder="Fullname"
+                                    aria-label="fullname"
+                                    value={editFullname ?? ''}
+                                  />
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faEnvelope}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="email"
+                                    required
+                                    disabled={submitting}
+                                    placeholder="Email"
+                                    aria-label="Email"
+                                    value={editEmail ?? ''}
+                                  />
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faPhone}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="phone"
+                                    required
+                                    disabled={submitting}
+                                    placeholder="Phone"
+                                    aria-label="phone"
+                                    value={editPhone ?? ''}
+                                  />
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faCodeBranch}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    as="select"
+                                    name="branch"
+                                    required
+                                    value={editBranch ?? ''}
+                                    disabled={submitting}
+                                    placeholder="Branch"
+                                    aria-label="branch"
+                                  >
+                                    <option value="">Select Branch</option>
+                                    {branchData.map((item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.name}
+                                      </option>
+                                    ))}
+                                  </FormControl>
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faCodeBranch}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    as="select"
+                                    name="role"
+                                    required
+                                    value={editRole ?? ''}
+                                    disabled={submitting}
+                                    placeholder="Role"
+                                    aria-label="role"
+                                  >
+                                    <option value="">Select Role</option>
+                                    {roleData.map((item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.name}
+                                      </option>
+                                    ))}
+                                  </FormControl>
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon icon={faLock} fixedWidth />
+                                  </InputGroupText>
+                                  <FormControl
+                                    type="password"
+                                    name="password"
+                                    required
+                                    value={"Password@2024"}
+                                    disabled={true}
+                                    placeholder="Password"
+                                    aria-label="Password"
+                                  />
+                                </InputGroup>
+                                <Row className="align-items-center">
+                                  <Col xs={6}>
+                                    <Button
+                                      className="px-4"
+                                      variant="dark"
+                                      type="submit"
+                                      disabled={submitting}
+                                    >
+                                      Register User
+                                    </Button>
+                                  </Col>
+                                </Row>
+                              </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <button
+                                className="btn btn-dark"
+                                onClick={handleCloseModal3}
                               >
                                 Close
                               </button>
