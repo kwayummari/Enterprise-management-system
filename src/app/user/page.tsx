@@ -364,6 +364,7 @@ export default function Page() {
                                   setEditEmail(user.email);
                                   setEditFullname(user.fullname);
                                   setEditPhone(user.phone);
+                                  setEditRole(user.role)
                                 }}
                               >
                                 <FontAwesomeIcon fixedWidth icon={faEdit} />
