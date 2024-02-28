@@ -34,8 +34,8 @@ export const validateRegistrationData = (data: { fullname: string; email: string
   return true;
 };
 
-export const validateEditingData = (data: { id: number;  fullname: string; email: string; password: string; phone?: string }) => {
-  if (!data.fullname || !data.email || !data.password || !data.phone) {
+export const validateEditingData = (data: { id?: number;  fullname: string; email: string; password: string; phone?: string }) => {
+  if (!data.fullname || !data.email || !data.password || !data.phone || !data.id) {
     throw new Error('fullname, email, and password are required');
   }
 
