@@ -129,7 +129,7 @@ export default function Page() {
   const editing = async (e: SyntheticEvent) => {
     e.stopPropagation();
     e.preventDefault();
-
+  
     setSubmitting(true);
     try {
       const target = e.target as typeof e.target & {
@@ -138,32 +138,30 @@ export default function Page() {
         email: { value: string };
         branch: { value: string };
         role: { value: string };
-        password: { value: string };
       };
+  
       const userData = {
+        id: editId,
         phone: target.phone.value,
         fullname: target.fullname.value,
         email: target.email.value,
-        password: target.password.value,
         branch: target.branch.value,
         role: target.role.value,
       };
-
+  
       validateRegistrationData(userData);
-
-      const editingResponse = await apiGateway.create(
-        "edit_user",
-        userData
-      );
+  
+      const editingResponse = await apiGateway.create("edit_user", userData);
       setSuccess(editingResponse.message);
       getUsers();
-      handleCloseModal();
+      handleCloseModal3(); // Close the edit modal after submission
     } catch (err: any) {
       setError(err.message);
     } finally {
       setSubmitting(false);
     }
   };
+  
   const handleDeleteConfirmation = async () => {
     const userData = {
       id: deleteId,
@@ -496,6 +494,7 @@ export default function Page() {
                                     placeholder="Fullname"
                                     aria-label="fullname"
                                     value={editFullname ?? ''}
+                                    onChange={(e) => setEditFullname(e.target.value)}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -509,6 +508,7 @@ export default function Page() {
                                     name="email"
                                     required
                                     disabled={submitting}
+                                    onChange={(e) => setEditEmail(e.target.value)}
                                     placeholder="Email"
                                     aria-label="Email"
                                     value={editEmail ?? ''}
@@ -525,6 +525,7 @@ export default function Page() {
                                     name="phone"
                                     required
                                     disabled={submitting}
+                                    onChange={(e) => setEditPhone(e.target.value)}
                                     placeholder="Phone"
                                     aria-label="phone"
                                     value={editPhone ?? ''}
@@ -542,6 +543,7 @@ export default function Page() {
                                     name="branch"
                                     required
                                     value={editBranch ?? ''}
+                                    onChange={(e) => setEditBranch(e.target.value)}
                                     disabled={submitting}
                                     placeholder="Branch"
                                     aria-label="branch"
@@ -566,6 +568,7 @@ export default function Page() {
                                     name="role"
                                     required
                                     value={editRole ?? ''}
+                                    onChange={(e) => setEditRole(e.target.value)}
                                     disabled={submitting}
                                     placeholder="Role"
                                     aria-label="role"
