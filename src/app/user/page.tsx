@@ -156,7 +156,7 @@ export default function Page() {
       const editingResponse = await apiGateway.create("edit_user", userData);
       setSuccess(editingResponse.message);
       getUsers();
-      handleCloseModal3(); // Close the edit modal after submission
+      handleCloseModal3();
     } catch (err: any) {
       setError(err.message);
     } finally {
