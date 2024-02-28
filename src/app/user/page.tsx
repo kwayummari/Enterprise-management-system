@@ -65,7 +65,12 @@ export default function Page() {
   const [showModal3, setShowModal3] = useState(false);
   const handleShowModal3 = () => setShowModal3(true);
   const handleCloseModal3 = () => setShowModal3(false);
-  const [editData, setEditData] = useState<Users[]>([]);
+  const [editId, setEditId] = useState<number>();
+  const [editEmail, setEditEmail] = useState<string | null>("");
+  const [editFullname, setEditFullname] = useState<string | null>("");
+  const [editPhone, setEditPhone] = useState<string | null>("");
+  const [editBranch, setEditBranch] = useState<string | null>("");
+  const [editRole, setEditRole] = useState<string | null>("");
   useEffect(() => {
     getUsers();
   }, []);
@@ -73,6 +78,7 @@ export default function Page() {
   const getUsers = async () => {
     try {
       const value = await apiGateway.read("users");
+      console.log(value)
       const branchData = await apiGateway.read("getBranch");
       const rolesData = await apiGateway.read("getAllRoles");
       setBranchData(branchData.branch);
@@ -353,7 +359,11 @@ export default function Page() {
                                 className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal3();
-                                  setEditData(user);
+                                  setEditId(user.id);
+                                  setEditBranch(user.branch)
+                                  setEditEmail(user.email)
+                                  setEditFullname(user.fullname)
+                                  setEditPhone(user.phone)
                                 }}
                               >
                                 <FontAwesomeIcon
