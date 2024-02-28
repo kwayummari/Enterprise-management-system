@@ -126,6 +126,44 @@ export default function Page() {
       setSubmitting(false);
     }
   };
+  const editing = async (e: SyntheticEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    setSubmitting(true);
+    try {
+      const target = e.target as typeof e.target & {
+        phone: { value: string };
+        fullname: { value: string };
+        email: { value: string };
+        branch: { value: string };
+        role: { value: string };
+        password: { value: string };
+      };
+      const userData = {
+        phone: target.phone.value,
+        fullname: target.fullname.value,
+        email: target.email.value,
+        password: target.password.value,
+        branch: target.branch.value,
+        role: target.role.value,
+      };
+
+      validateRegistrationData(userData);
+
+      const editingResponse = await apiGateway.create(
+        "edit_user",
+        userData
+      );
+      setSuccess(editingResponse.message);
+      getUsers();
+      handleCloseModal();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
   const handleDeleteConfirmation = async () => {
     const userData = {
       id: deleteId,
@@ -427,10 +465,10 @@ export default function Page() {
                             centered
                           >
                             <Modal.Header closeButton>
-                              <Modal.Title>Add User</Modal.Title>
+                              <Modal.Title>Edit User</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              <Form onSubmit={registering}>
+                              <Form onSubmit={editing}>
                                 <Alert
                                   variant="danger"
                                   show={error !== ""}
@@ -562,7 +600,7 @@ export default function Page() {
                                       type="submit"
                                       disabled={submitting}
                                     >
-                                      Register User
+                                      Edit User
                                     </Button>
                                   </Col>
                                 </Row>
