@@ -29,7 +29,7 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateRegistrationData } from "../gateway/validators";
+import { validateEditingData, validateRegistrationData } from "../gateway/validators";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
@@ -138,6 +138,7 @@ export default function Page() {
         email: { value: string };
         branch: { value: string };
         role: { value: string };
+        password: { value: string };
       };
   
       const userData = {
@@ -145,11 +146,12 @@ export default function Page() {
         phone: target.phone.value,
         fullname: target.fullname.value,
         email: target.email.value,
+        password: target.password.value,
         branch: target.branch.value,
         role: target.role.value,
       };
   
-      validateRegistrationData(userData);
+      validateEditingData(userData);
   
       const editingResponse = await apiGateway.create("edit_user", userData);
       setSuccess(editingResponse.message);
