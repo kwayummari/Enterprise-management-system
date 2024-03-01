@@ -5,6 +5,9 @@ import {
   Card,
   CardBody,
   Col,
+  Dropdown,
+  DropdownMenu,
+  DropdownToggle,
   Form,
   FormControl,
   InputGroup,
@@ -16,7 +19,7 @@ import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { validateRoleData } from "../gateway/validators";
-import { faAdd, faRouble } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faDeleteLeft, faEdit, faEllipsisVertical, faRouble } from "@fortawesome/free-solid-svg-icons";
 
 interface Roles {
   id: number;
@@ -31,13 +34,25 @@ export default function Page() {
   const handleCloseModal = () => setShowModal(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState<string | null>("");
+  const companyId = localStorage.getItem('companyId');
+  const [deleteId, setDeleteId] = useState<number>();
+  const [showModal3, setShowModal3] = useState(false);
+  const handleShowModal3 = () => setShowModal3(true);
+  const handleCloseModal3 = () => setShowModal3(false);
+  const [editId, setEditId] = useState<number>();
+  const [showModal2, setShowModal2] = useState(false);
+  const handleShowModal2 = () => setShowModal2(true);
+  const handleCloseModal2 = () => setShowModal2(false);
   useEffect(() => {
     getRoles();
   }, []);
 
   const getRoles = async () => {
     try {
-      const value = await apiGateway.read("getRoles");
+      const userData = {
+        companyId: companyId
+      }
+      const value = await apiGateway.create("getAllRoles", userData);
       setRoles(value.roles);
     } catch (err: any) {
       setError(err.message);
@@ -59,6 +74,7 @@ export default function Page() {
       };
       const userData = {
         name: target.name.value,
+        companyId: companyId
       };
 
       validateRoleData(userData);
@@ -153,8 +169,52 @@ export default function Page() {
               style={{ height: "70px" }}
             >
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
-                <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                   <div>{role.name}</div>
+                  <div>
+                <Dropdown align="end">
+                            <DropdownToggle
+                              as="button"
+                              bsPrefix="btn"
+                              className="btn-link rounded-0 text-black-50 shadow-none p-0"
+                              id="action-user1"
+                            >
+                              <FontAwesomeIcon
+                                fixedWidth
+                                icon={faEllipsisVertical}
+                              />
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              <Button
+                                type="button"
+                                variant="success"
+                                className="m-2 text-white"
+                                onClick={() => {
+                                  handleShowModal3();
+                                  setEditId(role.id);
+                                }}
+                              >
+                                <FontAwesomeIcon fixedWidth icon={faEdit} />
+                                Edit
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="danger"
+                                className="m-2 text-white"
+                                onClick={() => {
+                                  handleShowModal2();
+                                  setDeleteId(role.id);
+                                }}
+                              >
+                                <FontAwesomeIcon
+                                  fixedWidth
+                                  icon={faDeleteLeft}
+                                />{" "}
+                                Delete
+                              </Button>
+                            </DropdownMenu>
+                          </Dropdown>
+                </div>
                 </div>
               </CardBody>
             </Card>
@@ -169,8 +229,8 @@ export default function Page() {
               style={{ height: "70px" }}
             >
               <CardBody className="pb-0 d-flex justify-content-between align-items-start">
-                <div>
-                  <div><FontAwesomeIcon icon={faAdd} fixedWidth /> Add Role</div>
+              <div>
+                <div><FontAwesomeIcon icon={faAdd} fixedWidth /> Add Role</div>
                 </div>
               </CardBody>
           </Card>
