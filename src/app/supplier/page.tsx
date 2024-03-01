@@ -31,7 +31,7 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateEditingData, validateRegistrationData, validateSupplierData } from "../gateway/validators";
+import { validateEditingData, validateEditingSupplier, validateRegistrationData, validateSupplierData } from "../gateway/validators";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
@@ -151,9 +151,9 @@ export default function Page() {
         branch: target.branch.value,
       };
   
-      validateEditingData(userData);
+      validateEditingSupplier(userData);
   
-      const editingResponse = await apiGateway.create("edit_user", userData);
+      const editingResponse = await apiGateway.create("edit_supplier", userData);
       setSuccess(editingResponse.message);
       getSuppliers();
       handleCloseModal3();
@@ -535,14 +535,6 @@ export default function Page() {
                                       </option>
                                     ))}
                                   </FormControl>
-                                </InputGroup>
-                                <InputGroup className="mb-3">
-                                  <InputGroupText>
-                                    <FontAwesomeIcon
-                                      icon={faCodeBranch}
-                                      fixedWidth
-                                    />
-                                  </InputGroupText>
                                 </InputGroup>
                                 <InputGroup className="mb-3">
                                   <InputGroupText>

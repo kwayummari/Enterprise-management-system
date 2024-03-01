@@ -76,6 +76,26 @@ export const validateEditingData = (data: { id?: number;  fullname: string; emai
 
   return true;
 };
+
+export const validateEditingSupplier = (data: { id?: number;  name: string; tin: string; location: string; branch?: string }) => {
+  if (!data.name || !data.tin || !data.location || !data.branch || !data.id) {
+    throw new Error('Name, tin, and location are required');
+  }
+
+  if (data.name.length < 4 || data.name.length > 15) {
+    throw new Error('Name must be between 4 and 15 characters long');
+  }
+
+  if (data.location.length < 4 || data.location.length > 15) {
+    throw new Error('Location must be between 4 and 15 characters long');
+  }
+  if (data.tin.length < 20 || data.tin.length > 20) {
+    throw new Error('Tin must be 20 characters long');
+  }
+
+  return true;
+};
+
 export const validateEditingRole = (data: { id?: number;  name: string;}) => {
   if (!data.name || !data.id) {
     throw new Error('Name, are required');
