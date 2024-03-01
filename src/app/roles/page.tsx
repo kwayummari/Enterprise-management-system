@@ -76,6 +76,7 @@ export default function Page() {
     }
     catch (err: any) {
       setError(err.message);
+      handleCloseModal2();
     }
   };
   const handleEditRole = (roleId: number) => {
