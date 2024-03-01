@@ -3,20 +3,11 @@ import {
   faAddressCard, faBell, faFileLines, faStar,
 } from '@fortawesome/free-regular-svg-icons'
 import {
-  faBug,
-  faCalculator,
-  faChartPie,
   faCodeBranch,
-  faDashboard,
   faFolder,
-  faGauge,
   faGear,
   faLayerGroup,
-  faLocationArrow,
-  faPuzzlePiece,
-  faRightToBracket,
   faUserGear,
-  faUserPen,
 } from '@fortawesome/free-solid-svg-icons'
 import React, { PropsWithChildren, useState, useEffect } from 'react'
 import { Alert, Badge } from 'react-bootstrap'
