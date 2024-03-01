@@ -70,8 +70,9 @@ export default function Page() {
     try {
       const userData = {
         id: deleteId,
+        companyId: companyId,
       };
-      const deletingResponse = await apiGateway.create("deleteBranch", userData);
+      const deletingResponse = await apiGateway.create("delete_branch", userData);
       setSuccess(deletingResponse.message);
       handleCloseModal2();
       getBranches();
