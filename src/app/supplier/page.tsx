@@ -362,25 +362,25 @@ export default function Page() {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user) => (
-                      <tr key={user.id} className="align-middle">
+                    {suppliers.map((supplier) => (
+                      <tr key={supplier.id} className="align-middle">
                         <td>
-                          <div>{user.name}</div>
+                          <div>{supplier.name}</div>
                           <div className="small text-black-50">
-                            <span>New</span> | {user.date}
+                            <span>New</span> | {supplier.date}
                           </div>
                         </td>
                         <td>
-                          <div>{user.phone}</div>
+                          <div>{supplier.phone}</div>
                         </td>
                         <td>
-                          <div>{user.tin}</div>
+                          <div>{supplier.tin}</div>
                         </td>
                         <td>
-                          <div>{user.location}</div>
+                          <div>{supplier.location}</div>
                         </td>
                         <td>
-                          <div>{user.branch}</div>
+                          <div>{supplier.branch}</div>
                         </td>
                         <td>
                           <Dropdown align="end">
@@ -402,12 +402,12 @@ export default function Page() {
                                 className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal3();
-                                  setEditId(user.id);
-                                  setEditBranch(user.branch);
-                                  setEditEmail(user.location);
-                                  setEditFullname(user.name);
-                                  setEditPhone(user.phone);
-                                  setEditRole(user.role)
+                                  setEditId(supplier.id);
+                                  setEditBranch(supplier.branch);
+                                  setEditEmail(supplier.location);
+                                  setEditFullname(supplier.name);
+                                  setEditPhone(supplier.phone);
+                                  setEditRole(supplier.role)
                                 }}
                               >
                                 <FontAwesomeIcon fixedWidth icon={faEdit} />
