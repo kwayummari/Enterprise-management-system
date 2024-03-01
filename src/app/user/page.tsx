@@ -82,9 +82,8 @@ export default function Page() {
     };
     try {
       const value = await apiGateway.create("getUserByCompanyId", userData);
-      console.log(value);
-      const branchData = await apiGateway.read("getBranch");
-      const rolesData = await apiGateway.read("getAllRoles");
+      const branchData = await apiGateway.create("getBranch", userData);
+      const rolesData = await apiGateway.create("getAllRoles", userData);
       setBranchData(branchData.branch);
       setRoleData(rolesData.roles);
       setUsers(value.users);
