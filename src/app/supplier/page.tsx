@@ -419,7 +419,7 @@ export default function Page() {
                                 className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal2();
-                                  setDeleteId(user.id);
+                                  setDeleteId(supplier.id);
                                 }}
                               >
                                 <FontAwesomeIcon
