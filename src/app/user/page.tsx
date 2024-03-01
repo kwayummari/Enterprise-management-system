@@ -192,7 +192,7 @@ export default function Page() {
         {error}
       </Alert>
       <Alert
-        variant="danger"
+        variant="success"
         show={success !== ""}
         onClose={() => setError("")}
         dismissible

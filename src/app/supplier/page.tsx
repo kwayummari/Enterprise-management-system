@@ -85,7 +85,6 @@ export default function Page() {
     try {
       const value = await apiGateway.create("suppliers", userData);
       const branchData = await apiGateway.create("getBranch", userData);
-      console.log(branchData)
       setBranchData(branchData.branch);
       setSuppliers(value.suppliers);
     } catch (err: any) {
@@ -191,7 +190,7 @@ export default function Page() {
         {error}
       </Alert>
       <Alert
-        variant="danger"
+        variant="success"
         show={success !== ""}
         onClose={() => setError("")}
         dismissible
