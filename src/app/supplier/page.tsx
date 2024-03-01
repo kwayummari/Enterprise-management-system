@@ -54,7 +54,6 @@ interface DropdownItem {
 export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
-  const [roleData, setRoleData] = useState<DropdownItem[]>([]);
   const [suppliers, setSuppliers] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -86,9 +85,8 @@ export default function Page() {
     try {
       const value = await apiGateway.create("suppliers", userData);
       const branchData = await apiGateway.create("getBranch", userData);
-      const rolesData = await apiGateway.create("getAllRoles", userData);
+      console.log(branchData)
       setBranchData(branchData.branch);
-      setRoleData(rolesData.roles);
       setSuppliers(value.suppliers);
     } catch (err: any) {
       setError(err.message);
@@ -119,7 +117,7 @@ export default function Page() {
       validateSupplierData(userData);
 
       const registeringResponse = await apiGateway.create(
-        "register_user",
+        "register_supplier",
         userData
       );
       setSuccess(registeringResponse.message);
@@ -548,23 +546,6 @@ export default function Page() {
                                       fixedWidth
                                     />
                                   </InputGroupText>
-                                  <FormControl
-                                    as="select"
-                                    name="role"
-                                    required
-                                    value={editRole ?? ''}
-                                    onChange={(e) => setEditRole(e.target.value)}
-                                    disabled={submitting}
-                                    placeholder="Role"
-                                    aria-label="role"
-                                  >
-                                    <option value="">Select Role</option>
-                                    {roleData.map((item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.name}
-                                      </option>
-                                    ))}
-                                  </FormControl>
                                 </InputGroup>
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
