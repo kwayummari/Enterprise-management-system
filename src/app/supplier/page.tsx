@@ -379,10 +379,10 @@ export default function Page() {
                                   handleShowModal3();
                                   setEditId(supplier.id);
                                   setEditBranch(supplier.branch);
-                                  setEditEmail(supplier.location);
+                                  setEditLocation(supplier.location);
                                   setEditFullname(supplier.name);
                                   setEditPhone(supplier.phone);
-                                  setEditRole(supplier.role)
+                                  setEditTin(supplier.tin)
                                 }}
                               >
                                 <FontAwesomeIcon fixedWidth icon={faEdit} />
@@ -470,11 +470,11 @@ export default function Page() {
                                     <FontAwesomeIcon icon={faUser} fixedWidth />
                                   </InputGroupText>
                                   <FormControl
-                                    name="fullname"
+                                    name="name"
                                     required
                                     disabled={submitting}
-                                    placeholder="Fullname"
-                                    aria-label="fullname"
+                                    placeholder="Name"
+                                    aria-label="Name"
                                     value={editFullname ?? ''}
                                     onChange={(e) => setEditFullname(e.target.value)}
                                   />
