@@ -6,6 +6,7 @@ import {
   faBug,
   faCalculator,
   faChartPie,
+  faCodeBranch,
   faDashboard,
   faFolder,
   faGauge,
@@ -103,7 +104,8 @@ export default function SidebarNav() {
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
       <SidebarNavGroup toggleIcon={faGear} toggleText="Configurations">
-        <SidebarNavItem icon={faUserGear} href="roles">Roles</SidebarNavItem>
+          <SidebarNavItem icon={faUserGear} href="roles">Roles</SidebarNavItem>
+          <SidebarNavItem icon={faCodeBranch} href="branch">Branch</SidebarNavItem>
       </SidebarNavGroup>
 
       <SidebarNavItem icon={faFileLines} href="#">Docs</SidebarNavItem>
