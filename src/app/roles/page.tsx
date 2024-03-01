@@ -95,7 +95,6 @@ export default function Page() {
         id: editId,
         name: target.name.value,
       };
-  
       validateEditingRole(userData);
   
       const editingResponse = await apiGateway.create("edit_role", userData);
@@ -329,11 +328,11 @@ export default function Page() {
                                     <FontAwesomeIcon icon={faUser} fixedWidth />
                                   </InputGroupText>
                                   <FormControl
-                                    name="fullname"
+                                    name="name"
                                     required
                                     disabled={submitting}
-                                    placeholder="Fullname"
-                                    aria-label="fullname"
+                                    placeholder="Name"
+                                    aria-label="name"
                                     value={editName ?? ''}
                                     onChange={(e) => setEditName(e.target.value)}
                                   />

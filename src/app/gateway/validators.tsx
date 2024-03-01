@@ -55,7 +55,7 @@ export const validateEditingData = (data: { id?: number;  fullname: string; emai
 };
 export const validateEditingRole = (data: { id?: number;  name: string;}) => {
   if (!data.name || !data.id) {
-    throw new Error('Name, email, and password are required');
+    throw new Error('Name, are required');
   }
 
   if (data.name.length < 4 || data.name.length > 15) {
