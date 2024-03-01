@@ -71,17 +71,20 @@ export default function Page() {
   const [editPhone, setEditPhone] = useState<string | null>("");
   const [editBranch, setEditBranch] = useState<string | null>("");
   const [editRole, setEditRole] = useState<string | null>("");
+  const companyId = localStorage.getItem('companyId');
   useEffect(() => {
     getUsers();
   }, []);
 
   const getUsers = async () => {
+    const userData = {
+      companyId: companyId,
+    };
     try {
-      const value = await apiGateway.read("users");
+      const value = await apiGateway.create("getUserByCompanyId", userData);
       console.log(value);
       const branchData = await apiGateway.read("getBranch");
       const rolesData = await apiGateway.read("getAllRoles");
-      const companyId = localStorage.getItem('companyId');
       setBranchData(branchData.branch);
       setRoleData(rolesData.roles);
       setUsers(value.users);
@@ -110,6 +113,7 @@ export default function Page() {
         password: target.password.value,
         branch: target.branch.value,
         role: target.role.value,
+        companyId: companyId,
       };
 
       validateRegistrationData(userData);
