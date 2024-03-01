@@ -65,16 +65,18 @@ export default function Page() {
     }
   };
   const handleDeleteConfirmation = async () => {
-    const userData = {
-      id: deleteId,
-    };
-    const deletingResponse = await apiGateway.create(
-      "deleteRole",
-      userData
-    );
-    setSuccess(deletingResponse.message);
-    handleCloseModal2;
-    getRoles();
+    try {
+      const userData = {
+        id: deleteId,
+      };
+      const deletingResponse = await apiGateway.create("deleteRole", userData);
+      setSuccess(deletingResponse.message);
+      handleCloseModal2();
+      getRoles();
+    }
+    catch (err: any) {
+      setError(err.message);
+    }
   };
   const handleEditRole = (roleId: number) => {
     localStorage.setItem("editRoleId", String(roleId));
@@ -119,6 +121,14 @@ export default function Page() {
         dismissible
       >
         {error}
+      </Alert>
+      <Alert
+        variant="success"
+        show={success !== ""}
+        onClose={() => setSuccess("")}
+        dismissible
+      >
+        {success}
       </Alert>
       <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
         <Modal show={showModal} onHide={handleCloseModal} centered>
@@ -185,81 +195,79 @@ export default function Page() {
               className="mb-4"
               style={{ height: "70px" }}
             >
-              <CardBody className="pb-0 d-flex align-items-start" style={{ display: "flex", justifyContent: "space-between" }}>
-                
-                  <div onClick={() => handleEditRole(role.id)}>{role.name}</div>
-                  <div>
-                    <Dropdown align="end">
-                      <DropdownToggle
-                        as="button"
-                        bsPrefix="btn"
-                        className="btn-link rounded-0 text-black-50 shadow-none p-0"
-                        id="action-user1"
+              <CardBody
+                className="pb-0 d-flex align-items-start"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <div onClick={() => handleEditRole(role.id)}>{role.name}</div>
+                <div>
+                  <Dropdown align="end">
+                    <DropdownToggle
+                      as="button"
+                      bsPrefix="btn"
+                      className="btn-link rounded-0 text-black-50 shadow-none p-0"
+                      id="action-user1"
+                    >
+                      <FontAwesomeIcon fixedWidth icon={faEllipsisVertical} />
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <Button
+                        type="button"
+                        variant="success"
+                        className="m-2 text-white"
+                        onClick={() => {
+                          handleShowModal3();
+                          setEditId(role.id);
+                        }}
                       >
-                        <FontAwesomeIcon fixedWidth icon={faEllipsisVertical} />
-                      </DropdownToggle>
-                      <DropdownMenu>
-                        <Button
-                          type="button"
-                          variant="success"
-                          className="m-2 text-white"
-                          onClick={() => {
-                            handleShowModal3();
-                            setEditId(role.id);
-                          }}
-                        >
-                          <FontAwesomeIcon fixedWidth icon={faEdit} />
-                          Edit
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="danger"
-                          className="m-2 text-white"
-                          onClick={() => {
-                            handleShowModal2();
-                            setDeleteId(role.id);
-                          }}
-                        >
-                          <FontAwesomeIcon fixedWidth icon={faDeleteLeft} />{" "}
-                          Delete
-                        </Button>
-                      </DropdownMenu>
-                    </Dropdown>
-                    <Modal
-                            show={showModal2}
-                            onHide={handleCloseModal2}
-                            centered
+                        <FontAwesomeIcon fixedWidth icon={faEdit} />
+                        Edit
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="danger"
+                        className="m-2 text-white"
+                        onClick={() => {
+                          handleShowModal2();
+                          setDeleteId(role.id);
+                        }}
+                      >
+                        <FontAwesomeIcon fixedWidth icon={faDeleteLeft} />{" "}
+                        Delete
+                      </Button>
+                    </DropdownMenu>
+                  </Dropdown>
+                  <Modal show={showModal2} onHide={handleCloseModal2} centered>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Delete Role</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Are you sure you want to delete this role?
+                      <Row className="align-items-center">
+                        <Col xs={6}>
+                          <Button
+                            className="px-4"
+                            variant="danger"
+                            disabled={submitting}
+                            onClick={() => {
+                              handleDeleteConfirmation();
+                            }}
                           >
-                            <Modal.Header closeButton>
-                              <Modal.Title>Delete User</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              Are you sure you want to delete this user?
-                              <Row className="align-items-center">
-                                <Col xs={6}>
-                                  <Button
-                                    className="px-4"
-                                    variant="danger"
-                                    disabled={submitting}
-                                    onClick={() => {
-                                      handleDeleteConfirmation();
-                                    }}
-                                  >
-                                    Delete User
-                                  </Button>
-                                </Col>
-                              </Row>
-                            </Modal.Body>
-                            <Modal.Footer>
-                              <button
-                                className="btn btn-dark"
-                                onClick={handleCloseModal2}
-                              >
-                                Close
-                              </button>
-                            </Modal.Footer>
-                          </Modal>
-                  </div>
+                            Delete Role
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <button
+                        className="btn btn-dark"
+                        onClick={handleCloseModal2}
+                      >
+                        Close
+                      </button>
+                    </Modal.Footer>
+                  </Modal>
+                </div>
               </CardBody>
             </Card>
           </div>
