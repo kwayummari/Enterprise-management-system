@@ -71,7 +71,7 @@ export default function Page() {
       const userData = {
         id: deleteId,
       };
-      const deletingResponse = await apiGateway.create("deleteRole", userData);
+      const deletingResponse = await apiGateway.create("deleteBranch", userData);
       setSuccess(deletingResponse.message);
       handleCloseModal2();
       getBranches();
@@ -272,7 +272,7 @@ export default function Page() {
                       <Modal.Title>Delete Branch</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      Are you sure you want to delete this role?
+                      Are you sure you want to delete this branch?
                       <Row className="align-items-center">
                         <Col xs={6}>
                           <Button
