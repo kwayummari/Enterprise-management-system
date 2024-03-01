@@ -129,7 +129,7 @@ export default function Page() {
       validateRoleData(userData);
 
       const registeringResponse = await apiGateway.create(
-        "register_role",
+        "register_branch",
         userData
       );
       setSuccess(registeringResponse.message);
@@ -162,7 +162,7 @@ export default function Page() {
       <span style={{ marginLeft: "20px", marginBottom: "20px" }}>
         <Modal show={showModal} onHide={handleCloseModal} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Add Role</Modal.Title>
+            <Modal.Title>Add Branch</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form onSubmit={registering}>
@@ -202,7 +202,7 @@ export default function Page() {
                     type="submit"
                     disabled={submitting}
                   >
-                    Register Role
+                    Register Branch
                   </Button>
                 </Col>
               </Row>
@@ -376,7 +376,7 @@ export default function Page() {
             <CardBody className="pb-0 d-flex justify-content-between align-items-start">
               <div>
                 <div>
-                  <FontAwesomeIcon icon={faAdd} fixedWidth /> Add Role
+                  <FontAwesomeIcon icon={faAdd} fixedWidth /> Add Branch
                 </div>
               </div>
             </CardBody>
