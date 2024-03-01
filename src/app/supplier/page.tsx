@@ -547,7 +547,7 @@ export default function Page() {
                                     name="tin"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditPhone(e.target.value)}
+                                    onChange={(e) => setEditTin(e.target.value)}
                                     placeholder="Tin Number"
                                     aria-label="Tin Number"
                                     value={editTin ?? ''}
