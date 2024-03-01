@@ -73,15 +73,15 @@ export default function Page() {
   const [editRole, setEditRole] = useState<string | null>("");
   const companyId = localStorage.getItem('companyId');
   useEffect(() => {
-    getUsers();
+    getSuppliers();
   }, []);
 
-  const getUsers = async () => {
+  const getSuppliers = async () => {
     const userData = {
       companyId: companyId,
     };
     try {
-      const value = await apiGateway.create("getUserByCompanyId", userData);
+      const value = await apiGateway.create("suppliers", userData);
       const branchData = await apiGateway.create("getBranch", userData);
       const rolesData = await apiGateway.create("getAllRoles", userData);
       setBranchData(branchData.branch);
@@ -122,7 +122,7 @@ export default function Page() {
         userData
       );
       setSuccess(registeringResponse.message);
-      getUsers();
+      getSuppliers();
       handleCloseModal();
     } catch (err: any) {
       setError(err.message);
@@ -159,7 +159,7 @@ export default function Page() {
   
       const editingResponse = await apiGateway.create("edit_user", userData);
       setSuccess(editingResponse.message);
-      getUsers();
+      getSuppliers();
       handleCloseModal3();
     } catch (err: any) {
       setError(err.message);
@@ -178,7 +178,7 @@ export default function Page() {
     );
     setSuccess(deletingResponse.message);
     handleCloseModal2;
-    getUsers();
+    getSuppliers();
   };
 
   return (
@@ -353,10 +353,10 @@ export default function Page() {
                   <thead className="table-light fw-semibold">
                     <tr className="align-middle">
                       <th>Fullname</th>
-                      <th>Email</th>
                       <th>Phone number</th>
+                      <th>Tin number</th>
+                      <th>Location</th>
                       <th>Branch</th>
-                      <th>Role</th>
                       <th aria-label="Action" />
                     </tr>
                   </thead>
