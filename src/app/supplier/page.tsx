@@ -34,10 +34,11 @@ import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
   id: number;
-  fullname: string;
-  email: string;
+  name: string;
+  tin: string;
   phone: string;
   date: string;
+  location: string;
   branch: string;
   branch_name: string;
   role: string;
@@ -364,22 +365,22 @@ export default function Page() {
                     {users.map((user) => (
                       <tr key={user.id} className="align-middle">
                         <td>
-                          <div>{user.fullname}</div>
+                          <div>{user.name}</div>
                           <div className="small text-black-50">
                             <span>New</span> | {user.date}
                           </div>
                         </td>
                         <td>
-                          <div>{user.email}</div>
-                        </td>
-                        <td>
                           <div>{user.phone}</div>
                         </td>
                         <td>
-                          <div>{user.branch_name}</div>
+                          <div>{user.tin}</div>
                         </td>
                         <td>
-                          <div>{user.role_name}</div>
+                          <div>{user.location}</div>
+                        </td>
+                        <td>
+                          <div>{user.branch}</div>
                         </td>
                         <td>
                           <Dropdown align="end">
