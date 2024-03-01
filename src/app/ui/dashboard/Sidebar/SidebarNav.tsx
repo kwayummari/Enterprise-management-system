@@ -1,6 +1,6 @@
 'use client'
 import {
-  faAddressCard, faBell, faFileLines, faStar,
+   faFileLines,
 } from '@fortawesome/free-regular-svg-icons'
 import {
   faCodeBranch,
