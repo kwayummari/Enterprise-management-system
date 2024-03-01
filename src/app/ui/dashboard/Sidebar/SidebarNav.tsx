@@ -16,8 +16,7 @@ import SidebarNavItem from '@/app/ui/dashboard/Sidebar/SidebarNavItem'
 import apiGateway from '@/app/gateway/gateways'
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { useRouter } from 'next/navigation'
-import { faAccessibleIcon, faSlack } from '@fortawesome/free-brands-svg-icons'
-import { Icon } from 'next/dist/lib/metadata/types/metadata-types'
+import { faSlack } from '@fortawesome/free-brands-svg-icons'
 
 const SidebarNavTitle = (props: PropsWithChildren) => {
   const { children } = props
