@@ -171,7 +171,7 @@ export default function Page() {
       id: deleteId,
     };
     const deletingResponse = await apiGateway.create(
-      "deleteUserById",
+      "deleteSupplier",
       userData
     );
     setSuccess(deletingResponse.message);
