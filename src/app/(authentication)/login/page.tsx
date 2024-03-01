@@ -11,7 +11,6 @@ export default function Page() {
             <div>
               <h1>Login</h1>
               <p className="text-black-50">Sign In to your account</p>
-
               <LoginForm />
             </div>
           </Col>
