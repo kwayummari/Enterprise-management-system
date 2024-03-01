@@ -5,6 +5,8 @@ import {
   faDeleteLeft,
   faEllipsisVertical,
   faEnvelope,
+  faListNumeric,
+  faLocation,
   faLock,
   faPhone,
   faUser,
@@ -204,18 +206,18 @@ export default function Page() {
         <div className="col-md-12">
           <Card>
             <CardHeader>
-              User &amp; Management
+              Supplier &amp; Management
               <span style={{ marginLeft: "20px" }}>
                 <button
                   type="button"
                   className="btn btn-dark"
                   onClick={handleShowModal}
                 >
-                  Add User
+                  Add Supplier
                 </button>
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
-                    <Modal.Title>Add User</Modal.Title>
+                    <Modal.Title>Add Supplier</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <Form onSubmit={registering}>
@@ -240,23 +242,11 @@ export default function Page() {
                           <FontAwesomeIcon icon={faUser} fixedWidth />
                         </InputGroupText>
                         <FormControl
-                          name="fullname"
+                          name="name"
                           required
                           disabled={submitting}
-                          placeholder="Fullname"
-                          aria-label="fullname"
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faEnvelope} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          name="email"
-                          required
-                          disabled={submitting}
-                          placeholder="Email"
-                          aria-label="Email"
+                          placeholder="Name"
+                          aria-label="name"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -268,7 +258,31 @@ export default function Page() {
                           required
                           disabled={submitting}
                           placeholder="Phone"
-                          aria-label="phone"
+                          aria-label="Phone"
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faListNumeric} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          name="tin"
+                          required
+                          disabled={submitting}
+                          placeholder="Tin number"
+                          aria-label="Tin number"
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faLocation} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          name="location"
+                          required
+                          disabled={submitting}
+                          placeholder="Location"
+                          aria-label="Location"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -291,40 +305,6 @@ export default function Page() {
                           ))}
                         </FormControl>
                       </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          as="select"
-                          name="role"
-                          required
-                          disabled={submitting}
-                          placeholder="Role"
-                          aria-label="role"
-                        >
-                          <option value="">Select Role</option>
-                          {roleData.map((item) => (
-                            <option key={item.id} value={item.id}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </FormControl>
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faLock} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          type="password"
-                          name="password"
-                          required
-                          value={"Password@2024"}
-                          disabled={true}
-                          placeholder="Password"
-                          aria-label="Password"
-                        />
-                      </InputGroup>
                       <Row className="align-items-center">
                         <Col xs={6}>
                           <Button
@@ -333,7 +313,7 @@ export default function Page() {
                             type="submit"
                             disabled={submitting}
                           >
-                            Register User
+                            Register Supplier
                           </Button>
                         </Col>
                       </Row>
