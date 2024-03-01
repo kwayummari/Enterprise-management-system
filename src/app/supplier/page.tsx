@@ -149,6 +149,7 @@ export default function Page() {
         tin: target.tin.value,
         location: target.location.value,
         branch: target.branch.value,
+        companyId: companyId,
       };
   
       validateEditingSupplier(userData);
