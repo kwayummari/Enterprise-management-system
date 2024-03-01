@@ -53,7 +53,7 @@ export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
   const [roleData, setRoleData] = useState<DropdownItem[]>([]);
-  const [users, setUsers] = useState<Users[]>([]);
+  const [suppliers, setSuppliers] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -87,7 +87,7 @@ export default function Page() {
       const rolesData = await apiGateway.create("getAllRoles", userData);
       setBranchData(branchData.branch);
       setRoleData(rolesData.roles);
-      setUsers(value.users);
+      setSuppliers(value.suppliers);
     } catch (err: any) {
       setError(err.message);
     }
@@ -404,8 +404,8 @@ export default function Page() {
                                   handleShowModal3();
                                   setEditId(user.id);
                                   setEditBranch(user.branch);
-                                  setEditEmail(user.email);
-                                  setEditFullname(user.fullname);
+                                  setEditEmail(user.location);
+                                  setEditFullname(user.name);
                                   setEditPhone(user.phone);
                                   setEditRole(user.role)
                                 }}
