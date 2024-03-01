@@ -93,7 +93,7 @@ export default function Page() {
   
       const userData = {
         id: editId,
-        phone: target.name.value,
+        name: target.name.value,
       };
   
       validateEditingRole(userData);
