@@ -34,6 +34,22 @@ export const validateRegistrationData = (data: { fullname: string; email: string
   return true;
 };
 
+export const validateSupplierData = (data: { name: string; phone: string; tin: string; location?: string }) => {
+  if (!data.name || !data.phone || !data.tin || !data.location) {
+    throw new Error('Name, Email, Tin, and Location are required');
+  }
+
+  if (data.name.length < 4 || data.name.length > 15) {
+    throw new Error('Username must be between 4 and 15 characters long');
+  }
+
+  if (!/^(07|06)\d{8}$/.test(data.phone || '')) {
+    throw new Error('Invalid phone number. Phone number should start with 07 or 06 and have 10 digits.');
+  }
+
+  return true;
+};
+
 export const validateEditingData = (data: { id?: number;  fullname: string; email: string; password: string; phone?: string }) => {
   if (!data.fullname || !data.email || !data.password || !data.phone || !data.id) {
     throw new Error('fullname, email, and password are required');
