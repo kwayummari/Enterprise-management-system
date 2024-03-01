@@ -81,6 +81,7 @@ export default function Page() {
       console.log(value);
       const branchData = await apiGateway.read("getBranch");
       const rolesData = await apiGateway.read("getAllRoles");
+      const companyId = localStorage.getItem('companyId');
       setBranchData(branchData.branch);
       setRoleData(rolesData.roles);
       setUsers(value.users);
