@@ -68,11 +68,11 @@ export default function Page() {
   const handleShowModal3 = () => setShowModal3(true);
   const handleCloseModal3 = () => setShowModal3(false);
   const [editId, setEditId] = useState<number>();
-  const [editEmail, setEditEmail] = useState<string | null>("");
   const [editFullname, setEditFullname] = useState<string | null>("");
   const [editPhone, setEditPhone] = useState<string | null>("");
   const [editBranch, setEditBranch] = useState<string | null>("");
-  const [editRole, setEditRole] = useState<string | null>("");
+  const [editLocation, setEditLocation] = useState<string | null>("");
+  const [editTin, setEditTin] = useState<string | null>("");
   const companyId = localStorage.getItem('companyId');
   useEffect(() => {
     getSuppliers();
@@ -136,21 +136,19 @@ export default function Page() {
     try {
       const target = e.target as typeof e.target & {
         phone: { value: string };
-        fullname: { value: string };
-        email: { value: string };
+        name: { value: string };
+        tin: { value: string };
         branch: { value: string };
-        role: { value: string };
-        password: { value: string };
+        location: { value: string };
       };
   
       const userData = {
         id: editId,
         phone: target.phone.value,
-        fullname: target.fullname.value,
-        email: target.email.value,
-        password: target.password.value,
+        name: target.name.value,
+        tin: target.tin.value,
+        location: target.location.value,
         branch: target.branch.value,
-        role: target.role.value,
       };
   
       validateEditingData(userData);
@@ -445,7 +443,7 @@ export default function Page() {
                             centered
                           >
                             <Modal.Header closeButton>
-                              <Modal.Title>Edit User</Modal.Title>
+                              <Modal.Title>Edit Supplier</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                               <Form onSubmit={editing}>
@@ -482,18 +480,18 @@ export default function Page() {
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
                                     <FontAwesomeIcon
-                                      icon={faEnvelope}
+                                      icon={faLocation}
                                       fixedWidth
                                     />
                                   </InputGroupText>
                                   <FormControl
-                                    name="email"
+                                    name="location"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditEmail(e.target.value)}
-                                    placeholder="Email"
-                                    aria-label="Email"
-                                    value={editEmail ?? ''}
+                                    onChange={(e) => setEditLocation(e.target.value)}
+                                    placeholder="Location"
+                                    aria-label="Location"
+                                    value={editLocation ?? ''}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -548,16 +546,19 @@ export default function Page() {
                                 </InputGroup>
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
-                                    <FontAwesomeIcon icon={faLock} fixedWidth />
+                                    <FontAwesomeIcon
+                                      icon={faListNumeric}
+                                      fixedWidth
+                                    />
                                   </InputGroupText>
                                   <FormControl
-                                    type="password"
-                                    name="password"
+                                    name="tin"
                                     required
-                                    value={"Password@2024"}
-                                    disabled={true}
-                                    placeholder="Password"
-                                    aria-label="Password"
+                                    disabled={submitting}
+                                    onChange={(e) => setEditPhone(e.target.value)}
+                                    placeholder="Tin Number"
+                                    aria-label="Tin Number"
+                                    value={editTin ?? ''}
                                   />
                                 </InputGroup>
                                 <Row className="align-items-center">
@@ -568,7 +569,7 @@ export default function Page() {
                                       type="submit"
                                       disabled={submitting}
                                     >
-                                      Edit User
+                                      Edit Supplier
                                     </Button>
                                   </Col>
                                 </Row>
