@@ -177,7 +177,7 @@ export default function Page() {
       userData
     );
     setSuccess(deletingResponse.message);
-    handleCloseModal2;
+    handleCloseModal2();
     getUsers();
   };
 
