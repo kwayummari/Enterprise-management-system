@@ -97,7 +97,7 @@ export default function Page() {
       };
       validateEditingRole(userData);
   
-      const editingResponse = await apiGateway.create("edit_role", userData);
+      const editingResponse = await apiGateway.create("edit_branch", userData);
       setSuccess(editingResponse.message);
       getBranches();
       handleCloseModal3();
@@ -269,7 +269,7 @@ export default function Page() {
                   </Dropdown>
                   <Modal show={showModal2} onHide={handleCloseModal2} centered>
                     <Modal.Header closeButton>
-                      <Modal.Title>Delete Role</Modal.Title>
+                      <Modal.Title>Delete Branch</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       Are you sure you want to delete this role?
@@ -283,7 +283,7 @@ export default function Page() {
                               handleDeleteConfirmation();
                             }}
                           >
-                            Delete Role
+                            Delete Branch
                           </Button>
                         </Col>
                       </Row>
@@ -303,7 +303,7 @@ export default function Page() {
                             centered
                           >
                             <Modal.Header closeButton>
-                              <Modal.Title>Edit User</Modal.Title>
+                              <Modal.Title>Edit Branch</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                               <Form onSubmit={editing}>
@@ -345,7 +345,7 @@ export default function Page() {
                                       type="submit"
                                       disabled={submitting}
                                     >
-                                      Edit User
+                                      Edit Branch
                                     </Button>
                                   </Col>
                                 </Row>
