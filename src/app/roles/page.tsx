@@ -18,13 +18,14 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { validateRoleData } from "../gateway/validators";
+import { validateEditingRole, validateRoleData } from "../gateway/validators";
 import {
   faAdd,
   faDeleteLeft,
   faEdit,
   faEllipsisVertical,
   faRouble,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface Roles {
@@ -46,6 +47,7 @@ export default function Page() {
   const handleShowModal3 = () => setShowModal3(true);
   const handleCloseModal3 = () => setShowModal3(false);
   const [editId, setEditId] = useState<number>();
+  const [editName, setEditName] = useState<string | null>("");
   const [showModal2, setShowModal2] = useState(false);
   const handleShowModal2 = () => setShowModal2(true);
   const handleCloseModal2 = () => setShowModal2(false);
@@ -77,6 +79,33 @@ export default function Page() {
     catch (err: any) {
       setError(err.message);
       handleCloseModal2();
+    }
+  };
+  const editing = async (e: SyntheticEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+  
+    setSubmitting(true);
+    try {
+      const target = e.target as typeof e.target & {
+        name: { value: string };
+      };
+  
+      const userData = {
+        id: editId,
+        phone: target.name.value,
+      };
+  
+      validateEditingRole(userData);
+  
+      const editingResponse = await apiGateway.create("edit_role", userData);
+      setSuccess(editingResponse.message);
+      getRoles();
+      handleCloseModal3();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
     }
   };
   const handleEditRole = (roleId: number) => {
@@ -219,6 +248,7 @@ export default function Page() {
                         onClick={() => {
                           handleShowModal3();
                           setEditId(role.id);
+                          setEditName(role.name)
                         }}
                       >
                         <FontAwesomeIcon fixedWidth icon={faEdit} />
@@ -268,6 +298,69 @@ export default function Page() {
                       </button>
                     </Modal.Footer>
                   </Modal>
+                  <Modal
+                            show={showModal3}
+                            onHide={handleCloseModal3}
+                            centered
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Edit User</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <Form onSubmit={editing}>
+                                <Alert
+                                  variant="danger"
+                                  show={error !== ""}
+                                  onClose={() => setError("")}
+                                  dismissible
+                                >
+                                  {error}
+                                </Alert>
+                                <Alert
+                                  variant="success"
+                                  show={success !== ""}
+                                  onClose={() => setSuccess("")}
+                                  dismissible
+                                >
+                                  {success}
+                                </Alert>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon icon={faUser} fixedWidth />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="fullname"
+                                    required
+                                    disabled={submitting}
+                                    placeholder="Fullname"
+                                    aria-label="fullname"
+                                    value={editName ?? ''}
+                                    onChange={(e) => setEditName(e.target.value)}
+                                  />
+                                </InputGroup>
+                                <Row className="align-items-center">
+                                  <Col xs={6}>
+                                    <Button
+                                      className="px-4"
+                                      variant="dark"
+                                      type="submit"
+                                      disabled={submitting}
+                                    >
+                                      Edit User
+                                    </Button>
+                                  </Col>
+                                </Row>
+                              </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <button
+                                className="btn btn-dark"
+                                onClick={handleCloseModal3}
+                              >
+                                Close
+                              </button>
+                            </Modal.Footer>
+                          </Modal>
                 </div>
               </CardBody>
             </Card>

@@ -53,6 +53,17 @@ export const validateEditingData = (data: { id?: number;  fullname: string; emai
 
   return true;
 };
+export const validateEditingRole = (data: { id?: number;  name: string;}) => {
+  if (!data.name || !data.id) {
+    throw new Error('Name, email, and password are required');
+  }
+
+  if (data.name.length < 4 || data.name.length > 15) {
+    throw new Error('Name must be between 4 and 15 characters long');
+  }
+
+  return true;
+};
 
 export const validateRoleData = (data: { name: string}) => {
   if (!data.name) {
