@@ -31,7 +31,7 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateEditingData, validateEditingSupplier, validateRegistrationData, validateSupplierData } from "../gateway/validators";
+import { validateEditingSupplier, validateSupplierData } from "../gateway/validators";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
