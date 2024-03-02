@@ -121,7 +121,7 @@ export default function Page() {
         sellingPrice: target.sellingPrice.value,
         productNumber: target.productNumber.value,
         taxType: target.taxType.value,
-        branch: target.branch.value,
+        branchId: target.branch.value,
         companyId: companyId,
         userId: userId,
       };
@@ -183,7 +183,7 @@ export default function Page() {
       id: deleteId,
     };
     const deletingResponse = await apiGateway.create(
-      "deleteSupplier",
+      "delete_product",
       userData
     );
     setSuccess(deletingResponse.message);
@@ -478,10 +478,10 @@ export default function Page() {
                             centered
                           >
                             <Modal.Header closeButton>
-                              <Modal.Title>Delete User</Modal.Title>
+                              <Modal.Title>Delete Product</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              Are you sure you want to delete this user?
+                              Are you sure you want to delete this product?
                               <Row className="align-items-center">
                                 <Col xs={6}>
                                   <Button
@@ -492,7 +492,7 @@ export default function Page() {
                                       handleDeleteConfirmation();
                                     }}
                                   >
-                                    Delete User
+                                    Delete product
                                   </Button>
                                 </Col>
                               </Row>
