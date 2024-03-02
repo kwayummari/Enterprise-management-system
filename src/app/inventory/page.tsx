@@ -2,11 +2,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCodeBranch,
+  faCut,
   faDeleteLeft,
   faEllipsisVertical,
   faListNumeric,
   faLocation,
+  faMoneyBill,
   faPhone,
+  faSortNumericAsc,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -29,8 +32,8 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateEditingSupplier, validateSupplierData } from "../gateway/validators";
-import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { validateEditingSupplier, validateProductData, validateSupplierData } from "../gateway/validators";
+import { faEdit, faFileText } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
   id: number;
@@ -53,6 +56,7 @@ interface DropdownItem {
 export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
+  const [taxData, setTaxData] = useState<DropdownItem[]>([]);
   const [products, setProducts] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
@@ -73,6 +77,7 @@ export default function Page() {
   const [editLocation, setEditLocation] = useState<string | null>("");
   const [editTin, setEditTin] = useState<string | null>("");
   const companyId = localStorage.getItem('companyId');
+  const userId = localStorage.getItem('userId');
   useEffect(() => {
     getSuppliers();
   }, []);
@@ -84,7 +89,9 @@ export default function Page() {
     try {
       const value = await apiGateway.create("products", userData);
       const branchData = await apiGateway.create("getBranch", userData);
+      const taxData = await apiGateway.create("tax", userData);
       setBranchData(branchData.branch);
+      setTaxData(taxData.tax)
       setProducts(value.products);
     } catch (err: any) {
       setError(err.message);
@@ -98,21 +105,28 @@ export default function Page() {
     try {
       const target = e.target as typeof e.target & {
         name: { value: string };
-        phone: { value: string };
-        tin: { value: string };
-        location: { value: string };
+        description: { value: string };
+        quantity: { value: string };
+        buyingPrice: { value: string };
+        sellingPrice: { value: string };
+        productNumber: { value: string };
+        taxType: { value: string };
         branch: { value: string };
       };
       const userData = {
         name: target.name.value,
-        phone: target.phone.value,
-        tin: target.tin.value,
-        location: target.location.value,
+        description: target.description.value,
+        quantity: target.quantity.value,
+        buyingPrice: target.buyingPrice.value,
+        sellingPrice: target.sellingPrice.value,
+        productNumber: target.productNumber.value,
+        taxType: target.taxType.value,
         branch: target.branch.value,
         companyId: companyId,
+        userId: userId,
       };
 
-      validateSupplierData(userData);
+      validateProductData(userData);
 
       const registeringResponse = await apiGateway.create(
         "register_supplier",
@@ -244,14 +258,14 @@ export default function Page() {
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
-                          <FontAwesomeIcon icon={faPhone} fixedWidth />
+                          <FontAwesomeIcon icon={faFileText} fixedWidth />
                         </InputGroupText>
                         <FormControl
-                          name="phone"
+                          name="description"
                           required
                           disabled={submitting}
-                          placeholder="Phone"
-                          aria-label="Phone"
+                          placeholder="Description"
+                          aria-label="Description"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -259,24 +273,68 @@ export default function Page() {
                           <FontAwesomeIcon icon={faListNumeric} fixedWidth />
                         </InputGroupText>
                         <FormControl
-                          name="tin"
+                          name="quantity"
                           required
                           disabled={submitting}
-                          placeholder="Tin number"
-                          aria-label="Tin number"
+                          placeholder="Quantity"
+                          aria-label="Quantity"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
-                          <FontAwesomeIcon icon={faLocation} fixedWidth />
+                          <FontAwesomeIcon icon={faMoneyBill} fixedWidth />
                         </InputGroupText>
                         <FormControl
-                          name="location"
+                          name="buyingPrice"
                           required
                           disabled={submitting}
-                          placeholder="Location"
-                          aria-label="Location"
+                          placeholder="Buying Price"
+                          aria-label="Buying Price"
                         />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faMoneyBill} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          name="sellingPrice"
+                          required
+                          disabled={submitting}
+                          placeholder="Selling Price"
+                          aria-label="Selling Price"
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faListNumeric} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          name="productNumber"
+                          required
+                          disabled={submitting}
+                          placeholder="Product Number"
+                          aria-label="Product Number"
+                        />
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faCut} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          as="select"
+                          name="taxType"
+                          required
+                          disabled={submitting}
+                          placeholder="Tax Type"
+                          aria-label="Tax Type"
+                        >
+                          <option value="">Select Tax Type</option>
+                          {taxData.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </FormControl>
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
