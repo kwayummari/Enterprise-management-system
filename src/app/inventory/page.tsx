@@ -35,14 +35,15 @@ import { faEdit } from "@fortawesome/free-regular-svg-icons";
 interface Users {
   id: number;
   name: string;
-  tin: string;
+  description: string;
   phone: string;
-  date: string;
-  location: string;
+  quantity: string;
+  buyingPrice: string;
+  sellingPrice: string;
+  productNumber: string;
   branch: string;
   branch_name: string;
-  role: string;
-  role_name: string;
+  date: string;
 }
 interface DropdownItem {
   id: number;
@@ -52,7 +53,7 @@ interface DropdownItem {
 export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
-  const [suppliers, setSuppliers] = useState<Users[]>([]);
+  const [products, setProducts] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -81,10 +82,10 @@ export default function Page() {
       companyId: companyId,
     };
     try {
-      const value = await apiGateway.create("suppliers", userData);
+      const value = await apiGateway.create("products", userData);
       const branchData = await apiGateway.create("getBranch", userData);
       setBranchData(branchData.branch);
-      setSuppliers(value.suppliers);
+      setProducts(value.products);
     } catch (err: any) {
       setError(err.message);
     }
@@ -198,18 +199,18 @@ export default function Page() {
         <div className="col-md-12">
           <Card>
             <CardHeader>
-              Supplier &amp; Management
+              Inventory &amp; Management
               <span style={{ marginLeft: "20px" }}>
                 <button
                   type="button"
                   className="btn btn-dark"
                   onClick={handleShowModal}
                 >
-                  Add Supplier
+                  Add Products
                 </button>
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
-                    <Modal.Title>Add Supplier</Modal.Title>
+                    <Modal.Title>Add Products</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <Form onSubmit={registering}>
@@ -325,34 +326,45 @@ export default function Page() {
                 <table className="table border mb-0">
                   <thead className="table-light fw-semibold">
                     <tr className="align-middle">
-                      <th>Fullname</th>
-                      <th>Phone number</th>
-                      <th>Tin number</th>
-                      <th>Location</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Quantity</th>
+                      <th>Buying Price</th>
+                      <th>Selling Price</th>
+                      <th>Product Number</th>
                       <th>Branch</th>
                       <th aria-label="Action" />
                     </tr>
                   </thead>
                   <tbody>
-                    {suppliers.map((supplier) => (
-                      <tr key={supplier.id} className="align-middle">
+                    {products.map((product) => (
+                      <tr key={product.id} className="align-middle">
                         <td>
-                          <div>{supplier.name}</div>
+                          <div>{product.name}</div>
                           <div className="small text-black-50">
-                            <span>New</span> | {supplier.date}
+                            <span>New</span> | {product.date}
                           </div>
                         </td>
                         <td>
-                          <div>{supplier.phone}</div>
+                          <div>{product.description}</div>
                         </td>
                         <td>
-                          <div>{supplier.tin}</div>
+                          <div>{product.quantity}</div>
                         </td>
                         <td>
-                          <div>{supplier.location}</div>
+                          <div>{product.buyingPrice}</div>
                         </td>
                         <td>
-                          <div>{supplier.branch}</div>
+                          <div>{product.sellingPrice}</div>
+                        </td>
+                        <td>
+                          <div>{product.sellingPrice}</div>
+                        </td>
+                        <td>
+                          <div>{product.productNumber}</div>
+                        </td>
+                        <td>
+                          <div>{product.branch_name}</div>
                         </td>
                         <td>
                           <Dropdown align="end">
@@ -374,12 +386,12 @@ export default function Page() {
                                 className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal3();
-                                  setEditId(supplier.id);
-                                  setEditBranch(supplier.branch);
-                                  setEditLocation(supplier.location);
-                                  setEditFullname(supplier.name);
-                                  setEditPhone(supplier.phone);
-                                  setEditTin(supplier.tin)
+                                  setEditId(product.id);
+                                  setEditBranch(product.branch);
+                                  setEditLocation(product.quantity);
+                                  setEditFullname(product.sellingPrice);
+                                  setEditPhone(product.buyingPrice);
+                                  setEditTin(product.description)
                                 }}
                               >
                                 <FontAwesomeIcon fixedWidth icon={faEdit} />
@@ -391,7 +403,7 @@ export default function Page() {
                                 className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal2();
-                                  setDeleteId(supplier.id);
+                                  setDeleteId(product.id);
                                 }}
                               >
                                 <FontAwesomeIcon
