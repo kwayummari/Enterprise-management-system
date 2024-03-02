@@ -56,6 +56,8 @@ interface DropdownItem {
 export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
+  const [supplierData, setSupplierData] = useState<DropdownItem[]>([]);
+  const [supplierId, setSupplierId] = useState<string | null>("");
   const [taxData, setTaxData] = useState<DropdownItem[]>([]);
   const [products, setProducts] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -88,6 +90,10 @@ export default function Page() {
     };
     try {
       const value = await apiGateway.create("products", userData);
+      const suppliers = await apiGateway.create("suppliers", userData);
+      setSupplierData(suppliers.suppliers)
+      const purchases = await apiGateway.create("get_purchases", userData);
+      console.log(purchases)
       const branchData = await apiGateway.create("getBranch", userData);
       const taxData = await apiGateway.create("tax", userData);
       setBranchData(branchData.branch);
@@ -213,15 +219,38 @@ export default function Page() {
         <div className="col-md-12">
           <Card>
             <CardHeader>
-              Inventory &amp; Management
+              Purchase Order &amp; Management
               <span style={{ marginLeft: "20px" }}>
                 <button
                   type="button"
                   className="btn btn-dark"
                   onClick={handleShowModal}
                 >
-                  Add Products
+                  Add Order
                 </button>
+                <Form onSubmit={registering}>
+                      <InputGroup className="mb-3">
+                        <InputGroupText>
+                          <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
+                        </InputGroupText>
+                        <FormControl
+                          as="select"
+                          name="supplier"
+                          required
+                          disabled={submitting}
+                          placeholder="Supplier"
+                      aria-label="supplier"
+                      onChange={(e) => setSupplierId(e.target.value)}
+                        >
+                          <option value="">Select Supplier</option>
+                          {supplierData.map((item) => (
+                            <option key={item.id} value={item.id}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </FormControl>
+                      </InputGroup>
+                    </Form>
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
                     <Modal.Title>Add Products</Modal.Title>
