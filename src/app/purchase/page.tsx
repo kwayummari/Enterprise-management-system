@@ -32,22 +32,26 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateEditingSupplier, validateProductData, validateSupplierData } from "../gateway/validators";
+import {
+  validateEditingSupplier,
+  validateProductData,
+  validateSupplierData,
+} from "../gateway/validators";
 import { faEdit, faFileText } from "@fortawesome/free-regular-svg-icons";
 
-interface Users {
+interface oderData {
   id: number;
-  name: string;
-  description: string;
-  phone: string;
-  quantity: string;
-  buyingPrice: string;
-  sellingPrice: string;
-  productNumber: string;
-  branch: string;
-  branch_name: string;
-  date: string;
+  inventoryDetails: {
+    name: string;
+    description: string;
+    quantity: string;
+    buyingPrice: string;
+    sellingPrice: string;
+    productNumber: string;
+    date: string;
+  };
 }
+
 interface DropdownItem {
   id: number;
   name: string;
@@ -59,7 +63,7 @@ export default function Page() {
   const [supplierData, setSupplierData] = useState<DropdownItem[]>([]);
   const [supplierId, setSupplierId] = useState<string | null>("");
   const [taxData, setTaxData] = useState<DropdownItem[]>([]);
-  const [products, setProducts] = useState<Users[]>([]);
+  const [orders, setOrders] = useState<oderData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -78,27 +82,27 @@ export default function Page() {
   const [editBranch, setEditBranch] = useState<string | null>("");
   const [editLocation, setEditLocation] = useState<string | null>("");
   const [editTin, setEditTin] = useState<string | null>("");
-  const companyId = localStorage.getItem('companyId');
-  const userId = localStorage.getItem('userId');
+  const companyId = localStorage.getItem("companyId");
+  const userId = localStorage.getItem("userId");
   useEffect(() => {
-    getSuppliers();
+    getOder();
   }, []);
 
-  const getSuppliers = async () => {
+  const getOder = async () => {
     const userData = {
       companyId: companyId,
+      supplierId: supplierId,
     };
     try {
-      const value = await apiGateway.create("products", userData);
       const suppliers = await apiGateway.create("suppliers", userData);
-      setSupplierData(suppliers.suppliers)
+      setSupplierData(suppliers.suppliers);
       const purchases = await apiGateway.create("get_purchases", userData);
-      console.log(purchases)
+      console.log(purchases);
       const branchData = await apiGateway.create("getBranch", userData);
       const taxData = await apiGateway.create("tax", userData);
       setBranchData(branchData.branch);
-      setTaxData(taxData.tax)
-      setProducts(value.products);
+      setTaxData(taxData.tax);
+      setOrders(purchases.orders);
     } catch (err: any) {
       setError(err.message);
     }
@@ -139,7 +143,7 @@ export default function Page() {
         userData
       );
       setSuccess(registeringResponse.message);
-      getSuppliers();
+      getOder();
       handleCloseModal();
     } catch (err: any) {
       setError(err.message);
@@ -150,7 +154,7 @@ export default function Page() {
   const editing = async (e: SyntheticEvent) => {
     e.stopPropagation();
     e.preventDefault();
-  
+
     setSubmitting(true);
     try {
       const target = e.target as typeof e.target & {
@@ -160,7 +164,7 @@ export default function Page() {
         branch: { value: string };
         location: { value: string };
       };
-  
+
       const userData = {
         id: editId,
         phone: target.phone.value,
@@ -170,12 +174,15 @@ export default function Page() {
         branch: target.branch.value,
         companyId: companyId,
       };
-  
+
       validateEditingSupplier(userData);
-  
-      const editingResponse = await apiGateway.create("edit_supplier", userData);
+
+      const editingResponse = await apiGateway.create(
+        "edit_supplier",
+        userData
+      );
       setSuccess(editingResponse.message);
-      getSuppliers();
+      getOder();
       handleCloseModal3();
     } catch (err: any) {
       setError(err.message);
@@ -183,7 +190,7 @@ export default function Page() {
       setSubmitting(false);
     }
   };
-  
+
   const handleDeleteConfirmation = async () => {
     const userData = {
       id: deleteId,
@@ -194,7 +201,7 @@ export default function Page() {
     );
     setSuccess(deletingResponse.message);
     handleCloseModal2();
-    getSuppliers();
+    getOder();
   };
 
   return (
@@ -229,28 +236,31 @@ export default function Page() {
                   Add Order
                 </button>
                 <Form onSubmit={registering}>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          as="select"
-                          name="supplier"
-                          required
-                          disabled={submitting}
-                          placeholder="Supplier"
+                  <InputGroup className="mb-3">
+                    <InputGroupText>
+                      <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
+                    </InputGroupText>
+                    <FormControl
+                      as="select"
+                      name="supplier"
+                      required
+                      disabled={submitting}
+                      placeholder="Supplier"
                       aria-label="supplier"
-                      onChange={(e) => setSupplierId(e.target.value)}
-                        >
-                          <option value="">Select Supplier</option>
-                          {supplierData.map((item) => (
-                            <option key={item.id} value={item.id}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </FormControl>
-                      </InputGroup>
-                    </Form>
+                      onChange={(e) => {
+                        setSupplierId(e.target.value);
+                        getOder();
+                      }}
+                    >
+                      <option value="">Select Supplier</option>
+                      {supplierData.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </FormControl>
+                  </InputGroup>
+                </Form>
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
                     <Modal.Title>Add Products</Modal.Title>
@@ -420,38 +430,40 @@ export default function Page() {
                       <th>Selling Price</th>
                       <th>Product Number</th>
                       <th>Branch</th>
+                      <th>Date</th>
+                      <th>Action</th>
                       <th aria-label="Action" />
                     </tr>
                   </thead>
                   <tbody>
-                    {products.map((product) => (
-                      <tr key={product.id} className="align-middle">
+                    {orders.map((order) => (
+                      <tr key={order.id} className="align-middle">
                         <td>
-                          <div>{product.name}</div>
+                          <div>{order.inventoryDetails.name}</div>
                           <div className="small text-black-50">
-                            <span>New</span> | {product.date}
+                            <span>New</span> | {order.inventoryDetails.date}
                           </div>
                         </td>
                         <td>
-                          <div>{product.description}</div>
+                          <div>{order.inventoryDetails.name}</div>
                         </td>
                         <td>
-                          <div>{product.quantity}</div>
+                          <div>{order.inventoryDetails.quantity}</div>
                         </td>
                         <td>
-                          <div>{product.buyingPrice}</div>
+                          <div>{order.inventoryDetails.buyingPrice}</div>
                         </td>
                         <td>
-                          <div>{product.sellingPrice}</div>
+                          <div>{order.inventoryDetails.sellingPrice}</div>
                         </td>
                         <td>
-                          <div>{product.sellingPrice}</div>
+                          <div>{order.inventoryDetails.sellingPrice}</div>
                         </td>
                         <td>
-                          <div>{product.productNumber}</div>
+                          <div>Price</div>
                         </td>
                         <td>
-                          <div>{product.branch_name}</div>
+                          <div>total</div>
                         </td>
                         <td>
                           <Dropdown align="end">
@@ -473,12 +485,12 @@ export default function Page() {
                                 className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal3();
-                                  setEditId(product.id);
-                                  setEditBranch(product.branch);
-                                  setEditLocation(product.quantity);
-                                  setEditFullname(product.sellingPrice);
-                                  setEditPhone(product.buyingPrice);
-                                  setEditTin(product.description)
+                                  // setEditId(product.id);
+                                  // setEditBranch(product.branch);
+                                  // setEditLocation(product.quantity);
+                                  // setEditFullname(product.sellingPrice);
+                                  // setEditPhone(product.buyingPrice);
+                                  // setEditTin(product.description)
                                 }}
                               >
                                 <FontAwesomeIcon fixedWidth icon={faEdit} />
@@ -490,7 +502,7 @@ export default function Page() {
                                 className="m-2 text-white"
                                 onClick={() => {
                                   handleShowModal2();
-                                  setDeleteId(product.id);
+                                  // setDeleteId(product.id);
                                 }}
                               >
                                 <FontAwesomeIcon
@@ -571,8 +583,10 @@ export default function Page() {
                                     disabled={submitting}
                                     placeholder="Name"
                                     aria-label="Name"
-                                    value={editFullname ?? ''}
-                                    onChange={(e) => setEditFullname(e.target.value)}
+                                    value={editFullname ?? ""}
+                                    onChange={(e) =>
+                                      setEditFullname(e.target.value)
+                                    }
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -586,10 +600,12 @@ export default function Page() {
                                     name="location"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditLocation(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditLocation(e.target.value)
+                                    }
                                     placeholder="Location"
                                     aria-label="Location"
-                                    value={editLocation ?? ''}
+                                    value={editLocation ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -603,10 +619,12 @@ export default function Page() {
                                     name="phone"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditPhone(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditPhone(e.target.value)
+                                    }
                                     placeholder="Phone"
                                     aria-label="phone"
-                                    value={editPhone ?? ''}
+                                    value={editPhone ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -620,8 +638,10 @@ export default function Page() {
                                     as="select"
                                     name="branch"
                                     required
-                                    value={editBranch ?? ''}
-                                    onChange={(e) => setEditBranch(e.target.value)}
+                                    value={editBranch ?? ""}
+                                    onChange={(e) =>
+                                      setEditBranch(e.target.value)
+                                    }
                                     disabled={submitting}
                                     placeholder="Branch"
                                     aria-label="branch"
@@ -648,7 +668,7 @@ export default function Page() {
                                     onChange={(e) => setEditTin(e.target.value)}
                                     placeholder="Tin Number"
                                     aria-label="Tin Number"
-                                    value={editTin ?? ''}
+                                    value={editTin ?? ""}
                                   />
                                 </InputGroup>
                                 <Row className="align-items-center">
