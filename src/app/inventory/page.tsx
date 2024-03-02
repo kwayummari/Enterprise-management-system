@@ -129,7 +129,7 @@ export default function Page() {
       validateProductData(userData);
 
       const registeringResponse = await apiGateway.create(
-        "register_supplier",
+        "register_product",
         userData
       );
       setSuccess(registeringResponse.message);
