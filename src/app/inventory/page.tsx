@@ -4,10 +4,8 @@ import {
   faCodeBranch,
   faDeleteLeft,
   faEllipsisVertical,
-  faEnvelope,
   faListNumeric,
   faLocation,
-  faLock,
   faPhone,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
