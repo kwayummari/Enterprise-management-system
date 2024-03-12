@@ -87,7 +87,7 @@ export default function Page() {
       companyId: companyId,
     };
     try {
-      const value = await apiGateway.create("get_purchases", userData);
+      const value = await apiGateway.create("products", userData);
       const branchData = await apiGateway.create("getBranch", userData);
       const taxData = await apiGateway.create("tax", userData);
       setBranchData(branchData.branch);

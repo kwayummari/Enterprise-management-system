@@ -50,6 +50,9 @@ interface oderData {
     productNumber: string;
     date: string;
   };
+  branchDetails: {
+    name: string;
+  };
 }
 
 interface DropdownItem {
@@ -203,6 +206,19 @@ export default function Page() {
     handleCloseModal2();
     getOder();
   };
+  const total = (price: string, quantity: string): number => {
+    const priceValue = parseFloat(price);
+    const quantityValue = parseFloat(quantity);
+
+    if (isNaN(priceValue) || isNaN(quantityValue)) {
+      throw new Error(
+        "Invalid input: price and quantity must be numeric strings"
+      );
+    }
+
+    const totalValue = priceValue * quantityValue;
+    return totalValue;
+  };
 
   return (
     <>
@@ -226,17 +242,28 @@ export default function Page() {
         <div className="col-md-12">
           <Card>
             <CardHeader>
-              Purchase Order &amp; Management
-              <span style={{ marginLeft: "20px" }}>
-                <button
-                  type="button"
-                  className="btn btn-dark"
-                  onClick={handleShowModal}
-                >
-                  Add Order
-                </button>
+              <span >
+                <svg className="sidebar-brand-full" width="118" height="46">
+                  <title>CoreUI Logo</title>
+                  <use xlinkHref="/assets/brand/coreui.svg#full" />
+                </svg>
+                <p style={{ fontSize: "13px" }}>
+                  CoreUI LDT
+                </p>
+                <p style={{ fontSize: "13px" }}>
+                Dar Es Salaam,
+                </p>
+                <p style={{ fontSize: "13px", marginBottom: '30px' }}>
+                  +255 762 996 305
+                </p>
+                <p style={{ fontSize: "30px", fontWeight: "bolder" }}>
+                  Purchase Order
+                </p>
                 <Form onSubmit={registering}>
-                  <InputGroup className="mb-3">
+                  <InputGroup
+                    className="mb-3"
+                    style={{ width: "300px", marginTop: "20px" }}
+                  >
                     <InputGroupText>
                       <FontAwesomeIcon icon={faCodeBranch} fixedWidth />
                     </InputGroupText>
@@ -263,7 +290,7 @@ export default function Page() {
                 </Form>
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
-                    <Modal.Title>Add Products</Modal.Title>
+                    <Modal.Title>Add Order</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <Form onSubmit={registering}>
@@ -403,7 +430,7 @@ export default function Page() {
                             type="submit"
                             disabled={submitting}
                           >
-                            Register Supplier
+                            Add Order
                           </Button>
                         </Col>
                       </Row>
@@ -415,6 +442,21 @@ export default function Page() {
                     </button>
                   </Modal.Footer>
                 </Modal>
+                <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <p style={{ fontSize: "20px", fontWeight: "bolder" }}>
+                Purchase Order # 403684
+                  </p>
+                  <p style={{ fontSize: "20px", fontWeight: "bolder" }}>
+                  Date: 2024-03-02
+                </p>
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-dark"
+                  onClick={handleShowModal}
+                >
+                  Add Order
+                </button>
               </span>
             </CardHeader>
             <CardBody>
@@ -426,11 +468,11 @@ export default function Page() {
                       <th>Name</th>
                       <th>Description</th>
                       <th>Quantity</th>
-                      <th>Buying Price</th>
-                      <th>Selling Price</th>
-                      <th>Product Number</th>
-                      <th>Branch</th>
-                      <th>Date</th>
+                      <th>Price</th>
+                      {/* <th>Selling Price</th> */}
+                      {/* <th>Product Number</th> */}
+                      {/* <th>Branch</th> */}
+                      <th>Total</th>
                       <th>Action</th>
                       <th aria-label="Action" />
                     </tr>
@@ -453,17 +495,22 @@ export default function Page() {
                         <td>
                           <div>{order.inventoryDetails.buyingPrice}</div>
                         </td>
-                        <td>
+                        {/* <td>
                           <div>{order.inventoryDetails.sellingPrice}</div>
                         </td>
                         <td>
                           <div>{order.inventoryDetails.sellingPrice}</div>
                         </td>
                         <td>
-                          <div>Price</div>
-                        </td>
+                          <div>{order.branchDetails.name}</div>
+                        </td> */}
                         <td>
-                          <div>total</div>
+                          <div>
+                            {total(
+                              order.inventoryDetails.buyingPrice,
+                              order.inventoryDetails.quantity
+                            )}
+                          </div>
                         </td>
                         <td>
                           <Dropdown align="end">
