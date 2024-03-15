@@ -53,6 +53,7 @@ export default function Page() {
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
   const [roleData, setRoleData] = useState<DropdownItem[]>([]);
   const [users, setUsers] = useState<Users[]>([]);
+  const [permissions, setPermissions] = useState<Users[]>([]);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -72,6 +73,7 @@ export default function Page() {
   const [editBranch, setEditBranch] = useState<string | null>("");
   const [editRole, setEditRole] = useState<string | null>("");
   const companyId = localStorage.getItem('companyId');
+  const roleId = localStorage.getItem('roleId');
   useEffect(() => {
     getUsers();
   }, []);
@@ -80,10 +82,16 @@ export default function Page() {
     const userData = {
       companyId: companyId,
     };
+    const permissionRequirement = {
+      id: roleId
+    }
     try {
       const value = await apiGateway.create("getUserByCompanyId", userData);
       const branchData = await apiGateway.create("getBranch", userData);
       const rolesData = await apiGateway.create("getAllRoles", userData);
+      const permissionData = await apiGateway.create("getPermission", permissionRequirement);
+      console.log(permissionData);
+      setPermissions(permissionData.contents);
       setBranchData(branchData.branch);
       setRoleData(rolesData.roles);
       setUsers(value.users);
