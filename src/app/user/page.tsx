@@ -49,6 +49,9 @@ interface DropdownItem {
 }
 interface Permissions {
   increase: string;
+  find: string;
+  upgrade: string;
+  remove: string;
 }
 
 export default function Page() {
@@ -56,7 +59,7 @@ export default function Page() {
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
   const [roleData, setRoleData] = useState<DropdownItem[]>([]);
   const [users, setUsers] = useState<Users[]>([]);
-  const [permissions, setPermissions] = useState<Permissions>({ increase: '0' });
+  const [permissions, setPermissions] = useState<Permissions>({ increase: '0', find: '0', upgrade: '0', remove: '0' });
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
