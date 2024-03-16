@@ -51,8 +51,20 @@ interface DropdownItem {
   id: number;
   name: string;
 }
+interface Permissions {
+  increase: string;
+  find: string;
+  upgrade: string;
+  remove: string;
+}
 
 export default function Page() {
+  const [permissions, setPermissions] = useState<Permissions>({
+    increase: "0",
+    find: "0",
+    upgrade: "0",
+    remove: "0",
+  });
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
   const [taxData, setTaxData] = useState<DropdownItem[]>([]);
@@ -77,18 +89,28 @@ export default function Page() {
   const [editTin, setEditTin] = useState<string | null>("");
   const companyId = localStorage.getItem('companyId');
   const userId = localStorage.getItem('userId');
+  const roleId = localStorage.getItem("roleId");
   useEffect(() => {
     getSuppliers();
   }, []);
 
   const getSuppliers = async () => {
-    const userData = {
+    const productData = {
       companyId: companyId,
     };
+    const permissionRequirement = {
+      id: roleId,
+    };
     try {
-      const value = await apiGateway.create("products", userData);
-      const branchData = await apiGateway.create("getBranch", userData);
-      const taxData = await apiGateway.create("tax", userData);
+      const value = await apiGateway.create("products", productData);
+      console.log(value);
+      const branchData = await apiGateway.create("getBranch", productData);
+      const taxData = await apiGateway.create("tax", productData);
+      const permissionData = await apiGateway.create(
+        "getPermission",
+        permissionRequirement
+      );
+      setPermissions(permissionData.contents["1"]);
       setBranchData(branchData.branch);
       setTaxData(taxData.tax)
       setProducts(value.products);
@@ -214,13 +236,15 @@ export default function Page() {
             <CardHeader>
               Inventory &amp; Management
               <span style={{ marginLeft: "20px" }}>
-                <button
-                  type="button"
-                  className="btn btn-dark"
-                  onClick={handleShowModal}
-                >
-                  Add Products
-                </button>
+                {permissions.increase === "1" && (
+                  <button
+                    type="button"
+                    className="btn btn-dark"
+                    onClick={handleShowModal}
+                  >
+                    Add Products
+                  </button>
+                )}
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
                     <Modal.Title>Add Products</Modal.Title>
