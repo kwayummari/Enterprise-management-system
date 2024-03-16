@@ -205,16 +205,24 @@ export default function Page() {
   };
 
   const handleDeleteConfirmation = async () => {
-    const userData = {
-      id: deleteId,
-    };
-    const deletingResponse = await apiGateway.create(
-      "delete_product",
-      userData
-    );
-    setSuccess(deletingResponse.message);
-    handleCloseModal2();
-    getSuppliers();
+    try {
+      const userData = {
+        id: deleteId,
+      };
+      const deletingResponse = await apiGateway.create(
+        "delete_product",
+        userData
+      );
+      console.log(deletingResponse)
+      setSuccess(deletingResponse.message);
+      handleCloseModal2();
+      getSuppliers();
+    } catch (error: any) {
+      setError(error.message);
+      handleCloseModal2();
+    } finally {
+      setSubmitting(false)
+    }
   };
 
   return (
