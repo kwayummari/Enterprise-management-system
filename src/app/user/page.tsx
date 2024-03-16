@@ -29,7 +29,10 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateEditingData, validateRegistrationData } from "../gateway/validators";
+import {
+  validateEditingData,
+  validateRegistrationData,
+} from "../gateway/validators";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
@@ -59,7 +62,12 @@ export default function Page() {
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
   const [roleData, setRoleData] = useState<DropdownItem[]>([]);
   const [users, setUsers] = useState<Users[]>([]);
-  const [permissions, setPermissions] = useState<Permissions>({ increase: '0', find: '0', upgrade: '0', remove: '0' });
+  const [permissions, setPermissions] = useState<Permissions>({
+    increase: "0",
+    find: "0",
+    upgrade: "0",
+    remove: "0",
+  });
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -78,8 +86,8 @@ export default function Page() {
   const [editPhone, setEditPhone] = useState<string | null>("");
   const [editBranch, setEditBranch] = useState<string | null>("");
   const [editRole, setEditRole] = useState<string | null>("");
-  const companyId = localStorage.getItem('companyId');
-  const roleId = localStorage.getItem('roleId');
+  const companyId = localStorage.getItem("companyId");
+  const roleId = localStorage.getItem("roleId");
   useEffect(() => {
     getUsers();
   }, []);
@@ -89,14 +97,17 @@ export default function Page() {
       companyId: companyId,
     };
     const permissionRequirement = {
-      id: roleId
-    }
+      id: roleId,
+    };
     try {
       const value = await apiGateway.create("getUserByCompanyId", userData);
       const branchData = await apiGateway.create("getBranch", userData);
       const rolesData = await apiGateway.create("getAllRoles", userData);
-      const permissionData = await apiGateway.create("getPermission", permissionRequirement);
-      setPermissions(permissionData.contents['0']);
+      const permissionData = await apiGateway.create(
+        "getPermission",
+        permissionRequirement
+      );
+      setPermissions(permissionData.contents["0"]);
       setBranchData(branchData.branch);
       setRoleData(rolesData.roles);
       setUsers(value.users);
@@ -146,7 +157,7 @@ export default function Page() {
   const editing = async (e: SyntheticEvent) => {
     e.stopPropagation();
     e.preventDefault();
-  
+
     setSubmitting(true);
     try {
       const target = e.target as typeof e.target & {
@@ -157,7 +168,7 @@ export default function Page() {
         role: { value: string };
         password: { value: string };
       };
-  
+
       const userData = {
         id: editId,
         phone: target.phone.value,
@@ -167,9 +178,9 @@ export default function Page() {
         branch: target.branch.value,
         role: target.role.value,
       };
-  
+
       validateEditingData(userData);
-  
+
       const editingResponse = await apiGateway.create("edit_user", userData);
       setSuccess(editingResponse.message);
       getUsers();
@@ -180,7 +191,7 @@ export default function Page() {
       setSubmitting(false);
     }
   };
-  
+
   const handleDeleteConfirmation = async () => {
     const userData = {
       id: deleteId,
@@ -218,16 +229,16 @@ export default function Page() {
             <CardHeader>
               User &amp; Management
               <span style={{ marginLeft: "20px" }}>
-                {permissions.increase === '1' && (
-                <button
-                  type="button"
-                  className="btn btn-dark"
-                  onClick={handleShowModal}
-                >
-                  Add user
-                </button>
+                {permissions.increase === "1" && (
+                  <button
+                    type="button"
+                    className="btn btn-dark"
+                    onClick={handleShowModal}
+                  >
+                    Add user
+                  </button>
                 )}
-                
+
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
                     <Modal.Title>Add User</Modal.Title>
@@ -411,7 +422,7 @@ export default function Page() {
                               />
                             </DropdownToggle>
                             <DropdownMenu>
-                              {permissions.upgrade === '1' && (
+                              {permissions.upgrade === "1" && (
                                 <Button
                                   type="button"
                                   variant="success"
@@ -423,14 +434,14 @@ export default function Page() {
                                     setEditEmail(user.email);
                                     setEditFullname(user.fullname);
                                     setEditPhone(user.phone);
-                                    setEditRole(user.role)
+                                    setEditRole(user.role);
                                   }}
                                 >
                                   <FontAwesomeIcon fixedWidth icon={faEdit} />
                                   Edit
                                 </Button>
                               )}
-                              {permissions.remove === '1' && (
+                              {permissions.remove === "1" && (
                                 <Button
                                   type="button"
                                   variant="danger"
@@ -519,8 +530,10 @@ export default function Page() {
                                     disabled={submitting}
                                     placeholder="Fullname"
                                     aria-label="fullname"
-                                    value={editFullname ?? ''}
-                                    onChange={(e) => setEditFullname(e.target.value)}
+                                    value={editFullname ?? ""}
+                                    onChange={(e) =>
+                                      setEditFullname(e.target.value)
+                                    }
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -534,10 +547,12 @@ export default function Page() {
                                     name="email"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditEmail(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditEmail(e.target.value)
+                                    }
                                     placeholder="Email"
                                     aria-label="Email"
-                                    value={editEmail ?? ''}
+                                    value={editEmail ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -551,10 +566,12 @@ export default function Page() {
                                     name="phone"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditPhone(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditPhone(e.target.value)
+                                    }
                                     placeholder="Phone"
                                     aria-label="phone"
-                                    value={editPhone ?? ''}
+                                    value={editPhone ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -568,8 +585,10 @@ export default function Page() {
                                     as="select"
                                     name="branch"
                                     required
-                                    value={editBranch ?? ''}
-                                    onChange={(e) => setEditBranch(e.target.value)}
+                                    value={editBranch ?? ""}
+                                    onChange={(e) =>
+                                      setEditBranch(e.target.value)
+                                    }
                                     disabled={submitting}
                                     placeholder="Branch"
                                     aria-label="branch"
@@ -593,8 +612,10 @@ export default function Page() {
                                     as="select"
                                     name="role"
                                     required
-                                    value={editRole ?? ''}
-                                    onChange={(e) => setEditRole(e.target.value)}
+                                    value={editRole ?? ""}
+                                    onChange={(e) =>
+                                      setEditRole(e.target.value)
+                                    }
                                     disabled={submitting}
                                     placeholder="Role"
                                     aria-label="role"
