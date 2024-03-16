@@ -47,13 +47,16 @@ interface DropdownItem {
   id: number;
   name: string;
 }
+interface Permissions {
+  increase: string;
+}
 
 export default function Page() {
   const [error, setError] = useState<string | null>("");
   const [branchData, setBranchData] = useState<DropdownItem[]>([]);
   const [roleData, setRoleData] = useState<DropdownItem[]>([]);
   const [users, setUsers] = useState<Users[]>([]);
-  const [permissions, setPermissions] = useState<Users[]>([]);
+  const [permissions, setPermissions] = useState<Permissions>({ increase: '0' });
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -90,8 +93,7 @@ export default function Page() {
       const branchData = await apiGateway.create("getBranch", userData);
       const rolesData = await apiGateway.create("getAllRoles", userData);
       const permissionData = await apiGateway.create("getPermission", permissionRequirement);
-      console.log(permissionData);
-      setPermissions(permissionData.contents);
+      setPermissions(permissionData.contents['0']);
       setBranchData(branchData.branch);
       setRoleData(rolesData.roles);
       setUsers(value.users);
@@ -213,13 +215,16 @@ export default function Page() {
             <CardHeader>
               User &amp; Management
               <span style={{ marginLeft: "20px" }}>
+                {permissions.increase === '1' && (
                 <button
                   type="button"
                   className="btn btn-dark"
                   onClick={handleShowModal}
                 >
-                  Add User
+                  Add user
                 </button>
+                )}
+                
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
                     <Modal.Title>Add User</Modal.Title>
