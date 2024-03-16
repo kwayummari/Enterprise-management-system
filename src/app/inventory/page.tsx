@@ -9,7 +9,6 @@ import {
   faLocation,
   faMoneyBill,
   faPhone,
-  faSortNumericAsc,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import {
