@@ -64,6 +64,13 @@ export const validateProductData = (data: { name: string; description: string; q
 
   return true;
 };
+export const validateEditingProductData = (data: { name: string; description: string; quantity: string; buyingPrice?: string, sellingPrice?: string, productNumber: string }) => {
+  if (!data.name || !data.description || !data.quantity || !data.buyingPrice || !data.sellingPrice || !data.productNumber) {
+    throw new Error('This detail is required');
+  }
+
+  return true;
+};
 
 export const validateEditingData = (data: { id?: number;  fullname: string; email: string; password: string; phone?: string }) => {
   if (!data.fullname || !data.email || !data.password || !data.phone || !data.id) {

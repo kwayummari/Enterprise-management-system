@@ -32,6 +32,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import {
+  validateEditingProductData,
   validateEditingSupplier,
   validateProductData,
 } from "../gateway/validators";
@@ -180,7 +181,6 @@ export default function Page() {
         buyingPrice: { value: string };
         sellingPrice: { value: string };
         productNumber: { value: string };
-        taxType: { value: string };
         branch: { value: string };
       };
       const userData = {
@@ -190,13 +190,12 @@ export default function Page() {
         buyingPrice: target.buyingPrice.value,
         sellingPrice: target.sellingPrice.value,
         productNumber: target.productNumber.value,
-        taxType: target.taxType.value,
         branchId: target.branch.value,
         companyId: companyId,
         userId: userId,
       };
 
-      validateProductData(userData);
+      validateEditingProductData(userData);
 
       const editingResponse = await apiGateway.create(
         "edit_supplier",
