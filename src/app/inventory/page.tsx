@@ -87,8 +87,12 @@ export default function Page() {
   const [editBranch, setEditBranch] = useState<string | null>("");
   const [editQuantity, setEditQuantity] = useState<string | null>("");
   const [editBuyingPrice, setEditingBuyingPrice] = useState<string | null>("");
-  const [editSellingPrice, setEditingSellingPrice] = useState<string | null>("");
-  const [editingProductNumber, setEditingProductNumber] = useState<string | null>("");
+  const [editSellingPrice, setEditingSellingPrice] = useState<string | null>(
+    ""
+  );
+  const [editingProductNumber, setEditingProductNumber] = useState<
+    string | null
+  >("");
   const companyId = localStorage.getItem("companyId");
   const userId = localStorage.getItem("userId");
   const roleId = localStorage.getItem("roleId");
@@ -194,10 +198,7 @@ export default function Page() {
 
       validateEditingProductData(userData);
 
-      const editingResponse = await apiGateway.create(
-        "edit_supplier",
-        userData
-      );
+      const editingResponse = await apiGateway.create("edit_product", userData);
       setSuccess(editingResponse.message);
       getSuppliers();
       handleCloseModal3();
@@ -217,7 +218,7 @@ export default function Page() {
         "delete_product",
         userData
       );
-      console.log(deletingResponse)
+      console.log(deletingResponse);
       setSuccess(deletingResponse.message);
       handleCloseModal2();
       getSuppliers();
@@ -225,7 +226,7 @@ export default function Page() {
       setError(error.message);
       handleCloseModal2();
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   };
 
@@ -492,9 +493,9 @@ export default function Page() {
                                   setEditingBuyingPrice(product.buyingPrice)
                                   setEditingSellingPrice(product.sellingPrice)
                                   setEditingProductNumber(product.productNumber)
-                                  // setEditingTaxType(product.)
                                   const branchName =
-                                    product.branchId[0]?.name ?? "";
+                                    product.branchId[0]["name"] ?? "";
+                                  console.log(product.branchId[0]["id"]);
                                   setEditBranch(branchName);
                                 }}
                               >
@@ -705,10 +706,10 @@ export default function Page() {
                                       setEditBranch(e.target.value)
                                     }
                                     disabled={submitting}
-                                    placeholder={editBranch ?? ''}
+                                    placeholder="Branch"
                                     aria-label="branch"
                                   >
-                                    <option value={editBranch ?? ''}>{editBranch}</option>
+                                    <option value="">Select Branch</option>
                                     {branchData.map((item) => (
                                       <option key={item.id} value={item.id}>
                                         {item.name}
