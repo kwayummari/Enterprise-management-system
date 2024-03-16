@@ -84,11 +84,14 @@ export default function Page() {
   const handleShowModal3 = () => setShowModal3(true);
   const handleCloseModal3 = () => setShowModal3(false);
   const [editId, setEditId] = useState<number>();
-  const [editFullname, setEditFullname] = useState<string | null>("");
-  const [editPhone, setEditPhone] = useState<string | null>("");
+  const [editName, setEditName] = useState<string | null>("");
+  const [editDescription, setEditDescription] = useState<string | null>("");
   const [editBranch, setEditBranch] = useState<string | null>("");
-  const [editLocation, setEditLocation] = useState<string | null>("");
-  const [editTin, setEditTin] = useState<string | null>("");
+  const [editQuantity, setEditQuantity] = useState<string | null>("");
+  const [editBuyingPrice, setBuyingPrice] = useState<string | null>("");
+  const [editEditingPrice, setEditingPrice] = useState<string | null>("");
+  const [editingProductNumber, setEditingProductNumber] = useState<string | null>("");
+  const [editingTaxType, setEditingTaxType] = useState<string | null>("");
   const companyId = localStorage.getItem("companyId");
   const userId = localStorage.getItem("userId");
   const roleId = localStorage.getItem("roleId");
@@ -582,9 +585,9 @@ export default function Page() {
                                     disabled={submitting}
                                     placeholder="Name"
                                     aria-label="Name"
-                                    value={editFullname ?? ""}
+                                    value={editName ?? ""}
                                     onChange={(e) =>
-                                      setEditFullname(e.target.value)
+                                      setEditName(e.target.value)
                                     }
                                   />
                                 </InputGroup>
@@ -596,15 +599,15 @@ export default function Page() {
                                     />
                                   </InputGroupText>
                                   <FormControl
-                                    name="location"
+                                    name="description"
                                     required
                                     disabled={submitting}
                                     onChange={(e) =>
-                                      setEditLocation(e.target.value)
+                                      setEditDescription(e.target.value)
                                     }
-                                    placeholder="Location"
-                                    aria-label="Location"
-                                    value={editLocation ?? ""}
+                                    placeholder="Description"
+                                    aria-label="Description"
+                                    value={editDescription ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -615,16 +618,61 @@ export default function Page() {
                                     />
                                   </InputGroupText>
                                   <FormControl
-                                    name="phone"
+                                    name="quantity"
                                     required
                                     disabled={submitting}
                                     onChange={(e) =>
-                                      setEditPhone(e.target.value)
+                                      setEditQuantity(e.target.value)
                                     }
-                                    placeholder="Phone"
-                                    aria-label="phone"
-                                    value={editPhone ?? ""}
+                                    placeholder="Quantity"
+                                    aria-label="Quantity"
+                                    value={editQuantity ?? ""}
                                   />
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faPhone}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="productNumber"
+                                    required
+                                    disabled={submitting}
+                                    onChange={(e) =>
+                                      setEditingProductNumber(e.target.value)
+                                    }
+                                    placeholder="Product Number"
+                                    aria-label="Product Number"
+                                    value={editingProductNumber ?? ""}
+                                  />
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faCodeBranch}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="taxType"
+                                    required
+                                    value={editingTaxType ?? ""}
+                                    onChange={(e) =>
+                                      setEditingTaxType(e.target.value)
+                                    }
+                                    disabled={submitting}
+                                    placeholder="Tax Type"
+                                    aria-label="Tax Type"
+                                  >
+                                    <option value="">Select Tax Type</option>
+                                    {taxData.map((item) => (
+                                      <option key={item.id} value={item.id}>
+                                        {item.name}
+                                      </option>
+                                    ))}
+                                  </FormControl>
                                 </InputGroup>
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
@@ -652,23 +700,6 @@ export default function Page() {
                                       </option>
                                     ))}
                                   </FormControl>
-                                </InputGroup>
-                                <InputGroup className="mb-3">
-                                  <InputGroupText>
-                                    <FontAwesomeIcon
-                                      icon={faListNumeric}
-                                      fixedWidth
-                                    />
-                                  </InputGroupText>
-                                  <FormControl
-                                    name="tin"
-                                    required
-                                    disabled={submitting}
-                                    onChange={(e) => setEditTin(e.target.value)}
-                                    placeholder="Tin Number"
-                                    aria-label="Tin Number"
-                                    value={editTin ?? ""}
-                                  />
                                 </InputGroup>
                                 <Row className="align-items-center">
                                   <Col xs={6}>
