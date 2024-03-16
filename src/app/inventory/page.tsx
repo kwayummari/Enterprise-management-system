@@ -490,10 +490,6 @@ export default function Page() {
                                   const branchName =
                                     product.branchId[0]?.name ?? "";
                                   setEditBranch(branchName);
-                                  setEditLocation(product.quantity);
-                                  setEditFullname(product.sellingPrice);
-                                  setEditPhone(product.buyingPrice);
-                                  setEditTin(product.description);
                                 }}
                               >
                                 <FontAwesomeIcon fixedWidth icon={faEdit} />
