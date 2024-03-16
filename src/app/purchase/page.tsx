@@ -95,15 +95,14 @@ export default function Page() {
       companyId: companyId,
       supplierId: supplierId,
     };
-    try {
-      const suppliers = await apiGateway.create("suppliers", userData);
+    const branchData = await apiGateway.create("getBranch", userData);
+    setBranchData(branchData.branch);
+    const taxData = await apiGateway.create("tax", userData);
+    setTaxData(taxData.tax);
+    const suppliers = await apiGateway.create("suppliers", userData);
       setSupplierData(suppliers.suppliers);
+    try {
       const purchases = await apiGateway.create("get_purchases", userData);
-      console.log(purchases);
-      const branchData = await apiGateway.create("getBranch", userData);
-      const taxData = await apiGateway.create("tax", userData);
-      setBranchData(branchData.branch);
-      setTaxData(taxData.tax);
       setOrders(purchases.orders);
     } catch (err: any) {
       setError(err.message);
@@ -117,31 +116,26 @@ export default function Page() {
     try {
       const target = e.target as typeof e.target & {
         name: { value: string };
-        description: { value: string };
-        quantity: { value: string };
-        buyingPrice: { value: string };
-        sellingPrice: { value: string };
-        productNumber: { value: string };
-        taxType: { value: string };
+        phone: { value: string };
+        tin: { value: string };
+        vrn: { value: string };
         branch: { value: string };
+        companyId: { value: string };
       };
       const userData = {
         name: target.name.value,
-        description: target.description.value,
-        quantity: target.quantity.value,
-        buyingPrice: target.buyingPrice.value,
-        sellingPrice: target.sellingPrice.value,
-        productNumber: target.productNumber.value,
-        taxType: target.taxType.value,
+        phone: target.phone.value,
+        tin: target.tin.value,
+        vrn: target.vrn.value,
         branchId: target.branch.value,
         companyId: companyId,
         userId: userId,
       };
 
-      validateProductData(userData);
+      validateSupplierData(userData);
 
       const registeringResponse = await apiGateway.create(
-        "register_product",
+        "register_supplier",
         userData
       );
       setSuccess(registeringResponse.message);
@@ -258,6 +252,7 @@ export default function Page() {
                 <p style={{ fontSize: "30px", fontWeight: "bolder" }}>
                   Purchase Order
                 </p>
+                <div style={{display: 'flex'}}>
                 <Form onSubmit={registering}>
                   <InputGroup
                     className="mb-3"
@@ -287,6 +282,15 @@ export default function Page() {
                     </FormControl>
                   </InputGroup>
                 </Form>
+                <button
+                  type="button"
+                  className="btn btn-dark"
+                    onClick={handleShowModal}
+                    style={{height: '40px', marginTop: '20px', marginLeft: '20px'}}
+                >
+                  Add Supplier
+                </button>
+                </div>
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
                     <Modal.Title>Add Supplier</Modal.Title>
@@ -323,14 +327,14 @@ export default function Page() {
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
-                          <FontAwesomeIcon icon={faFileText} fixedWidth />
+                          <FontAwesomeIcon icon={faPhone} fixedWidth />
                         </InputGroupText>
                         <FormControl
-                          name="description"
+                          name="phone"
                           required
                           disabled={submitting}
-                          placeholder="Description"
-                          aria-label="Description"
+                          placeholder="Phone"
+                          aria-label="Phone"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -338,35 +342,11 @@ export default function Page() {
                           <FontAwesomeIcon icon={faListNumeric} fixedWidth />
                         </InputGroupText>
                         <FormControl
-                          name="quantity"
+                          name="tin"
                           required
                           disabled={submitting}
-                          placeholder="Quantity"
-                          aria-label="Quantity"
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faMoneyBill} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          name="buyingPrice"
-                          required
-                          disabled={submitting}
-                          placeholder="Buying Price"
-                          aria-label="Buying Price"
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faMoneyBill} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          name="sellingPrice"
-                          required
-                          disabled={submitting}
-                          placeholder="Selling Price"
-                          aria-label="Selling Price"
+                          placeholder="Tin"
+                          aria-label="Tin"
                         />
                       </InputGroup>
                       <InputGroup className="mb-3">
@@ -374,32 +354,12 @@ export default function Page() {
                           <FontAwesomeIcon icon={faListNumeric} fixedWidth />
                         </InputGroupText>
                         <FormControl
-                          name="productNumber"
+                          name="vrn"
                           required
                           disabled={submitting}
-                          placeholder="Product Number"
-                          aria-label="Product Number"
+                          placeholder="Vrn"
+                          aria-label="Vrn"
                         />
-                      </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupText>
-                          <FontAwesomeIcon icon={faCut} fixedWidth />
-                        </InputGroupText>
-                        <FormControl
-                          as="select"
-                          name="taxType"
-                          required
-                          disabled={submitting}
-                          placeholder="Tax Type"
-                          aria-label="Tax Type"
-                        >
-                          <option value="">Select Tax Type</option>
-                          {taxData.map((item) => (
-                            <option key={item.id} value={item.id}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </FormControl>
                       </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupText>
@@ -449,13 +409,7 @@ export default function Page() {
                   Date: 2024-03-02
                 </p>
                 </div>
-                <button
-                  type="button"
-                  className="btn btn-dark"
-                  onClick={handleShowModal}
-                >
-                  Add Supplier
-                </button>
+                
               </span>
             </CardHeader>
             <CardBody>
@@ -468,9 +422,6 @@ export default function Page() {
                       <th>Description</th>
                       <th>Quantity</th>
                       <th>Price</th>
-                      {/* <th>Selling Price</th> */}
-                      {/* <th>Product Number</th> */}
-                      {/* <th>Branch</th> */}
                       <th>Total</th>
                       <th>Action</th>
                       <th aria-label="Action" />
@@ -494,15 +445,6 @@ export default function Page() {
                         <td>
                           <div>{order.inventoryDetails.buyingPrice}</div>
                         </td>
-                        {/* <td>
-                          <div>{order.inventoryDetails.sellingPrice}</div>
-                        </td>
-                        <td>
-                          <div>{order.inventoryDetails.sellingPrice}</div>
-                        </td>
-                        <td>
-                          <div>{order.branchDetails.name}</div>
-                        </td> */}
                         <td>
                           <div>
                             {total(
