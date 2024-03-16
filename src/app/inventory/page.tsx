@@ -37,6 +37,7 @@ import {
   validateProductData,
 } from "../gateway/validators";
 import { faEdit, faFileText } from "@fortawesome/free-regular-svg-icons";
+import { faServicestack } from "@fortawesome/free-brands-svg-icons";
 
 interface Users {
   id: number;
@@ -600,7 +601,7 @@ export default function Page() {
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
                                     <FontAwesomeIcon
-                                      icon={faLocation}
+                                      icon={faFileText}
                                       fixedWidth
                                     />
                                   </InputGroupText>
@@ -619,7 +620,7 @@ export default function Page() {
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
                                     <FontAwesomeIcon
-                                      icon={faPhone}
+                                      icon={faListNumeric}
                                       fixedWidth
                                     />
                                   </InputGroupText>
@@ -638,7 +639,7 @@ export default function Page() {
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
                                     <FontAwesomeIcon
-                                      icon={faPhone}
+                                      icon={faListNumeric}
                                       fixedWidth
                                     />
                                   </InputGroupText>
@@ -657,7 +658,7 @@ export default function Page() {
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
                                     <FontAwesomeIcon
-                                      icon={faPhone}
+                                      icon={faMoneyBill}
                                       fixedWidth
                                     />
                                   </InputGroupText>
@@ -676,7 +677,7 @@ export default function Page() {
                                 <InputGroup className="mb-3">
                                   <InputGroupText>
                                     <FontAwesomeIcon
-                                      icon={faPhone}
+                                      icon={faMoneyBill}
                                       fixedWidth
                                     />
                                   </InputGroupText>
