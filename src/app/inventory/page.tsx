@@ -700,32 +700,6 @@ export default function Page() {
                                     />
                                   </InputGroupText>
                                   <FormControl
-                                    name="taxType"
-                                    required
-                                    value={editingTaxType ?? ""}
-                                    onChange={(e) =>
-                                      setEditingTaxType(e.target.value)
-                                    }
-                                    disabled={submitting}
-                                    placeholder="Tax Type"
-                                    aria-label="Tax Type"
-                                  >
-                                    <option value="">Select Tax Type</option>
-                                    {taxData.map((item) => (
-                                      <option key={item.id} value={item.id}>
-                                        {item.name}
-                                      </option>
-                                    ))}
-                                  </FormControl>
-                                </InputGroup>
-                                <InputGroup className="mb-3">
-                                  <InputGroupText>
-                                    <FontAwesomeIcon
-                                      icon={faCodeBranch}
-                                      fixedWidth
-                                    />
-                                  </InputGroupText>
-                                  <FormControl
                                     as="select"
                                     name="branch"
                                     required
