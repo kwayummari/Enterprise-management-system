@@ -6,9 +6,7 @@ import {
   faDeleteLeft,
   faEllipsisVertical,
   faListNumeric,
-  faLocation,
   faMoneyBill,
-  faPhone,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -33,11 +31,9 @@ import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
 import {
   validateEditingProductData,
-  validateEditingSupplier,
   validateProductData,
 } from "../gateway/validators";
 import { faEdit, faFileText } from "@fortawesome/free-regular-svg-icons";
-import { faServicestack } from "@fortawesome/free-brands-svg-icons";
 
 interface Users {
   id: number;
@@ -709,10 +705,10 @@ export default function Page() {
                                       setEditBranch(e.target.value)
                                     }
                                     disabled={submitting}
-                                    placeholder="Branch"
+                                    placeholder={editBranch ?? ''}
                                     aria-label="branch"
                                   >
-                                    <option value="">Select Branch</option>
+                                    <option value={editBranch ?? ''}>{editBranch}</option>
                                     {branchData.map((item) => (
                                       <option key={item.id} value={item.id}>
                                         {item.name}
