@@ -148,6 +148,7 @@ export default function Page() {
         branchId: target.branch.value,
         companyId: companyId,
         userId: userId,
+        editId: editId,
       };
 
       validateProductData(userData);
