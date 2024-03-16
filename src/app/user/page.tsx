@@ -411,38 +411,42 @@ export default function Page() {
                               />
                             </DropdownToggle>
                             <DropdownMenu>
-                              <Button
-                                type="button"
-                                variant="success"
-                                className="m-2 text-white"
-                                onClick={() => {
-                                  handleShowModal3();
-                                  setEditId(user.id);
-                                  setEditBranch(user.branch);
-                                  setEditEmail(user.email);
-                                  setEditFullname(user.fullname);
-                                  setEditPhone(user.phone);
-                                  setEditRole(user.role)
-                                }}
-                              >
-                                <FontAwesomeIcon fixedWidth icon={faEdit} />
-                                Edit
-                              </Button>
-                              <Button
-                                type="button"
-                                variant="danger"
-                                className="m-2 text-white"
-                                onClick={() => {
-                                  handleShowModal2();
-                                  setDeleteId(user.id);
-                                }}
-                              >
-                                <FontAwesomeIcon
-                                  fixedWidth
-                                  icon={faDeleteLeft}
-                                />{" "}
-                                Delete
-                              </Button>
+                              {permissions.upgrade === '1' && (
+                                <Button
+                                  type="button"
+                                  variant="success"
+                                  className="m-2 text-white"
+                                  onClick={() => {
+                                    handleShowModal3();
+                                    setEditId(user.id);
+                                    setEditBranch(user.branch);
+                                    setEditEmail(user.email);
+                                    setEditFullname(user.fullname);
+                                    setEditPhone(user.phone);
+                                    setEditRole(user.role)
+                                  }}
+                                >
+                                  <FontAwesomeIcon fixedWidth icon={faEdit} />
+                                  Edit
+                                </Button>
+                              )}
+                              {permissions.remove === '1' && (
+                                <Button
+                                  type="button"
+                                  variant="danger"
+                                  className="m-2 text-white"
+                                  onClick={() => {
+                                    handleShowModal2();
+                                    setDeleteId(user.id);
+                                  }}
+                                >
+                                  <FontAwesomeIcon
+                                    fixedWidth
+                                    icon={faDeleteLeft}
+                                  />{" "}
+                                  Delete
+                                </Button>
+                              )}
                             </DropdownMenu>
                           </Dropdown>
                           <Modal
