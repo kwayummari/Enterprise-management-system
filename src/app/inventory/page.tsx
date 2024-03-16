@@ -89,7 +89,6 @@ export default function Page() {
   const [editBuyingPrice, setEditingBuyingPrice] = useState<string | null>("");
   const [editSellingPrice, setEditingSellingPrice] = useState<string | null>("");
   const [editingProductNumber, setEditingProductNumber] = useState<string | null>("");
-  const [editingTaxType, setEditingTaxType] = useState<string | null>("");
   const companyId = localStorage.getItem("companyId");
   const userId = localStorage.getItem("userId");
   const roleId = localStorage.getItem("roleId");
@@ -148,7 +147,6 @@ export default function Page() {
         branchId: target.branch.value,
         companyId: companyId,
         userId: userId,
-        editId: editId,
       };
 
       validateProductData(userData);
@@ -191,6 +189,7 @@ export default function Page() {
         branchId: target.branch.value,
         companyId: companyId,
         userId: userId,
+        editId: editId,
       };
 
       validateEditingProductData(userData);
