@@ -289,7 +289,7 @@ export default function Page() {
                 </Form>
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                   <Modal.Header closeButton>
-                    <Modal.Title>Add Order</Modal.Title>
+                    <Modal.Title>Add Supplier</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <Form onSubmit={registering}>
@@ -429,7 +429,7 @@ export default function Page() {
                             type="submit"
                             disabled={submitting}
                           >
-                            Add Order
+                            Add Supplier
                           </Button>
                         </Col>
                       </Row>
@@ -454,7 +454,7 @@ export default function Page() {
                   className="btn btn-dark"
                   onClick={handleShowModal}
                 >
-                  Add Order
+                  Add Supplier
                 </button>
               </span>
             </CardHeader>
