@@ -88,8 +88,8 @@ export default function Page() {
   const [editDescription, setEditDescription] = useState<string | null>("");
   const [editBranch, setEditBranch] = useState<string | null>("");
   const [editQuantity, setEditQuantity] = useState<string | null>("");
-  const [editBuyingPrice, setBuyingPrice] = useState<string | null>("");
-  const [editEditingPrice, setEditingPrice] = useState<string | null>("");
+  const [editBuyingPrice, setEditingBuyingPrice] = useState<string | null>("");
+  const [editSellingPrice, setEditingSellingPrice] = useState<string | null>("");
   const [editingProductNumber, setEditingProductNumber] = useState<string | null>("");
   const [editingTaxType, setEditingTaxType] = useState<string | null>("");
   const companyId = localStorage.getItem("companyId");
@@ -490,6 +490,13 @@ export default function Page() {
                                 onClick={() => {
                                   handleShowModal3();
                                   setEditId(product.id);
+                                  setEditName(product.name)
+                                  setEditDescription(product.description)
+                                  setEditQuantity(product.quantity)
+                                  setEditingBuyingPrice(product.buyingPrice)
+                                  setEditingSellingPrice(product.sellingPrice)
+                                  setEditingProductNumber(product.productNumber)
+                                  // setEditingTaxType(product.)
                                   const branchName =
                                     product.branchId[0]?.name ?? "";
                                   setEditBranch(branchName);
@@ -646,6 +653,44 @@ export default function Page() {
                                     placeholder="Product Number"
                                     aria-label="Product Number"
                                     value={editingProductNumber ?? ""}
+                                  />
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faPhone}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="buyingPrice"
+                                    required
+                                    disabled={submitting}
+                                    onChange={(e) =>
+                                      setEditingBuyingPrice(e.target.value)
+                                    }
+                                    placeholder="Buying Price"
+                                    aria-label="Buying Price"
+                                    value={editBuyingPrice ?? ""}
+                                  />
+                                </InputGroup>
+                                <InputGroup className="mb-3">
+                                  <InputGroupText>
+                                    <FontAwesomeIcon
+                                      icon={faPhone}
+                                      fixedWidth
+                                    />
+                                  </InputGroupText>
+                                  <FormControl
+                                    name="sellingPrice"
+                                    required
+                                    disabled={submitting}
+                                    onChange={(e) =>
+                                      setEditingSellingPrice(e.target.value)
+                                    }
+                                    placeholder="Selling Price"
+                                    aria-label="Selling Price"
+                                    value={editSellingPrice ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
