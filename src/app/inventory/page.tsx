@@ -109,7 +109,6 @@ export default function Page() {
     };
     try {
       const value = await apiGateway.create("products", productData);
-      console.log(value);
       const branchData = await apiGateway.create("getBranch", productData);
       const taxData = await apiGateway.create("tax", productData);
       const permissionData = await apiGateway.create(
@@ -218,7 +217,6 @@ export default function Page() {
         "delete_product",
         userData
       );
-      console.log(deletingResponse);
       setSuccess(deletingResponse.message);
       handleCloseModal2();
       getSuppliers();
@@ -495,7 +493,6 @@ export default function Page() {
                                   setEditingProductNumber(product.productNumber)
                                   const branchName =
                                     product.branchId[0]["name"] ?? "";
-                                  console.log(product.branchId[0]["id"]);
                                   setEditBranch(branchName);
                                 }}
                               >
