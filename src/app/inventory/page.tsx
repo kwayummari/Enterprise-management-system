@@ -171,24 +171,29 @@ export default function Page() {
     setSubmitting(true);
     try {
       const target = e.target as typeof e.target & {
-        phone: { value: string };
         name: { value: string };
-        tin: { value: string };
+        description: { value: string };
+        quantity: { value: string };
+        buyingPrice: { value: string };
+        sellingPrice: { value: string };
+        productNumber: { value: string };
+        taxType: { value: string };
         branch: { value: string };
-        location: { value: string };
       };
-
       const userData = {
-        id: editId,
-        phone: target.phone.value,
         name: target.name.value,
-        tin: target.tin.value,
-        location: target.location.value,
-        branch: target.branch.value,
+        description: target.description.value,
+        quantity: target.quantity.value,
+        buyingPrice: target.buyingPrice.value,
+        sellingPrice: target.sellingPrice.value,
+        productNumber: target.productNumber.value,
+        taxType: target.taxType.value,
+        branchId: target.branch.value,
         companyId: companyId,
+        userId: userId,
       };
 
-      validateEditingSupplier(userData);
+      validateProductData(userData);
 
       const editingResponse = await apiGateway.create(
         "edit_supplier",
