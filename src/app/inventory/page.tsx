@@ -31,7 +31,10 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateEditingSupplier, validateProductData } from "../gateway/validators";
+import {
+  validateEditingSupplier,
+  validateProductData,
+} from "../gateway/validators";
 import { faEdit, faFileText } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
@@ -43,8 +46,7 @@ interface Users {
   buyingPrice: string;
   sellingPrice: string;
   productNumber: string;
-  branch: string;
-  branch_name: string;
+  branchId: { id: number; name: string }[];
   date: string;
 }
 interface DropdownItem {
@@ -87,8 +89,8 @@ export default function Page() {
   const [editBranch, setEditBranch] = useState<string | null>("");
   const [editLocation, setEditLocation] = useState<string | null>("");
   const [editTin, setEditTin] = useState<string | null>("");
-  const companyId = localStorage.getItem('companyId');
-  const userId = localStorage.getItem('userId');
+  const companyId = localStorage.getItem("companyId");
+  const userId = localStorage.getItem("userId");
   const roleId = localStorage.getItem("roleId");
   useEffect(() => {
     getSuppliers();
@@ -112,7 +114,7 @@ export default function Page() {
       );
       setPermissions(permissionData.contents["1"]);
       setBranchData(branchData.branch);
-      setTaxData(taxData.tax)
+      setTaxData(taxData.tax);
       setProducts(value.products);
     } catch (err: any) {
       setError(err.message);
@@ -165,7 +167,7 @@ export default function Page() {
   const editing = async (e: SyntheticEvent) => {
     e.stopPropagation();
     e.preventDefault();
-  
+
     setSubmitting(true);
     try {
       const target = e.target as typeof e.target & {
@@ -175,7 +177,7 @@ export default function Page() {
         branch: { value: string };
         location: { value: string };
       };
-  
+
       const userData = {
         id: editId,
         phone: target.phone.value,
@@ -185,10 +187,13 @@ export default function Page() {
         branch: target.branch.value,
         companyId: companyId,
       };
-  
+
       validateEditingSupplier(userData);
-  
-      const editingResponse = await apiGateway.create("edit_supplier", userData);
+
+      const editingResponse = await apiGateway.create(
+        "edit_supplier",
+        userData
+      );
       setSuccess(editingResponse.message);
       getSuppliers();
       handleCloseModal3();
@@ -198,7 +203,7 @@ export default function Page() {
       setSubmitting(false);
     }
   };
-  
+
   const handleDeleteConfirmation = async () => {
     const userData = {
       id: deleteId,
@@ -439,13 +444,14 @@ export default function Page() {
                           <div>{product.sellingPrice}</div>
                         </td>
                         <td>
-                          <div>{product.sellingPrice}</div>
-                        </td>
-                        <td>
                           <div>{product.productNumber}</div>
                         </td>
                         <td>
-                          <div>{product.branch_name}</div>
+                          <div>
+                            {product.branchId.map((branch) => (
+                              <span key={branch.id}>{branch.name}</span>
+                            ))}
+                          </div>
                         </td>
                         <td>
                           <Dropdown align="end">
@@ -468,11 +474,13 @@ export default function Page() {
                                 onClick={() => {
                                   handleShowModal3();
                                   setEditId(product.id);
-                                  setEditBranch(product.branch);
+                                  const branchName =
+                                    product.branchId[0]?.name ?? "";
+                                  setEditBranch(branchName);
                                   setEditLocation(product.quantity);
                                   setEditFullname(product.sellingPrice);
                                   setEditPhone(product.buyingPrice);
-                                  setEditTin(product.description)
+                                  setEditTin(product.description);
                                 }}
                               >
                                 <FontAwesomeIcon fixedWidth icon={faEdit} />
@@ -565,8 +573,10 @@ export default function Page() {
                                     disabled={submitting}
                                     placeholder="Name"
                                     aria-label="Name"
-                                    value={editFullname ?? ''}
-                                    onChange={(e) => setEditFullname(e.target.value)}
+                                    value={editFullname ?? ""}
+                                    onChange={(e) =>
+                                      setEditFullname(e.target.value)
+                                    }
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -580,10 +590,12 @@ export default function Page() {
                                     name="location"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditLocation(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditLocation(e.target.value)
+                                    }
                                     placeholder="Location"
                                     aria-label="Location"
-                                    value={editLocation ?? ''}
+                                    value={editLocation ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -597,10 +609,12 @@ export default function Page() {
                                     name="phone"
                                     required
                                     disabled={submitting}
-                                    onChange={(e) => setEditPhone(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditPhone(e.target.value)
+                                    }
                                     placeholder="Phone"
                                     aria-label="phone"
-                                    value={editPhone ?? ''}
+                                    value={editPhone ?? ""}
                                   />
                                 </InputGroup>
                                 <InputGroup className="mb-3">
@@ -614,8 +628,10 @@ export default function Page() {
                                     as="select"
                                     name="branch"
                                     required
-                                    value={editBranch ?? ''}
-                                    onChange={(e) => setEditBranch(e.target.value)}
+                                    value={editBranch ?? ""}
+                                    onChange={(e) =>
+                                      setEditBranch(e.target.value)
+                                    }
                                     disabled={submitting}
                                     placeholder="Branch"
                                     aria-label="branch"
@@ -642,7 +658,7 @@ export default function Page() {
                                     onChange={(e) => setEditTin(e.target.value)}
                                     placeholder="Tin Number"
                                     aria-label="Tin Number"
-                                    value={editTin ?? ''}
+                                    value={editTin ?? ""}
                                   />
                                 </InputGroup>
                                 <Row className="align-items-center">
