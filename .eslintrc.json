@@ -41,6 +41,14 @@
         "assert": "either"
       }
     ],
+    "implicit-arrow-linebreak": "off",
+    "react/jsx-curly-newline": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "quotes": ["error", "single"],
+    "@typescript-eslint/quotes": ["error", "single"],
+    "react/jsx-boolean-value": "off",
+    "react/button-has-type": "off",
+    "semi": "off",
     // Since we do not use prop-types
     "react/require-default-props": 0,
     // Use semicolon as member delimiter for interfaces and type
@@ -61,13 +69,5 @@
         ]
       }
     ],
-    "quotes": [
-      2,
-      "single"
-    ],
-    "semi": [
-      2,
-      "never"
-    ]
   }
 }

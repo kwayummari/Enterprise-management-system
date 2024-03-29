@@ -57,6 +57,26 @@ export const validateSupplierData = (data: { name: string; phone: string; tin: s
   return true;
 };
 
+export const validateSupplier = (data: { name: string; phone: string; tin: string }) => {
+  if (!data.name || !data.phone || !data.tin) {
+    throw new Error('Name, Email, Tin, and Location are required');
+  }
+
+  if (data.name.length < 4 || data.name.length > 15) {
+    throw new Error('Username must be between 4 and 15 characters long');
+  }
+  if (data.tin.length < 20 || data.tin.length > 20) {
+    throw new Error('Tin must be 20 characters long');
+  }
+
+  if (!/^(07|06)\d{8}$/.test(data.phone || '')) {
+    throw new Error('Invalid phone number. Phone number should start with 07 or 06 and have 10 digits.');
+  }
+  
+
+  return true;
+};
+
 export const validateProductData = (data: { name: string; description: string; quantity: string; buyingPrice?: string, sellingPrice?: string, productNumber: string, taxType: string }) => {
   if (!data.name || !data.description || !data.quantity || !data.buyingPrice || !data.sellingPrice || !data.productNumber || !data.taxType) {
     throw new Error('This detail is required');

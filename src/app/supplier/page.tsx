@@ -29,7 +29,7 @@ import {
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import apiGateway from "../gateway/gateways";
 import InputGroupText from "react-bootstrap/esm/InputGroupText";
-import { validateEditingSupplier,  validateSupplierData } from "../gateway/validators";
+import { validateEditingSupplier,  validateSupplier } from "../gateway/validators";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 interface Users {
@@ -111,7 +111,7 @@ export default function Page() {
         companyId: companyId,
       };
 
-      validateSupplierData(userData);
+      validateSupplier(userData);
 
       const registeringResponse = await apiGateway.create(
         "register_supplier",
