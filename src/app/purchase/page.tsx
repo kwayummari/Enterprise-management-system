@@ -428,7 +428,7 @@ export default function Page() {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order) => (
+                    {/* {orders.map((order) => (
                       <tr key={order.id} className="align-middle">
                         <td>
                           <div>{order.inventoryDetails.name}</div>
@@ -684,7 +684,7 @@ export default function Page() {
                           </Modal>
                         </td>
                       </tr>
-                    ))}
+                    ))} */}
                   </tbody>
                 </table>
               </div>

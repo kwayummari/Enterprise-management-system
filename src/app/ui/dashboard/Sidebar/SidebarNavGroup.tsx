@@ -55,7 +55,7 @@ type SidebarNavGroupProps = {
   toggleText: string;
 } & PropsWithChildren
 
-export default function SidebarNavGroup(props: SidebarNavGroupProps) {
+export default function w(props: SidebarNavGroupProps) {
   const {
     toggleIcon,
     toggleText,
